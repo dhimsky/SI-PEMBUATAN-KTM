@@ -15,7 +15,7 @@ class AdminUsersController extends Controller
     public function index(Request $request)
     {
         $role = Roles::all();
-        $users = User::with('role')->whereIn('role_id', ['2', '3'])->paginate();
+        $users = User::with('role')->whereIn('role_id',['2','3'])->get();
         
         $title = 'Hapus User!';
         $text = "Yakin ingin menghapus data ini?";

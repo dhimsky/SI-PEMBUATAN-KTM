@@ -61,12 +61,12 @@ class AdminDataMahasiswaController extends Controller
     {
         $request->validate([
             'nama_lengkap' => 'required',
-            'nik' => 'required|max:16|unique:mahasiswa,nik',
+            'nik' => 'required|max:16',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'email' => 'required|email|unique:mahasiswa,email',
+            'email' => 'required|email',
             'nohp' => 'required',
             'pas_foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'alamat_jalan' => 'required',

@@ -72,7 +72,7 @@
             <h2>Peta Mahasiswa</h2>
             <svg width="720pt" height="720pt" viewBox="0 0 999.75118 999.75118" enable-background="new 0 0 999.75118 999.75118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Kecamatan">
-                <a xlink:title="Adipala" href="#" id="Adipala">
+                <a xlink:title="Adipala" id="Adipala" data-toggle="modal" data-target=".Adipala">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#008000"
@@ -179,7 +179,7 @@
                         "
                     />
                 </a>
-                <a xlink:title="Bantasari" href="#" id="Bantasari">
+                <a xlink:title="Bantasari" id="Bantasari" data-toggle="modal" data-target=".Bantasari">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#03E003"
@@ -747,7 +747,7 @@
                             457.86928,502.27747L457.86928,502.51745L458.10925,502.75743"
                     />
                 </a>
-                <a xlink:title="Binangun" href="#" id="Binangun">
+                <a xlink:title="Binangun" id="Binangun" data-toggle="modal" data-target=".Binangun">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#01B801"
@@ -831,7 +831,7 @@
                             782.31333,690.66152L782.55331,690.66152L783.03326,690.9015L783.99315,690.9015z"
                     />
                 </a>
-                <a xlink:title="Cilacap Selatan" href="" id="CilacapSelatan">
+                <a xlink:title="Cilacap Selatan" id="CilacapSelatan" data-toggle="modal" data-target=".Cilacapselatan">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#01B801"
@@ -1655,7 +1655,7 @@
                         L324.20408,722.8188L324.20408,724.25867L323.96411,727.61839L324.20408,728.09835L325.16398,728.33833L325.64393,729.29825L
                         326.60382,729.29825"
                 />
-                <a xlink:title="Cilacap Tengah" href="" id="CillacapTengah">
+                <a xlink:title="Cilacap Tengah" id="CillacapTengah" data-toggle="modal" data-target=".Cilacaptengah">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#03E003"
@@ -1748,7 +1748,7 @@
                             L519.78242,691.86142L520.02239,691.86142L520.02239,692.1014L520.26237,692.1014z"
                     />
                 </a>
-                <a xlink:title="Cilacap Utara" href="" id="CilacapUtara">
+                <a xlink:title="Cilacap Utara" id="CilacapUtara" data-toggle="modal" data-target=".Cilacaputara">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#008000"
@@ -1828,7 +1828,7 @@
                             L550.97896,681.30231L551.45891,682.02225L552.17883,682.50221L552.89875,682.98217z"
                     />
                 </a>
-                <a xlink:title="Cimanggu" href="" id="Cimanggu">
+                <a xlink:title="Cimanggu" id="Cimanggu" data-toggle="modal" data-target=".Cimanggu">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#008000"
@@ -2443,7 +2443,7 @@
                         L335.00289,259.41803L335.24286,259.17805L335.48284,258.93807L335.72281,258.93807L335.72281,258.6981L335.96278,258.6981L336.20276,258.6981
                         L336.44273,258.6981L336.6827,258.6981L336.92268,258.6981L336.92268,258.93807L336.6827,259.41803L336.6827,259.89799"
                 />
-                <a xlink:title="Cipari" href="" id="Cipari">
+                <a xlink:title="Cipari" id="Cipari" data-toggle="modal" data-target=".Cipari">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#01B801"
@@ -2837,7 +2837,7 @@
                         256.29161,386.36728L256.53158,386.1273L256.29161,385.88733L256.53158,385.88733L256.77156,385.88733L257.01153,385.88733L257.2515,385.64735
                         L257.49148,385.64735"
                 />
-                <a xlink:title="Dayeuhluhur" href="" id="Dayeuhluhur">
+                <a xlink:title="Dayeuhluhur" id="Dayeuhluhur" data-toggle="modal" data-target=".Dayeuhluhur">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#008000"
@@ -3298,7 +3298,7 @@
                         L146.62376,165.10602L147.34368,165.10602L147.34368,165.346L147.58365,165.58598L147.82362,165.82596L147.82362,166.06594L148.30357,166.5459
                         L148.30357,166.78588L148.54354,167.02586L149.02349,167.26584L149.26346,167.50582L149.50344,167.7458L149.74341,167.98578"
                 />
-                <a xlink:title="Gandrungmangu" href="" id="Gandrungmangu">
+                <a xlink:title="Gandrungmangu" id="Gandrungmangu" data-toggle="modal" data-target=".Gandrungmangu">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#01B801"
@@ -3797,7 +3797,7 @@
                         L364.75959,448.28204L364.99957,448.04206L365.23954,448.04206L365.95946,448.28204L368.11922,448.762L370.27898,449.24196L370.75893,449.48194
                         L371.47885,449.48194L372.67871,449.9619L374.5985,450.44186L375.07845,451.40178"
                 />
-                <a xlink:title="Jeruk Legi" href="" id="JerukLegi">
+                <a xlink:title="Jeruklegi" id="JerukLegi" data-toggle="modal" data-target=".Jeruklegi">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#01B801"
@@ -4228,7 +4228,7 @@
                         L497.94484,562.27239L497.70486,561.55245L497.70486,561.07249L497.70486,560.59253L497.70486,560.11257L497.70486,559.87259
                         L497.70486,559.63261L497.46489,559.39263L497.22492,559.15265L497.22492,558.91267L498.18481,559.39263"
                 />
-                <a xlink:title="Kampung Laut" href="" id="KampungLaut">
+                <a xlink:title="Kampunglaut" id="KampungLaut" data-toggle="modal" data-target=".Kampunglaut">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#008000"
@@ -4594,7 +4594,7 @@
                         L358.52028,644.10546L358.52028,644.58542L358.52028,645.06538L358.76026,645.30536L358.76026,645.54534L359.00023,646.0253L
                         359.2402,646.26528L359.48018,646.50526L359.72015,646.50526L360.2001,646.74524"
                 />
-                <a xlink:title="Karangpucung" href="" id="Karangpucung">
+                <a xlink:title="Karangpucung" id="Karangpucung" data-toggle="modal" data-target=".Karangpucung">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#03E003"
@@ -5098,7 +5098,7 @@
                         L436.51164,337.41143L436.51164,336.93147L436.27167,336.69149L436.27167,336.45151L436.27167,335.73157L436.0317,335.25161L
                         436.75162,335.97155"
                 />
-                <a xlink:title="Kawunganten" href="" id="Kawunganten">
+                <a xlink:title="Kawunganten" id="Kawunganten" data-toggle="modal" data-target=".Kawunganten">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#009D00"
@@ -5483,7 +5483,7 @@
                         L462.66875,571.39162L462.90872,571.15164L463.14869,571.15164L463.62864,571.39162L464.58853,571.39162L465.06848,571.6316L
                         465.54843,571.6316L466.26835,572.11156L466.26835,572.35154"
                 />
-                <a xlink:title="Kedungreja" href="" id="Kedungreja">
+                <a xlink:title="Kedungreja" id="Kedungreja" data-toggle="modal" data-target=".Kedungreja">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#008000"
@@ -5652,7 +5652,7 @@
                             253.89187,514.51643z"
                     />
                 </a>
-                <a xlink:title="Kesugihan" href="" id="kesugihan">
+                <a xlink:title="Kesugihan" id="kesugihan" data-toggle="modal" data-target=".Kesugihan">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#009D00"
@@ -5781,7 +5781,7 @@
                             L610.2524,615.54788L610.49237,615.3079L610.73234,615.3079L610.97232,615.3079z"
                     />
                 </a>
-                <a xlink:title="Kroya" href="" id="Kroya">
+                <a xlink:title="Kroya" id="Kroya" data-toggle="modal" data-target=".Kroya">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#009D00"
@@ -5888,7 +5888,7 @@
                             794.79195,635.22621z"
                     />
                 </a>
-                <a xlink:title="Majenang" href="" id="Majenang">
+                <a xlink:title="Majenang" id="Majenang" data-toggle="modal" data-target=".Majenang">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#009D00"
@@ -6307,7 +6307,7 @@
                         L242.8531,364.52913L242.8531,364.04917L242.61312,363.80919L242.61312,363.56921L242.37315,363.08926L242.13318,362.6093L241.8932,362.36932
                         L241.65323,362.12934L240.93331,361.64938L240.45336,361.4094L240.21339,361.16942L239.97342,360.68946L239.97342,360.44948"
                 />
-                <a xlink:title="Maos" href="" id="Maos">
+                <a xlink:title="Maos" id="Maos" data-toggle="modal" data-target=".Maos">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#01B801"
@@ -6399,7 +6399,7 @@
                             707.92158,613.14808L708.16155,613.14808z"
                     />
                 </a>
-                <a xlink:title="Nusawungu" href="" id="Nusawungu">
+                <a xlink:title="Nusawungu" id="Nusawungu" data-toggle="modal" data-target=".Nusawungu">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#008000"
@@ -6511,7 +6511,7 @@
                             L825.9885,671.22316L826.46844,670.50323L827.18836,669.06335L827.66831,668.34341z"
                     />
                 </a>
-                <a xlink:title="Patimuan" href="" id="Patimuan">
+                <a xlink:title="Patimuan"id="Patimuan" data-toggle="modal" data-target=".Patimuan">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#009D00"
@@ -6621,7 +6621,7 @@
                             z"
                     />
                 </a>
-                <a xlink:title="Sampang" href="" id="Sampang">
+                <a xlink:title="Sampang" id="Sampang" data-toggle="modal" data-target=".Sampang">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#008000"
@@ -6696,7 +6696,7 @@
                             L706.72171,594.42967z"
                     />
                 </a>
-                <a xlink:title="Sidareja" href="" id="Sidareja">
+                <a xlink:title="Sidareja" id="Sidareja" data-toggle="modal" data-target=".Sidareja">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#009D00"
@@ -6834,7 +6834,7 @@
                             L340.52228,451.1618L341.2422,452.12172L341.96212,452.3617L342.68204,452.60168L343.16198,452.84166L344.12188,452.84166z"
                     />
                 </a>
-                <a xlink:title="Wanareja" href="" id="Wanareja">
+                <a xlink:title="Wanareja" id="Wanareja" data-toggle="modal" data-target=".Wanareja">
                     <path
                     clip-path="url(#SVG_CP_1)"
                     fill="#03E003"
@@ -7383,6 +7383,369 @@
                         204.45735,201.58293L204.69732,201.58293L204.9373,201.34295L204.9373,201.10297L205.41724,201.58293L205.65722,202.06289"/>
                 </g>
             </svg>
+        </div>
+    </div>
+</div>
+
+{{-- MODAL KECAMATAN --}}
+
+{{-- Kedungreja --}}
+<div class="modal fade Kedungreja" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Kedungreja</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $KedungrejaCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Kesugihan --}}
+<div class="modal fade Kesugihan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Kesugihan</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $KesugihanCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Adipala --}}
+<div class="modal fade Adipala" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Adipala</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $AdipalaCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Binangun --}}
+<div class="modal fade Binangun" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Binangun</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $BinangunCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Nusawungu --}}
+<div class="modal fade Nusawungu" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Nusawungu</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $NusawunguCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Kroya --}}
+<div class="modal fade Kroya" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Kroya</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $KroyaCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Maos --}}
+<div class="modal fade Maos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Maos</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $MaosCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Jeruklegi --}}
+<div class="modal fade Jeruklegi" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Jeruklegi</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $JeruklegiCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Kawunganten --}}
+<div class="modal fade Kawunganten" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Kawunganten</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $KawungantenCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Gandrungmangu --}}
+<div class="modal fade Gandrungmangu" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Gandrungmangu</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $GandrungmanguCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Sidareja --}}
+<div class="modal fade Sidareja" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Sidareja</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $SidarejaCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Karangpucung --}}
+<div class="modal fade Karangpucung" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Karangpucung</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $KarangpucungCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Cimanggu --}}
+<div class="modal fade Cimanggu" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Cimanggu</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $CimangguCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Majenang --}}
+<div class="modal fade Majenang" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Majenang</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $MajenangCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Wanareja --}}
+<div class="modal fade Wanareja" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Wanareja</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $WanarejaCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Dayeuhluhur --}}
+<div class="modal fade Dayeuhluhur" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Dayeuhluhur</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $DayeuhluhurCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Sampang --}}
+<div class="modal fade Sampang" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Sampang</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $SampangCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Cipari --}}
+<div class="modal fade Cipari" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Cipari</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $CipariCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Patimuan --}}
+<div class="modal fade Patimuan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Patimuan</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $PatimuanCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Bantasari --}}
+<div class="modal fade Bantasari" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Bantasari</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $BantasariCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Cilacapselatan --}}
+<div class="modal fade Cilacapselatan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Cilacap Selatan</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $CilacapselatanCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Cilacaptengah --}}
+<div class="modal fade Cilacaptengah" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Cilacap Tengah</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $CilacaptengahCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Cilacaputara --}}
+<div class="modal fade Cilacaputara" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Cilacap Utara</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $CilacaputaraCount }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Kampunglaut --}}
+<div class="modal fade Kampunglaut" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kec. Kampung Laut</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ $KampunglautCount }}</h3>
+            </div>
         </div>
     </div>
 </div>
