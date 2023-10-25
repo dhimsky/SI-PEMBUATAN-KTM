@@ -37,18 +37,18 @@ class SessionController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             if ($user->role_id == '1') {
-                return redirect()->intended('dashboard');
+                return redirect()->intended('dashboard')->with('toast_success','Selamat, anda berhasil masuk.');
             } elseif ($user->role_id == '2') {
                 return redirect()->intended('home');
             }
         }
-        return redirect('/')->withErrors('Email atau password yang dimasukkan tidak sesuai');
+        return redirect('/')->with('toast_error','NIM atau Password yang dimasukkan tidak sesuai');
     }
     public function logout(Request $request) {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'Berhasil LogOut');
+        return redirect('/')->with('toast_success', 'Berhasil LogOut');
     }
 }
