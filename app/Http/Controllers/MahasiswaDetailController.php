@@ -18,7 +18,7 @@ class MahasiswaDetailController extends Controller
         $mahasiswa = Mahasiswa::where('nim', $nim)->first();
 
         if (!$mahasiswa) {
-            return view('mahasiswa.isi_data.datakosong');
+            return redirect()->route('isi-data')->with('info', 'Data anda belum lengkap!, silahkan lengkapi data anda terlebih dahulu.');
         }
 
         $kodeprovinsi = $mahasiswa->provinsi;

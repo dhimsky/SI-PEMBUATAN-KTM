@@ -18,6 +18,7 @@
     <link href="{{ asset('/') }}assets/vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
     {{-- Kalender --}}
     <link href="{{ asset('/') }}assets/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
+    @livewireStyles
     </head>
 
     <body>
@@ -72,12 +73,12 @@
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     </div>
 
+    @livewireScripts
+
     <!-- Required vendors -->
     <script src="{{ asset('/') }}assets/vendor/global/global.min.js"></script>
     <script src="{{ asset('/') }}assets/js/quixnav-init.js"></script>
     <script src="{{ asset('/') }}assets/js/custom.min.js"></script>
-
-
 
     <!-- Datatable -->
     <script src="{{ asset('/') }}assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
@@ -160,6 +161,7 @@
             })
         });
     </script>
+
     </body>
 </html>
 

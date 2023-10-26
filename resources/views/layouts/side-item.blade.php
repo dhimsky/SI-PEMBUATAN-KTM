@@ -28,13 +28,8 @@
           @if (Auth::user()->role_id == '2')
           <li><a href="{{ route('home') }}" aria-expanded="false"><i class="icon icon-home"></i><span
             class="nav-text">Home</span></a></li>
-            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-              class="icon icon-layout-25"></i><span class="nav-text">Data Anda</span></a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ route('mahasiswa.isi_data.step1') }}">Formulir</a></li>
-                    <li><a href="{{ route('mahasiswa.detail', ['nim' => Auth::user()->nim]) }}">Lihat Data</a></li>
-                </ul>
-            </li>
+          <li><a href="{{ route('mahasiswa.detail', ['nim' => Auth::user()->nim]) }}" aria-expanded="false"><i class="icon icon-layout-25"></i><span
+            class="nav-text">Data Anda</span></a></li>
             <li><a href="{{ route('akun.index') }}" aria-expanded="false"><i class="icon icon-single-04"></i><span
               class="nav-text">Akun</span></a></li>
           @endif

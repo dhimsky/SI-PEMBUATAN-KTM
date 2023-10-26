@@ -1,31 +1,6 @@
 @extends('layouts.main-layout')
 @section('tittle', 'Users-Account')
 @section('content')
-@if (session('success'))
-<div class="row justify-content-end">
-    <div class="alert alert-success alert-dismissible fade show col-md-3 ml-auto">
-        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
-        </button>
-        <strong>Berhasil!</strong> {{ session('success') }}.
-    </div>
-</div>
-@endif
-@if ($errors->any())
-    <div class="row justify-content-end">
-        <div class="alert alert-danger alert-dismissible fade show col-md-4 ml-auto">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close">
-                <span><i class="mdi mdi-close"></i></span>
-            </button>
-            <strong>Error!</strong>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-@endif
-
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
