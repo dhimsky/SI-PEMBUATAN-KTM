@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('prodi');
             $table->string('kelas');
             $table->string('detail')->nullable();
+
+            // Foreign key to prodi table
+            $table->foreign('prodi')->references('id_prodi')->on('prodi')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

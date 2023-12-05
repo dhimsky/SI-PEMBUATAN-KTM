@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Prodi;
 use App\Models\Kalender;
+use Illuminate\Support\Facades\DB;
 
 class KalenderController extends Controller
 {
@@ -12,12 +13,14 @@ class KalenderController extends Controller
         [
             'model'      => Kalender::class,
             'date_field' => 'tanggal',
-            'field'      => ['prodi','kelas','jam'],
+            'field'      => ['prodi','kelas'],
         ],
     ];
     public function index () {
         $jadwal = [];
         $prodi = Prodi::all();
+        $prodi2 = DB::table('prodi')->get();
+
         $kalender = Kalender::all();
 
         foreach ($this->sources as $source) {
@@ -37,7 +40,11 @@ class KalenderController extends Controller
             }
         }
 
-        return view('kalender.index', compact('prodi', 'kalender', 'jadwal'));
+        $title = 'Hapus Prodi!';
+        $text = "Yakin ingin menghapus data ini?";
+        confirmDelete($title, $text);
+        
+        return view('kalender.index', compact('prodi', 'kalender', 'jadwal', 'prodi2'));
     }
 
     public function store (Request $request) {

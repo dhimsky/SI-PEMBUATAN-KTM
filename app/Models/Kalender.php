@@ -10,10 +10,16 @@ class Kalender extends Model
     use HasFactory;
     protected $table = 'kalender';
     protected $primaryKey = 'id_kalender';
-    protected $fillable = ['tanggal',
-                            'jam',
-                            'prodi',
-                            'kelas',
-                            'detail',
-                        ];
+    protected $fillable = [
+        'tanggal',
+        'jam',
+        'prodi',
+        'kelas',
+        'detail',
+    ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'prodi', 'id_prodi');
+    }
 }

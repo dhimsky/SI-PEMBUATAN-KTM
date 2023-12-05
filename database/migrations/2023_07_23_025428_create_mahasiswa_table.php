@@ -61,7 +61,7 @@ return new class extends Migration
             $table->text('pengalaman_organisasi')->nullable();
 
             // Data Kuliah
-            $table->bigInteger('prodi_id')->unsigned();
+            $table->string('prodi_id');
             $table->string('ukt');
             $table->string('jenis_tinggal_di_cilacap');
             $table->string('alat_transportasi_ke_kampus');

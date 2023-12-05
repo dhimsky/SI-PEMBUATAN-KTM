@@ -17,44 +17,64 @@ class ProdiSeeder extends Seeder
     {
         $prodiData = [
             [
+                'id_prodi' => 'TE',
                 'jurusan_id' => 1,
-                'nama_prodi' => 'Teknik Elektronika (D3)',
+                'nama_prodi' => 'Teknik Elektronika',
+                'jenjang' => 'D3',
             ],
             [
+                'id_prodi' => 'TL',
                 'jurusan_id' => 1,
-                'nama_prodi' => 'Teknik Listrik (D3)',
+                'nama_prodi' => 'Teknik Listrik',
+                'jenjang' => 'D3',
             ],
             [
+                'id_prodi' => 'TRM',
                 'jurusan_id' => 1,
-                'nama_prodi' => 'Teknologi Rekayasa Mekatronika (D4)',
+                'nama_prodi' => 'Teknologi Rekayasa Mekatronika',
+                'jenjang' => 'D4',
             ],
             [
+                'id_prodi' => 'TI',
                 'jurusan_id' => 2,
-                'nama_prodi' => 'Teknik Informatika (D3)',
+                'nama_prodi' => 'Teknik Informatika',
+                'jenjang' => 'D3',
             ],
             [
+                'id_prodi' => 'RKS',
                 'jurusan_id' => 2,
-                'nama_prodi' => 'Rekayasa Keamanan Siber (D4)',
+                'nama_prodi' => 'Rekayasa Keamanan Siber',
+                'jenjang' => 'D4',
             ],
             [
+                'id_prodi' => 'RM',
                 'jurusan_id' => 2,
-                'nama_prodi' => 'Rekayasa Multimedia (D4)',
+                'nama_prodi' => 'Rekayasa Multimedia',
+                'jenjang' => 'D4',
             ],
             [
+                'id_prodi' => 'ALKS',
                 'jurusan_id' => 2,
-                'nama_prodi' => 'Akutansi Lembaga Keuangan Syariah (D4)',
+                'nama_prodi' => 'Akutansi Lembaga Keuangan Syariah',
+                'jenjang' => 'D4',
             ],
             [
+                'id_prodi' => 'TM',
                 'jurusan_id' => 3,
-                'nama_prodi' => 'Teknik Mesin (D3)',
+                'nama_prodi' => 'Teknik Mesin',
+                'jenjang' => 'D3',
             ],
             [
+                'id_prodi' => 'TPPL',
                 'jurusan_id' => 3,
-                'nama_prodi' => 'Teknik Pengendalian Pencemaran Lingkungan (D4)',
+                'nama_prodi' => 'Teknik Pengendalian Pencemaran Lingkungan',
+                'jenjang' => 'D4',
             ],
             [
+                'id_prodi' => 'TPPA',
                 'jurusan_id' => 3,
-                'nama_prodi' => 'Pengembangan Produk Agroindustri (D4)',
+                'nama_prodi' => 'Teknik Pengembangan Produk Agroindustri',
+                'jenjang' => 'D4',
             ],
         ];
 

@@ -1,125 +1,201 @@
 @extends('layouts.main-layout')
 @section('tittle', 'Kalender')
-
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-intro-title">Calendar</h4>
-
-                    <div class="">
-                        <div id="external-events" class="my-3">
-                            @foreach ($kalender as $kal)
-                            <div class="external-event ui-draggable ui-draggable-handle" data-class="bg-primary" style="position: relative;"><i class="fa fa-move"></i>{{$kal->tanggal}} - {{$kal->prodi}} - {{$kal->kelas}}</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-intro-title">Tabel Acara</h4>
+                <div class="table-responsive">
+                    <table class="table table-responsive-sm text-dark">
+                        <thead>
+                            <tr>
+                                <th>Hari</th>
+                                <th>Jam</th>
+                                <th>Kelas</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($kalender as $k)
+                            <tr>
+                                <td>
+                                    {{ hariIndonesia(\Carbon\Carbon::parse($k->tanggal)->format('l')) }}, 
+                                    {{ \Carbon\Carbon::parse($k->tanggal)->format('d/m') }} 
+                                </td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($k->jam)->format('H:i') }} 
+                                </td>
+                                <td>
+                                    {{ $k->prodi }} - {{ $k->kelas }}
+                                </td>
+                                <td>
+                                    <a class="fa fa-pencil color-muted" data-toggle="modal" data-target=".editKalender{{ $k->id_kalender }}" title="Edit prodi">
+                                    </a>
+                                    <a href="{{ route('kalender.destroy', $k->id_kalender) }}" class="fa fa-close color-danger" data-confirm-delete="true" title="Hapus prodi">
+                                    </a>
+                                </td>
+                            </tr>
                             @endforeach
-                        </div>
-                        <a href="javascript:void()" data-toggle="modal" data-target=".tambahKalender" class="btn btn-primary btn-event w-100">
-                            <span class="align-middle"><i class="ti-plus"></i></span> Create New
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-body">
-                    <div id="kalender"></div>
-                </div>
-            </div>
-        </div>
-        <!-- BEGIN MODAL -->
-        <div class="modal fade none-border" id="event-modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title"><strong>Add New Event</strong></h4>
-                    </div>
-                    <div class="modal-body"></div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success save-event waves-effect waves-light">Create
-                            event</button>
-
-                        <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Add Category -->
-        <div class="modal fade tambahKalender" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Tambah jurusan</h5>
-                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    <form action="{{ route('kalender.store') }}" method="POST">
-                        @csrf
-                        <div class="form-group mb-3">
-                            <label class="required-label faded-label" for="tanggal" style="font-style: italic;">Tanggal</label>
-                            <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ Session::get('tanggal') }}" >
-                            @error('tanggal')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="required-label faded-label" for="jam" style="font-style: italic;">Jam</label>
-                            <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" value="{{ Session::get('jam') }}" >
-                            @error('jam')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="required-label faded-label" for="prodi" style="font-style: italic;">Jurusan</label>
-                            <select class="form-control" name="prodi" id="prodi">
-                                <option value="">Pilih Prodi</option>
-                                @foreach ($prodi as $prodi)
-                                <option value="{{ $prodi->nama_prodi }}">{{ $prodi->nama_prodi }}</option>
-                                @endforeach
-                            </select>
-                            @error('prodi')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="required-label faded-label" for="kelas" style="font-style: italic;">Kelas</label>
-                            <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" value="{{ Session::get('kelas') }}" >
-                            @error('kelas')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="faded-label" for="detail" style="font-style: italic;">Detail</label>
-                            <input type="text" name="detail" class="form-control @error('detail') is-invalid @enderror" value="{{ Session::get('detail') }}" >
-                            @error('detail')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
-                    </div>
-                    </form>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div id="kalender"></div>
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+<button class="fa fa-plus wa_btn whatsapp" data-toggle="modal" data-target=".tambahKalender" title="Tambah prodi"></button>
+
+<div class="modal fade tambahKalender" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Tambah jurusan</h5>
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <form action="{{ route('kalender.store') }}" method="POST">
+            @csrf
+            <div class="form-group mb-3">
+                <label class="required-label faded-label" for="tanggal" style="font-style: italic;">Tanggal</label>
+                <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ Session::get('tanggal') }}" >
+                @error('tanggal')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label class="required-label faded-label" for="jam" style="font-style: italic;">Jam</label>
+                <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" value="{{ Session::get('jam') }}" >
+                @error('jam')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label class="required-label faded-label" for="prodi" style="font-style: italic;">Jurusan</label>
+                <select class="form-control" name="prodi" id="prodi">
+                    <option value="">Pilih Prodi</option>
+                    @foreach ($prodi as $prodi)
+                    <option value="{{ $prodi->id_prodi }}">{{ $prodi->nama_prodi }}</option>
+                    @endforeach
+                </select>
+                @error('prodi')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label class="required-label faded-label" for="kelas" style="font-style: italic;">Kelas</label>
+                <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" value="{{ Session::get('kelas') }}" >
+                @error('kelas')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label class="faded-label" for="detail" style="font-style: italic;">Detail</label>
+                <input type="text" name="detail" class="form-control @error('detail') is-invalid @enderror" value="{{ Session::get('detail') }}" >
+                @error('detail')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Tambah</button>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+
+@foreach ($kalender as $k)
+<div class="modal fade editKalender{{ $k->id_kalender }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Tambah jurusan</h5>
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <form action="{{ route('kalender.update', $k->id_kalender) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="form-group mb-3">
+                <label class="required-label faded-label" for="tanggal" style="font-style: italic;">Tanggal</label>
+                <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ $k->tanggal }}" >
+                @error('tanggal')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label class="required-label faded-label" for="jam" style="font-style: italic;">Jam</label>
+                <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" value="{{ $k->jam }}" >
+                @error('jam')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label class="required-label faded-label" for="prodi" style="font-style: italic;">Prodi</label>
+                <select class="form-control" name="prodi" id="prodi">
+                    @foreach ($prodi2 as $d)
+                        <option value="{{ $d->id_prodi }}" @if ($d->id_prodi === $k->prodi) selected @endif>{{ $d->nama_prodi }}</option>
+                    @endforeach
+                </select>
+                @error('prodi')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label class="required-label faded-label" for="kelas" style="font-style: italic;">Kelas</label>
+                <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" value="{{ $k->kelas }}" >
+                @error('kelas')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label class="faded-label" for="detail" style="font-style: italic;">Detail</label>
+                <input type="text" name="detail" class="form-control @error('detail') is-invalid @enderror" value="{{ $k->detail }}" >
+                @error('detail')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+        </form>
+    </div>
+</div>
+@endforeach
 @endsection
 
 @push('script-alt')
@@ -135,4 +211,19 @@
             });
         });
 </script>
+@php
+    function hariIndonesia($day) {
+        $days = [
+            'Monday' => 'Senin',
+            'Tuesday' => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu',
+            'Sunday' => 'Minggu',
+        ];
+
+        return $days[$day];
+    }
+@endphp
 @endpush

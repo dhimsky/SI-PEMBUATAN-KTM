@@ -61,5 +61,16 @@
                 </div>
             </div>
         </section>
+        <script>
+            @if(session('toast_success'))
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: '{{ session('toast_success') }}',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            @endif
+        </script>
     </body>
 </html>

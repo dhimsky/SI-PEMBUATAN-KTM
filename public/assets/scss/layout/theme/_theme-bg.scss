@@ -1,7 +1,7 @@
 //background for nav header
 @each $name, $color in $theme_backgrounds {
     [data-nav-headerbg="#{$name}"] {
-        @if $name != "color_1"  {
+        @if $name != "color_1" {
             .nav-header {
                 background-color: $color;
 
@@ -17,11 +17,10 @@
     }
 }
 
-//background for header 
+//background for header
 @each $name, $color in $theme_backgrounds {
     [data-headerbg="#{$name}"] {
-
-        @if $name != "color_1"  {
+        @if $name != "color_1" {
             .header {
                 background-color: $color;
                 color: $white;
@@ -47,8 +46,8 @@
                     background-color: darken($color: $color, $amount: 10%);
                     border-color: darken($color: $color, $amount: 10%);
 
-                    &:hover, 
-                    &:focus, 
+                    &:hover,
+                    &:focus,
                     &:active {
                         background-color: darken($color: $color, $amount: 20%);
                         border-color: darken($color: $color, $amount: 20%);
@@ -58,7 +57,7 @@
 
             .header-right {
                 .dropdown {
-                    &>a {
+                    & > a {
                         color: $white;
                     }
                 }
@@ -74,26 +73,25 @@
 
 //styles for sidebar
 @each $name, $color in $theme_backgrounds {
-//:not([data-sidebar-style="modern"])
+    //:not([data-sidebar-style="modern"])
     [data-sibebarbg="#{$name}"] {
         @if $name != "color_1" {
             .quixnav {
                 background-color: $color;
 
                 .metismenu {
-                    &>li {
-                        &>a {
+                    & > li {
+                        & > a {
                             color: darken($color: $white, $amount: 30%);
                         }
 
-                        &:hover, 
-                        &:focus, 
+                        &:hover,
+                        &:focus,
                         &.mm-active {
-            
-                            &>a {
+                            & > a {
                                 background-color: $color;
                                 color: $white;
-            
+
                                 // &::after {
                                 //     border-color: transparent transparent $white transparent;
                                 // }
@@ -102,7 +100,7 @@
 
                         @at-root [data-layout="horizontal"]#{&} {
                             // &:not(:last-child) {
-                                border-color: lighten($color: $color, $amount: 10%);
+                            border-color: lighten($color: $color, $amount: 10%);
                             // }
                         }
                     }
@@ -110,8 +108,8 @@
                     a {
                         color: darken($color: $white, $amount: 30%);
 
-                        &:hover, 
-                        &:focus, 
+                        &:hover,
+                        &:focus,
                         &.mm-active {
                             color: $white;
                         }
@@ -128,14 +126,13 @@
                     // }
                 }
             }
-        } 
+        }
     }
 }
 
-[data-headerbg="transparent"]{
-    .header{
+[data-headerbg="transparent"] {
+    .header {
         box-shadow: none;
         background: transparent;
     }
 }
-

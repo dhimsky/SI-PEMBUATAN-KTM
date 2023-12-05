@@ -9,35 +9,37 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table id="example" class="display text-dark" style="min-width: 845px">
-                    <thead>
-                        <tr class="text-center">
-                        <th>#</th>
-                        <th>Id Prodi</th>
-                        <th>Nama Prodi</th>
-                        <th>Nama Jurusan</th>
-                        <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($prodi as $p)
-                        <tr class="text-center">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $p->id_prodi }}</td>
-                            <td>{{ $p->nama_prodi }}</td>
-                            <td>{{ $p->jurusan->nama_jurusan }}</td>
-                            <td>
-                                <a href="" class="btn btn-warning" data-toggle="modal" data-target=".editProdi{{ $p->id_prodi }}" title="Edit prodi">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a href="{{ route('prodi.destroy', $p->id_prodi) }}" class="fa fa-trash btn btn-danger" data-confirm-delete="true" title="Hapus prodi">
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                    <table id="example" class="display text-dark" style="min-width: 845px">
+                        <thead>
+                            <tr class="text-center">
+                            <th>#</th>
+                            <th>Kode Prodi</th>
+                            <th>Nama Prodi</th>
+                            <th>Nama Jurusan</th>
+                            <th>Jenjang</th>
+                            <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($prodi as $p)
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $p->id_prodi }}</td>
+                                <td>{{ $p->nama_prodi }}</td>
+                                <td>{{ $p->jenjang }}</td>
+                                <td>{{ $p->jurusan->nama_jurusan }}</td>
+                                <td>
+                                    <a href="" class="btn btn-warning" data-toggle="modal" data-target=".editProdi{{ $p->id_prodi }}" title="Edit prodi">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="{{ route('prodi.destroy', $p->id_prodi) }}" class="fa fa-trash btn btn-danger" data-confirm-delete="true" title="Hapus prodi">
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                </table>
             </div>
         </div>
     </div>
@@ -57,6 +59,15 @@
                 <form action="{{ route('prodi.store') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="id_prodi" style="font-style: italic;">Kode Prodi</label>
+                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{ Session::get('id_prodi') }}" >
+                        @error('id_prodi')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
                         <label class="required-label faded-label" for="nama_prodi" style="font-style: italic;">Nama Prodi</label>
                         <input type="text" name="nama_prodi" class="form-control @error('nama_prodi') is-invalid @enderror" value="{{ Session::get('nama_prodi') }}" >
                         @error('nama_prodi')
@@ -74,6 +85,19 @@
                             @endforeach
                         </select>
                         @error('jurusan_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="jenjang" style="font-style: italic;">Jurusan</label>
+                        <select class="form-control" name="jenjang" id="jenjang">
+                            <option value="">Pilih Jenjang</option>
+                            <option value="D3">D3</option>
+                            <option value="D4">D4</option>
+                        </select>
+                        @error('jenjang')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -103,8 +127,8 @@
                 @csrf
                 @method('PUT')
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="id_prodi" style="font-style: italic;">Id Prodi</label>
-                        <input type="number" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{$p->id_prodi}}" readonly>
+                        <label class="required-label faded-label" for="id_prodi" style="font-style: italic;">Kode Prodi</label>
+                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{$p->id_prodi}}">
                         @error('id_prodi')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -129,6 +153,18 @@
                             @endforeach
                         </select>
                         @error('jurusan_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="jenjang" style="font-style: italic;">Jenjang</label>
+                        <select class="form-control" name="jenjang" id="jenjang">
+                            <option value="D3" {{ $p->jenjang === 'D3' ? 'selected' : '' }}>D3</option>
+                            <option value="D4" {{ $p->jenjang === 'D4' ? 'selected' : '' }}>D4</option>
+                        </select>
+                        @error('jenjang')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

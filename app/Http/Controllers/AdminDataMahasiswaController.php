@@ -15,7 +15,7 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa = Mahasiswa::all();
         $prodi = Prodi::all();
 
-        $title = 'Hapus Jurusan!';
+        $title = 'Hapus Mahasiswa!';
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
 
@@ -222,6 +222,6 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa = Mahasiswa::find($id);
         $mahasiswa->delete();
 
-        return redirect()->route('data-mahasiswa.index')->with('success', 'User berhasil di Hapus');
+        return redirect()->route('data-mahasiswa.index')->with('success', 'Mahasiswa berhasil di Hapus');
     }
 }

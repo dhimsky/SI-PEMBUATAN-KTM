@@ -11,10 +11,13 @@ class Prodi extends Model
     use HasFactory;
     protected $table = 'prodi';
     protected $primaryKey = 'id_prodi';
-    protected $fillable = ['nama_prodi',
+    protected $fillable = ['id_prodi',
                             'jurusan_id',
-                        ];
-
+                            'nama_prodi',
+                            'jenjang'];
+    protected $casts = [
+        'id_prodi' => 'string'
+    ];
     // Relasi dengan tabel mahasiswa
     public function mahasiswa()
     {

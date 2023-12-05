@@ -60,9 +60,10 @@
             @endif
             @include('layouts.header')
             @include('layouts.side-item')
-            @include('sweetalert::alert')
             <div class="content-body">
-                @yield('content')
+                <div class="container">
+                    @yield('content')
+                </div>
             </div>
         </div>
         <div class="footer">
@@ -161,32 +162,20 @@
             })
         });
     </script>
-
+    @include('sweetalert::alert')
+    <script>
+        @if(session('toast_success'))
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '{{ session('toast_success') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @endif
+    </script>
     </body>
 </html>
-
-{{-- Modal Logout--}}
-<div class="modal fade" id="basicModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">LogOut</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Yakin Ingin LogOut?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <form action="{{ url('logout') }}" method="POST">
-          @csrf
-          <button type="submit" class="btn btn-primary">LogOut</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
 @stack('script-alt')
 <!-- Page level custom scripts -->
 <!-- <script src="{{ asset('backend/js/demo/chart-area-demo.js') }}"></script>

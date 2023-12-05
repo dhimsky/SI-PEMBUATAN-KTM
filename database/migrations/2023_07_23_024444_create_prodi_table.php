@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('prodi', function (Blueprint $table) {
-            $table->id('id_prodi');
+            $table->string('id_prodi')->primary()->unique();
             $table->bigInteger('jurusan_id')->unsigned();
+            $table->string('jenjang');
             $table->string('nama_prodi');
             $table->timestamps();
 

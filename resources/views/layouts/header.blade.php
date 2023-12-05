@@ -19,7 +19,7 @@
                             @endif
                             <a href="" class="dropdown-item" data-toggle="modal" data-target=".logoutModal">
                                 <i class="icon-key"></i>
-                                <span class="ml-2">Logout </span>
+                                <span class="ml-2">Keluar </span>
                             </a>
                         </div>
                     </li>
@@ -31,19 +31,19 @@
 
 {{-- Logout --}}
 <div class="modal fade logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">LogOut</h5>
+                <h5 class="modal-title">Keluar Akun</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
-            <div class="modal-body">Yakin ingin LogOut?</div>
+            <div class="modal-body">Yakin ingin keluar dari akun ini?</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
                 <form action="{{ url('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-danger">LogOut</button>
+                    <button type="submit" class="btn btn-primary">Keluar</button>
                 </form>
             </div>
         </div>

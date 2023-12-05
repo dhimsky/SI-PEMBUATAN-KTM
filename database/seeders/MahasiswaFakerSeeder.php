@@ -63,7 +63,7 @@ class MahasiswaFakerSeeder extends Seeder
                 'asal_sekolah' => $faker->sentence(3),
                 'jurusan_asal_sekolah' => $faker->sentence(2),
                 'pengalaman_organisasi' => $faker->sentence(3),
-                'prodi_id' => $faker->numberBetween(1, 10), // Ganti dengan ID prodi yang sesuai
+                'prodi_id' => $faker->randomElement([ 'TE', 'TL', 'TRM', 'TI', 'RKS', 'RM', 'ALKS', 'TM', 'TPPL', 'TPPA' ]),
                 'ukt' => $faker->numerify('#######'),
                 'jenis_tinggal_di_cilacap' => $faker->randomElement(['Kost', 'Rumah Sendiri', 'Rumah Orang Tua']),
                 'alat_transportasi_ke_kampus' => $faker->randomElement(['Motor', 'Mobil', 'Transportasi Umum']),
@@ -73,7 +73,6 @@ class MahasiswaFakerSeeder extends Seeder
                 'anak_ke' => $faker->numberBetween(1, 5),
             ];
         }
-
         DB::table('mahasiswa')->insert($data);
     }
 }

@@ -32,6 +32,6 @@ class MahasiswaAkunController extends Controller
             'password' => Hash::make($request->new_password)
         ]);
 
-        return redirect()->route('akun.index')->with('success', 'Kata sandi berhasil di ubah');
+        return redirect()->route('akun.index')->with('toast_success', 'Kata sandi berhasil di ubah');
     }
 }

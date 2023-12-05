@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Roles;
-use App\Models\User;
 
 class AdminRolesController extends Controller
 {
@@ -24,7 +22,7 @@ class AdminRolesController extends Controller
         $role = Roles::find($id);
         $role->level =  $request->input('level');
         $role->save();
-        return redirect()->route('role.index')->with('toast_success', 'role berhasil diupdate');
+        return redirect()->route('role.index')->with('toast_success', 'Tabel Role berhasil diupdate');
     }
     // public function destroy($id)
     // {
