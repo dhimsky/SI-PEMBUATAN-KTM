@@ -39,13 +39,15 @@ class AdminUsersController extends Controller
         $request->validate([
             'nim' => 'required|unique:mahasiswa,nim',
             'username' => 'required',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
+            'role_id' => 'required'
         ], [
             'nim.required' => 'Nama wajib diisi!',
             'nim.unique' =>'NIM sudah terdaftar!',
+            'role_id.required' => 'Level wajib diisi!',
             'username.required' => 'Username wajib diisi!',
             'password.required' => 'Password wajib diisi!',
-            'password.min' => 'Minumum password 8 karakter!'
+            'password.min' => 'Minumum password 8 karakter!',
         ]);
         
         $data = [

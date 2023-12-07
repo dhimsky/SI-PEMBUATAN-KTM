@@ -59,8 +59,8 @@
                 <form action="{{ route('prodi.store') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="id_prodi" style="font-style: italic;">Kode Prodi</label>
-                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{ Session::get('id_prodi') }}" >
+                        <label class="required-label faded-label" for="id_prodi" >Kode Prodi</label>
+                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{ Session::get('id_prodi') }}" placeholder="Contoh: TI, RKS dsb.">
                         @error('id_prodi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -68,8 +68,8 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="nama_prodi" style="font-style: italic;">Nama Prodi</label>
-                        <input type="text" name="nama_prodi" class="form-control @error('nama_prodi') is-invalid @enderror" value="{{ Session::get('nama_prodi') }}" >
+                        <label class="required-label faded-label" for="nama_prodi" >Nama Prodi</label>
+                        <input type="text" name="nama_prodi" class="form-control @error('nama_prodi') is-invalid @enderror" value="{{ Session::get('nama_prodi') }}" placeholder="Masukan nama prodi">
                         @error('nama_prodi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -77,7 +77,7 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="jurusan_id" style="font-style: italic;">Jurusan</label>
+                        <label class="required-label faded-label" for="jurusan_id" >Jurusan</label>
                         <select class="form-control" name="jurusan_id" id="jurusan_id">
                             <option value="">Pilih Jurusan</option>
                             @foreach ($jurusan as $j)
@@ -91,7 +91,7 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="jenjang" style="font-style: italic;">Jurusan</label>
+                        <label class="required-label faded-label" for="jenjang" >Jurusan</label>
                         <select class="form-control" name="jenjang" id="jenjang">
                             <option value="">Pilih Jenjang</option>
                             <option value="D3">D3</option>
@@ -127,8 +127,8 @@
                 @csrf
                 @method('PUT')
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="id_prodi" style="font-style: italic;">Kode Prodi</label>
-                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{$p->id_prodi}}">
+                        <label class="required-label faded-label" for="id_prodi" >Kode Prodi</label>
+                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{$p->id_prodi}}" placeholder="Contoh: TI, RKS dsb.">
                         @error('id_prodi')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -136,8 +136,8 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="nama_prodi" style="font-style: italic;">Nama Prodi</label>
-                        <input type="text" name="nama_prodi" class="form-control @error('nama_prodi') is-invalid @enderror" value="{{$p->nama_prodi}}">
+                        <label class="required-label faded-label" for="nama_prodi" >Nama Prodi</label>
+                        <input type="text" name="nama_prodi" class="form-control @error('nama_prodi') is-invalid @enderror" value="{{$p->nama_prodi}}" placeholder="Masukan nama prodi">
                         @error('nama_prodi')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -145,7 +145,7 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="jurusan_id" style="font-style: italic;">Jurusan</label>
+                        <label class="required-label faded-label" for="jurusan_id" >Jurusan</label>
                         <select class="form-control" name="jurusan_id" id="jurusan_id">
                             <option value="">{{ $p->jurusan->nama_jurusan }}</option>
                             @foreach ($jurusan as $j)
@@ -159,7 +159,7 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="jenjang" style="font-style: italic;">Jenjang</label>
+                        <label class="required-label faded-label" for="jenjang" >Jenjang</label>
                         <select class="form-control" name="jenjang" id="jenjang">
                             <option value="D3" {{ $p->jenjang === 'D3' ? 'selected' : '' }}>D3</option>
                             <option value="D4" {{ $p->jenjang === 'D4' ? 'selected' : '' }}>D4</option>

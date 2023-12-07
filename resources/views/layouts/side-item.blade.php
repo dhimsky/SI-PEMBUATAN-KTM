@@ -6,17 +6,28 @@
         <li><a href="{{ route('dashboard') }}" aria-expanded="false"><i
           class="icon icon-home"></i><span class="nav-text">Dashboard</span></a>
         </li>
-          <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">Data Pengguna</span></a>
-              <ul aria-expanded="false" class="mm-collapse">
-                  <li><a href="/users/role">Role</a></li>
-                  <li><a href="/users/account">Account</a></li>
-              </ul>
-          </li>
-          <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-chart-bar-33"></i><span class="nav-text">Data Form</span></a>
-            <ul aria-expanded="false">
-              <li><a href="{{route('jurusan.index')}}">Jurusan</a></li>
-              <li><a href="{{route('prodi.index')}}">Prodi</a></li>
+        <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">Data Pengguna</span></a>
+            <ul aria-expanded="false" class="mm-collapse">
+                <li><a href="/users/role">Role</a></li>
+                <li><a href="/users/account">Account</a></li>
             </ul>
+        </li>
+        <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-chart-bar-33"></i><span class="nav-text">Data Form</span></a>
+          <ul aria-expanded="false">
+            <li><a href="{{route('jurusan.index')}}">Jurusan</a></li>
+            <li><a href="{{route('prodi.index')}}">Prodi</a></li>
+          </ul>
+        </li>
+        <li><a href="{{ route('data-mahasiswa.index') }}" aria-expanded="false"><i
+          class="icon icon-users-mm"></i><span class="nav-text">Data Mahasiswa</span></a>
+        </li>
+        <li><a href="{{ route('kalender.index') }}" aria-expanded="false"><i class="fa fa-calendar"></i><span
+          class="nav-text">Kalender</span></a></li>
+        @endif
+
+          @if (Auth::user()->role_id == '3')
+          <li><a href="{{ route('dashboard') }}" aria-expanded="false"><i
+            class="icon icon-home"></i><span class="nav-text">Dashboard</span></a>
           </li>
           <li><a href="{{ route('data-mahasiswa.index') }}" aria-expanded="false"><i
             class="icon icon-users-mm"></i><span class="nav-text">Data Mahasiswa</span></a>

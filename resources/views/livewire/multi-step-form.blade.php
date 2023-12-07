@@ -487,7 +487,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="required-label faded-label" for="ukt" style="font-style: italic;">Uang Kuliah Tunggal (UKT)</label>
+                        <label class="required-label faded-label" for="ukt" style="font-style: italic;">Uang Kuliah Tunggal</label>
                         <input type="number" name="ukt" class="form-control @error('ukt') is-invalid @enderror" value="{{ old('ukt') }}" wire:model="ukt">
                         @error('ukt')
                             <span class="invalid-feedback" role="alert">
@@ -499,7 +499,7 @@
                         <label class="required-label faded-label" for="jenis_tinggal_di_cilacap" style="font-style: italic;">Jenis Tinggal di Cilacap</label>
                         <select name="jenis_tinggal_di_cilacap" class="form-control @error('jenis_tinggal_di_cilacap') is-invalid @enderror" wire:model="jenis_tinggal_di_cilacap">
                             <option selected value="" style="font-style: italic;">-- Pilih Jenis Tinggal --</option>
-                            <option value="Rumah Orangtua" @if(old('jenis_tinggal_di_cilacap') == 'Rumah Orangtua') selected @endif>Rumah Orangtua</option>
+                            <option value="Rumah Orang Tua" @if(old('jenis_tinggal_di_cilacap') == 'Rumah Orangtua') selected @endif>Rumah Orangtua</option>
                             <option value="Wali" @if(old('jenis_tinggal_di_cilacap') == 'Wali') selected @endif>Wali</option>
                             <option value="Kost" @if(old('jenis_tinggal_di_cilacap') == 'Kost') selected @endif>Kost</option>
                             <option value="Panti Asuhan" @if(old('jenis_tinggal_di_cilacap') == 'Panti Asuhan') selected @endif>Panti Asuhan</option>
@@ -603,7 +603,7 @@
         @endif
         
         @if ($currentStep == 6)
-        <button type="submit" class="btn btn-md btn-primary">Submit</button>
+        <button type="submit" class="btn btn-md btn-primary mr-4">Submit</button>
         @endif
         </div> 
     </form>

@@ -54,8 +54,8 @@
             <form action="{{ route('jurusan.store') }}" method="POST">
                 @csrf
                 <div class="form-group mb-3">
-                <label class="required-label faded-label" for="nama_jurusan" style="font-style: italic;">Nama jurusan</label>
-                <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{ Session::get('nama_jurusan') }}" >
+                <label class="required-label faded-label" for="nama_jurusan">Nama jurusan</label>
+                <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{ Session::get('nama_jurusan') }}" placeholder="Masukan Nama Jurusan">
                 @error('nama_jurusan')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -86,7 +86,7 @@
                 @csrf
                 @method('PUT')
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="id_jurusan" style="font-style: italic;">Id jurusan</label>
+                        <label class="required-label faded-label" for="id_jurusan" >Id jurusan</label>
                         <input type="number" name="id_jurusan" class="form-control @error('id_jurusan') is-invalid @enderror" value="{{$p->id_jurusan}}" readonly>
                         @error('id_jurusan')
                         <span class="invalid-feedback" role="alert">
@@ -95,8 +95,8 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="nama_jurusan" style="font-style: italic;">Nama jurusan</label>
-                        <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{$p->nama_jurusan}}">
+                        <label class="required-label faded-label" for="nama_jurusan" >Nama jurusan</label>
+                        <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{$p->nama_jurusan}}" placeholder="Masukan Nama Jurusan">
                         @error('nama_jurusan')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

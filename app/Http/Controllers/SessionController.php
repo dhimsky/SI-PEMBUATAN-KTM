@@ -12,7 +12,7 @@ class SessionController extends Controller
     public function index () {
         $user = Auth::user();
         if ($user) {
-            if ($user->role_id == '1') {
+            if ($user->role_id == '1' || $user->role_id == '3') {
                 return redirect()->intended('dashboard');
             } elseif ($user->role_id == '2') {
                 return redirect()->intended('home');
@@ -36,10 +36,10 @@ class SessionController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            if ($user->role_id == '1') {
+            if ($user->role_id == '1' || $user->role_id == '3') {
                 return redirect()->intended('dashboard')->with('toast_success','Selamat, anda berhasil masuk.');
             } elseif ($user->role_id == '2') {
-                return redirect()->intended('home');
+                return redirect()->intended('home')->with('toast_success','Selamat, anda berhasil masuk.');
             }
         }
         return redirect('/')->with('toast_error','NIM atau Password yang dimasukkan tidak sesuai');

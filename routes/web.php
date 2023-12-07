@@ -24,7 +24,7 @@ Route::post('loginsession', [SessionController::class, 'login']);
 Route::post('logout', [SessionController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::middleware('CekUserLogin:1')->group(function () {
+    Route::middleware('CekUserLogin:1,3')->group(function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::resource('users/role', AdminRolesController::class);
         Route::resource('users/account', AdminUsersController::class);

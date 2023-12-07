@@ -59,7 +59,7 @@
               @csrf
               @method('PUT')
               <div class="form-group mb-3">
-                <label class="required-label faded-label" for="id" style="font-style: italic;">Id Role</label>
+                <label class="required-label faded-label" for="id" >Id Role</label>
                 <input type="number" name="id" class="form-control @error('id') is-invalid @enderror" value="{{ $r->id }}" readonly>
                 @error('id')
                 <span class="invalid-feedback" role="alert">
@@ -68,8 +68,8 @@
                 @enderror
               </div>
               <div class="form-group mb-3">
-                <label class="required-label faded-label" for="level" style="font-style: italic;">Level Role</label>
-                <input type="text" name="level" class="form-control @error('level') is-invalid @enderror" value="{{ $r->level }}">
+                <label class="required-label faded-label" for="level" >Level Role</label>
+                <input type="text" name="level" class="form-control @error('level') is-invalid @enderror" value="{{ $r->level }}" placeholder="Admin, Mahasiswa, dsb.">
                 @error('level')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>

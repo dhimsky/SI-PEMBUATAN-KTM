@@ -53,6 +53,11 @@ class KalenderController extends Controller
             'jam' => 'required',
             'prodi' => 'required',
             'kelas' => 'required',
+        ],[
+            'tanggal.required' => 'Tanggal wajib diisi!',
+            'jam.required' => 'Jam wajib diisi!',
+            'prodi.required' => 'Prodi wajib diisi!',
+            'kelas.required' => 'Kelas wajib diisi!'
         ]);
 
         Kalender::create([

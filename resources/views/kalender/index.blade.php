@@ -30,7 +30,7 @@
                                     {{ $k->prodi }} - {{ $k->kelas }}
                                 </td>
                                 <td>
-                                    <a class="fa fa-pencil color-muted" data-toggle="modal" data-target=".editKalender{{ $k->id_kalender }}" title="Edit prodi">
+                                    <a href="" class="fa fa-pencil color-muted" data-toggle="modal" data-target=".editKalender{{ $k->id_kalender }}" title="Edit prodi">
                                     </a>
                                     <a href="{{ route('kalender.destroy', $k->id_kalender) }}" class="fa fa-close color-danger" data-confirm-delete="true" title="Hapus prodi">
                                     </a>
@@ -55,144 +55,145 @@
 <button class="fa fa-plus wa_btn whatsapp" data-toggle="modal" data-target=".tambahKalender" title="Tambah prodi"></button>
 
 <div class="modal fade tambahKalender" tabindex="-1" role="dialog" aria-hidden="true">
-<div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Tambah jurusan</h5>
-            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-            </button>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah jurusan</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form action="{{ route('kalender.store') }}" method="POST">
+                @csrf
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="tanggal" style="font-style: italic;">Tanggal</label>
+                    <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ Session::get('tanggal') }}" >
+                    @error('tanggal')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="jam" style="font-style: italic;">Jam</label>
+                    <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" value="{{ Session::get('jam') }}" >
+                    @error('jam')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="prodi" style="font-style: italic;">Jurusan</label>
+                    <select class="form-control" name="prodi" id="prodi">
+                        <option value="">Pilih Prodi</option>
+                        @foreach ($prodi as $prodi)
+                        <option value="{{ $prodi->id_prodi }}">{{ $prodi->nama_prodi }}</option>
+                        @endforeach
+                    </select>
+                    @error('prodi')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="kelas" style="font-style: italic;">Kelas</label>
+                    <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" value="{{ Session::get('kelas') }}" >
+                    @error('kelas')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label class="faded-label" for="detail" style="font-style: italic;">Detail</label>
+                    <input type="text" name="detail" class="form-control @error('detail') is-invalid @enderror" value="{{ Session::get('detail') }}" >
+                    @error('detail')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+            </div>
+            </form>
         </div>
-        <div class="modal-body">
-        <form action="{{ route('kalender.store') }}" method="POST">
-            @csrf
-            <div class="form-group mb-3">
-                <label class="required-label faded-label" for="tanggal" style="font-style: italic;">Tanggal</label>
-                <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ Session::get('tanggal') }}" >
-                @error('tanggal')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group mb-3">
-                <label class="required-label faded-label" for="jam" style="font-style: italic;">Jam</label>
-                <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" value="{{ Session::get('jam') }}" >
-                @error('jam')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group mb-3">
-                <label class="required-label faded-label" for="prodi" style="font-style: italic;">Jurusan</label>
-                <select class="form-control" name="prodi" id="prodi">
-                    <option value="">Pilih Prodi</option>
-                    @foreach ($prodi as $prodi)
-                    <option value="{{ $prodi->id_prodi }}">{{ $prodi->nama_prodi }}</option>
-                    @endforeach
-                </select>
-                @error('prodi')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group mb-3">
-                <label class="required-label faded-label" for="kelas" style="font-style: italic;">Kelas</label>
-                <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" value="{{ Session::get('kelas') }}" >
-                @error('kelas')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group mb-3">
-                <label class="faded-label" for="detail" style="font-style: italic;">Detail</label>
-                <input type="text" name="detail" class="form-control @error('detail') is-invalid @enderror" value="{{ Session::get('detail') }}" >
-                @error('detail')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-dark" data-dismiss="modal">Tutup</button>
-            <button type="submit" class="btn btn-primary">Tambah</button>
-        </div>
-        </form>
     </div>
-</div>
 </div>
 
 @foreach ($kalender as $k)
 <div class="modal fade editKalender{{ $k->id_kalender }}" tabindex="-1" role="dialog" aria-hidden="true">
-<div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Tambah jurusan</h5>
-            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-            </button>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah jurusan</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form action="{{ route('kalender.update', $k->id_kalender) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="tanggal" style="font-style: italic;">Tanggal</label>
+                    <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ $k->tanggal }}" >
+                    @error('tanggal')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="jam" style="font-style: italic;">Jam</label>
+                    <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" value="{{ $k->jam }}" >
+                    @error('jam')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="prodi" style="font-style: italic;">Prodi</label>
+                    <select class="form-control" name="prodi" id="prodi">
+                        @foreach ($prodi2 as $d)
+                            <option value="{{ $d->id_prodi }}" @if ($d->id_prodi === $k->prodi) selected @endif>{{ $d->nama_prodi }}</option>
+                        @endforeach
+                    </select>
+                    @error('prodi')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="kelas" style="font-style: italic;">Kelas</label>
+                    <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" value="{{ $k->kelas }}" >
+                    @error('kelas')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label class="faded-label" for="detail" style="font-style: italic;">Detail</label>
+                    <input type="text" name="detail" class="form-control @error('detail') is-invalid @enderror" value="{{ $k->detail }}" >
+                    @error('detail')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+            </form>
         </div>
-        <div class="modal-body">
-        <form action="{{ route('kalender.update', $k->id_kalender) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="form-group mb-3">
-                <label class="required-label faded-label" for="tanggal" style="font-style: italic;">Tanggal</label>
-                <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ $k->tanggal }}" >
-                @error('tanggal')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group mb-3">
-                <label class="required-label faded-label" for="jam" style="font-style: italic;">Jam</label>
-                <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" value="{{ $k->jam }}" >
-                @error('jam')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group mb-3">
-                <label class="required-label faded-label" for="prodi" style="font-style: italic;">Prodi</label>
-                <select class="form-control" name="prodi" id="prodi">
-                    @foreach ($prodi2 as $d)
-                        <option value="{{ $d->id_prodi }}" @if ($d->id_prodi === $k->prodi) selected @endif>{{ $d->nama_prodi }}</option>
-                    @endforeach
-                </select>
-                @error('prodi')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group mb-3">
-                <label class="required-label faded-label" for="kelas" style="font-style: italic;">Kelas</label>
-                <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" value="{{ $k->kelas }}" >
-                @error('kelas')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <div class="form-group mb-3">
-                <label class="faded-label" for="detail" style="font-style: italic;">Detail</label>
-                <input type="text" name="detail" class="form-control @error('detail') is-invalid @enderror" value="{{ $k->detail }}" >
-                @error('detail')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
-            <button type="submit" class="btn btn-primary">Update</button>
-        </div>
-        </form>
     </div>
 </div>
 @endforeach

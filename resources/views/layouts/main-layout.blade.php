@@ -18,6 +18,11 @@
     <link href="{{ asset('/') }}assets/vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
     {{-- Kalender --}}
     <link href="{{ asset('/') }}assets/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
+    <style>
+        ::placeholder {
+            font-style: italic;
+        }
+    </style>
     @livewireStyles
     </head>
 
@@ -30,7 +35,7 @@
             </div>
         </div>
         <div id="main-wrapper">
-            @if (Auth::user()->role_id == '1')
+            @if (Auth::check() && (Auth::user()->role_id == '1' || Auth::user()->role_id == '3'))
             <div class="nav-header">
                 <a href="{{ route('dashboard') }}" class="brand-logo">
                     <img class="logo-abbr" src="{{ asset('/') }}images/logoPNC.png" alt="">
