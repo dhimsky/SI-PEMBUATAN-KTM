@@ -400,7 +400,7 @@
                                 <img src="{{ asset('storage/pas_foto/' . $m->pas_foto) }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded">
                             </a>
                             @else
-                            <p>Foto tidak tersedia</p>
+                            <img src="{{ asset('/images/profile.jpeg') }}" alt="Foto Kosong" class="img-fluid img-3x4 rounded">
                             @endif
                         </div>                    
                         <div class="col-md-8">
@@ -450,21 +450,23 @@
                     </div>
                     <div class="form-group row mb-2">
                         <div class="col-sm-7">
-                            <div class="custom-file">
-                                <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="input_pas_foto">
+                            <div class="custom-file" onclick="triggerInputFile()">
                                 <label class="custom-file-label" for="input_pas_foto" id="label_pas_foto">
                                     @if ($m->pas_foto)
-                                        <p class="text-muted">{{ $m->pas_foto }}</p>
+                                        <p class="text-muted" id="uploaded-foto-label">{{ $m->pas_foto }}</p>
+                                        <p class="text-muted" id="upload-foto-label" style="display: none;">Upload Foto</p>
                                     @else
-                                        <p class="text-muted">Tidak ada foto yang diunggah</p>
+                                        <p class="text-muted" id="uploaded-foto-label" style="display: none;"></p>
+                                        <p class="text-muted" id="upload-foto-label">Upload Foto</p>
                                     @endif
                                 </label>
+                                <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="input_pas_foto" onchange="updateLabel(this)">
                                 @error('pas_foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row mb-2">
@@ -973,14 +975,23 @@
     object-fit: cover;
 }
 </style>
-<script>
-    const inputFoto = document.getElementById('input_pas_foto');
-    const labelFoto = document.getElementById('label_pas_foto');
 
-    inputFoto.addEventListener('change', function() {
-        const fileName = inputFoto.files[0].name;
-        labelFoto.innerHTML = fileName;
-    });
+<script>
+    function updateLabel(input) {
+        var labelUploaded = document.getElementById('uploaded-foto-label');
+        var labelUpload = document.getElementById('upload-foto-label');
+
+        if (input.files.length > 0) {
+            labelUploaded.innerHTML = input.files[0].name;
+            labelUploaded.style.display = 'block';
+
+            labelUpload.style.display = 'none';
+        } else {
+            labelUploaded.style.display = 'none';
+
+            labelUpload.style.display = 'block';
+        }
+    }
 </script>
 
 @endsection

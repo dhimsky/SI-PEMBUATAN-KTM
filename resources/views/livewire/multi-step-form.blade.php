@@ -107,8 +107,14 @@
                     <div class="form-group col-md-3 mb-3">
                         <label class="required-label faded-label" for="pas_foto" style="font-style: italic;">Pas Foto</label>
                         <div class="custom-file">
-                            <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="input_pas_foto" wire:model="pas_foto">
-                            <label class="custom-file-label" id="label_pas_foto" for="input_pas_foto">Pilih file</label>
+                            <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="input_pas_foto" wire:model="pas_foto" >
+                            <label class="custom-file-label" id="label_pas_foto" for="input_pas_foto">
+                                @if($pas_foto && !is_string($pas_foto))
+                                    Foto Terpilih
+                                @else
+                                    Upload Foto
+                                @endif
+                            </label>
                             @error('pas_foto')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -117,33 +123,16 @@
                         </div>
                     </div>
                     <div class="form-group col-md-4 mb-3">
-                        <img src="{{ asset('/images/profile.jpeg') }}" id="img" height="100" alt="">
+                        <img src="{{ $pas_foto ? $pas_foto->temporaryUrl() : asset('/images/profile.jpeg') }}" id="img" height="100" alt="">
                     </div>
-    
                     <script>
-                        // Ambil elemen input file dan label
-                        const inputFoto = document.getElementById('input_pas_foto'); // Ganti id menjadi input_pas_foto
-                        const labelFoto = document.getElementById('label_pas_foto'); // Ganti id menjadi label_pas_foto
-                    
-                        // Tambahkan event listener ketika ada file yang dipilih
-                        inputFoto.addEventListener('change', function() {
-                            const fileName = inputFoto.files[0].name;
-                            labelFoto.innerHTML = fileName;
+                        document.addEventListener('livewire:load', function () {
+                            Livewire.on('updateFileName', function (fileName) {
+                                const labelFoto = document.getElementById('label_pas_foto');
+                                labelFoto.innerHTML = 'File Terpilih';
+                            });
                         });
                     </script>
-    
-                    {{-- <div class="form-group col-md-4 mb-3">
-                        <label class="required-label faded-label" for="pas_foto" style="font-style: italic;">Pas Foto</label>
-                        <div class="custom-file">
-                            <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="pas_foto" wire:model="pas_foto">
-                            <label class="custom-file-label" for="pas_foto">Pilih file</label>
-                            @error('pas_foto')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div> --}}
                 </div>                  
             </div>
         </div>

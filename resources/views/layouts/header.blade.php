@@ -18,7 +18,7 @@
                             </a>
                             @endif
                             <a href="" class="dropdown-item" data-toggle="modal" data-target=".logoutModal">
-                                <i class="icon-key"></i>
+                                <i class="fa fa-sign-out"></i>
                                 <span class="ml-2">Keluar </span>
                             </a>
                         </div>

@@ -220,8 +220,14 @@ class AdminDataMahasiswaController extends Controller
     public function destroy($id)
     {
         $mahasiswa = Mahasiswa::find($id);
-        $mahasiswa->delete();
-
-        return redirect()->route('data-mahasiswa.index')->with('success', 'Mahasiswa berhasil di Hapus');
+        if ($mahasiswa) {
+            $pathFoto = storage_path("app/public/pas_foto/{$mahasiswa->pas_foto}");
+                if ($mahasiswa->pas_foto && file_exists($pathFoto)) {
+                unlink($pathFoto);
+            }
+            $mahasiswa->delete();
+            return redirect()->route('data-mahasiswa.index')->with('success', 'Mahasiswa berhasil dihapus');
+        }
+            return redirect()->route('data-mahasiswa.index')->with('error', 'Gagal menghapus mahasiswa');
     }
 }

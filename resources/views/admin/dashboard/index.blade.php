@@ -14,12 +14,9 @@
         <div class="col-lg-4 col-sm-6">
             <div class="card">
                 <div class="stat-widget-two card-body">
-                    <div class="stat-content">
-                        <div class="stat-text">Akun Mahasiswa</div>
+                    <div class="stat-content mb-4">
+                        <div class="stat-text">Total Akun Mahasiswa</div>
                         <div class="stat-digit">{{ $accountCount }}</div>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
@@ -32,8 +29,8 @@
                         <div class="stat-digit">{{ $mahasiswaCount }}</div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                        <div class="progress-bar progress-bar-primary" style="width: {{ $mahasiswaCount / $accountCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $mahasiswaCount }}" aria-valuemin="0" aria-valuemax="{{ $accountCount }}"></div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -45,17 +42,21 @@
                         <div class="stat-digit">{{ $notcompleteCount }}</div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                        <div class="progress-bar progress-bar-warning" style="width: {{ $notcompleteCount / $accountCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $notcompleteCount }}" aria-valuemin="0" aria-valuemax="{{ $accountCount }}"></div>
+                    </div>    
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0">
-            <h2>Peta Mahasiswa</h2>
-            <svg width="720pt" height="720pt" viewBox="0 0 999.75118 999.75118" enable-background="new 0 0 999.75118 999.75118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div class="col-lg-7 col-sm-6">
+        <div class="card">
+            <div class="stat-widget-two card-body">
+                <div class="start-content">
+                    <div class="stat-text">Peta Mahasiswa</div>
+                </div>
+            </div>
+            <svg viewBox="0 0 999.75118 999.75118" enable-background="new 0 0 999.75118 999.75118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Kecamatan">
                 <a xlink:title="Adipala" id="Adipala" data-toggle="modal" data-target=".Adipala">
                     <path
@@ -7371,9 +7372,6 @@
         </div>
     </div>
 </div>
-
-{{-- MODAL KECAMATAN --}}
-
 {{-- Kedungreja --}}
 <div class="modal fade Kedungreja" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">

@@ -3,6 +3,7 @@
       <ul class="metismenu mm-show" id="menu">
         
         @if (Auth::user()->role_id == '1')
+        <br>
         <li><a href="{{ route('dashboard') }}" aria-expanded="false"><i
           class="icon icon-home"></i><span class="nav-text">Dashboard</span></a>
         </li>
@@ -26,6 +27,7 @@
         @endif
 
           @if (Auth::user()->role_id == '3')
+          <br>
           <li><a href="{{ route('dashboard') }}" aria-expanded="false"><i
             class="icon icon-home"></i><span class="nav-text">Dashboard</span></a>
           </li>
@@ -37,6 +39,7 @@
           @endif
 
           @if (Auth::user()->role_id == '2')
+          <br>
           <li><a href="{{ route('home') }}" aria-expanded="false"><i class="icon icon-home"></i><span
             class="nav-text">Home</span></a></li>
           <li><a href="{{ route('mahasiswa.detail', ['nim' => Auth::user()->nim]) }}" aria-expanded="false"><i class="icon icon-layout-25"></i><span

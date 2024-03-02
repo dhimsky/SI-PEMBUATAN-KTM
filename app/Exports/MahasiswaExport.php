@@ -139,55 +139,6 @@ private function getWilayahNama($kode)
             'ANAK KE',
         ];
     }
-    // public function map($mahasiswa): array
-    // {
-    //     return [
-    //         $mahasiswa->nim, // Menggunakan ="123456789" agar di Excel dianggap sebagai angka
-    //         $mahasiswa->nama_lengkap,
-    //         $mahasiswa->nik,
-    //         $mahasiswa->tempat_lahir,
-    //         $mahasiswa->tanggal_lahir,
-    //         $mahasiswa->jenis_kelamin,
-    //         $mahasiswa->agama,
-    //         $mahasiswa->email,
-    //         $mahasiswa->nohp,
-    //         $mahasiswa->pas_foto,
-    //         $mahasiswa->provinsi,
-    //         $mahasiswa->kabupaten,
-    //         $mahasiswa->kecamatan,
-    //         $mahasiswa->desa_kelurahan,
-    //         $mahasiswa->rt,
-    //         $mahasiswa->rw,
-    //         $mahasiswa->alamat_jalan,
-    //         $mahasiswa->nama_ayah,
-    //         $mahasiswa->nik_ayah,
-    //         $mahasiswa->tempat_lahir_ayah,
-    //         $mahasiswa->tanggal_lahir_ayah,
-    //         $mahasiswa->pendidikan_ayah,
-    //         $mahasiswa->pekerjaan_ayah,
-    //         $mahasiswa->penghasilan_ayah,
-    //         $mahasiswa->nama_ibu,
-    //         $mahasiswa->nik_ibu,
-    //         $mahasiswa->tempat_lahir_ibu,
-    //         $mahasiswa->tanggal_lahir_ibu,
-    //         $mahasiswa->pendidikan_ibu,
-    //         $mahasiswa->pekerjaan_ibu,
-    //         $mahasiswa->penghasilan_ibu,
-    //         $mahasiswa->nama_wali,
-    //         $mahasiswa->alamat_wali,
-    //         $mahasiswa->asal_sekolah,
-    //         $mahasiswa->jurusan_asal_sekolah,
-    //         $mahasiswa->pengalaman_organisasi,
-    //         $mahasiswa->prodi->nama_prodi,
-    //         $mahasiswa->ukt,
-    //         $mahasiswa->jenis_tinggal_di_cilacap,
-    //         $mahasiswa->alat_transportasi_ke_kampus,
-    //         $mahasiswa->sumber_biaya_kuliah,
-    //         $mahasiswa->penerima_kartu_prasejahtera,
-    //         $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah,
-    //         $mahasiswa->anak_ke,
-    //     ];
-    // }
     public function styles(Worksheet $sheet)
     {
         // Menerapkan teks tebal (bold) dan rata tengah (center align) pada heading

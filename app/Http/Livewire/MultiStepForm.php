@@ -105,38 +105,49 @@ class MultiStepForm extends Component
         }
     }
 
+    public function updatedPasFoto()
+    {
+        $this->emit('updateFileName', $this->pas_foto->getClientOriginalName());
+    }
+
     public function validateData(){
-        if($this->currentStep == 1){
-            $this->validate([
-                'nik' => 'required|string|max:16|unique:mahasiswa,nik',
-                'tempat_lahir' => 'required|string',
-                'tanggal_lahir' => 'required|date',
-                'jenis_kelamin' => 'required|string',
-                'agama' => 'required|string',
-                'email' => 'required|email|unique:mahasiswa,email',
-                'nohp' => 'required|string',
-                'pas_foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            ],[
-                'nik.max' => 'NIK maksimal 16 karakter!',
-                'nik.unique' => 'NIK sudah terdaftar!',
-                'tempat_lahir.required' => 'Tempat lahir wajib di isi!',
-                'tanggal_lahir.required' => 'Tanggal lahir wajib di isi!',
-                'jenis_kelamin.required' => 'Jenis kelamin wajib di isi!',
-                'agama.required' => 'Agama wajib di isi!',
-                'email.required' => 'Email wajib di isi!',
-                'email.email' => 'Gunakan format email yang benar!',
-                'email.unique' => 'Email sudah terdaftar!',
-                'nohp.required' => 'No.HP wajib di isi!',
-                'pas_foto.required' => 'Pas foto wajib di isi!',
-                'pas_foto.image' => 'Pas foto wajib image!',
-                'pas_foto.mimes' => 'Format foto harus .jpg/.jpeg/.png!',
-                'pas_foto.max' => 'Maksimal foto 2048 Kb!',
-            ]);
-            if ($this->pas_foto) {
-                $this->filename = $this->nim . '.' . $this->pas_foto->getClientOriginalExtension();
-                $this->pas_foto->storeAs('public/pas_foto', $this->filename);
-                $this->pas_foto = $this->filename;
-            }
+        if ($this->currentStep == 1) {
+                $this->validate([
+                    'nik' => 'required|string|max:16|unique:mahasiswa,nik',
+                    'tempat_lahir' => 'required|string',
+                    'tanggal_lahir' => 'required|date',
+                    'jenis_kelamin' => 'required|string',
+                    'agama' => 'required|string',
+                    'email' => 'required|email|unique:mahasiswa,email',
+                    'nohp' => 'required|string',
+                    'pas_foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                ], [
+                    'nik.max' => 'NIK maksimal 16 karakter!',
+                    'nik.unique' => 'NIK sudah terdaftar!',
+                    'tempat_lahir.required' => 'Tempat lahir wajib di isi!',
+                    'tanggal_lahir.required' => 'Tanggal lahir wajib di isi!',
+                    'jenis_kelamin.required' => 'Jenis kelamin wajib di isi!',
+                    'agama.required' => 'Agama wajib di isi!',
+                    'email.required' => 'Email wajib di isi!',
+                    'email.email' => 'Gunakan format email yang benar!',
+                    'email.unique' => 'Email sudah terdaftar!',
+                    'nohp.required' => 'No.HP wajib di isi!',
+                    'pas_foto.required' => 'Pas foto wajib di isi!',
+                    'pas_foto.image' => 'Pas foto wajib image!',
+                    'pas_foto.mimes' => 'Format foto harus .jpg/.jpeg/.png!',
+                    'pas_foto.max' => 'Maksimal foto 2048 Kb!',
+                ]);
+                // if ($this->pas_foto) {
+                //     $this->filename = $this->nim . '.' . $this->pas_foto->getClientOriginalExtension();
+                //     $this->pas_foto->storeAs('public/pas_foto', $this->filename);
+                //     $this->pas_foto = $this->filename;
+                // }  
+                if (is_string($this->pas_foto)) {
+                    $this->filename = $this->nim . '.' . pathinfo($this->pas_foto, PATHINFO_EXTENSION);
+                } elseif ($this->pas_foto instanceof \Illuminate\Http\UploadedFile) {
+                    $this->filename = $this->nim . '.' . $this->pas_foto->getClientOriginalExtension();
+                    $this->pas_foto->storeAs('public/pas_foto', $this->filename);
+                }                         
         }
         elseif($this->currentStep == 2){
             $this->validate([
