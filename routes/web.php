@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminAgamaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\WilayahController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\AdminDataMahasiswaController;
 use App\Http\Controllers\AdminExportDataController;
 use App\Http\Controllers\MahasiswaCetakKartuController;
 use App\Http\Controllers\AdminJurusanController;
+use App\Http\Controllers\AdminTahunAngkatanController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\KalenderController;
 
@@ -31,21 +33,20 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('prodi', AdminProdiController::class);
         Route::resource('jurusan', AdminJurusanController::class);
         Route::resource('data-mahasiswa', AdminDataMahasiswaController::class);
-        Route::get('/exportdata/exportexcel', [AdminExportDataController::class, 'exportexcel'])->name('exportdata.exportexcel');
+        Route::post('/exportdata/exportexcel', [AdminExportDataController::class, 'exportexcel'])->name('exportdata.exportexcel');
+        Route::resource('tahunangkatan', AdminTahunAngkatanController::class);
+        Route::resource('agama', AdminAgamaController::class);
     });
     Route::middleware('CekUserLogin:2')->group(function () {
         Route::get('kartu-ktm', [MahasiswaCetakKartuController::class, 'index'])->name('kartu-ktm');
         Route::get('home', [MahasiswaDashboardController::class, 'index'])->name('home');
         Route::get('akun', [MahasiswaAkunController::class, 'index'])->name('akun.index');
         Route::post('akun/gantiPassword', [MahasiswaAkunController::class, 'changePassword'])->name('akun.gantiPassword');
-
-        // Multi-step-form
         Route::view('/isi-data', 'mahasiswa.data-diri.isi_data')->name('isi-data');
-
         Route::get('/mahasiswa/{nim}', [MahasiswaDetailController::class, 'detail'])->name('mahasiswa.detail');
         Route::put('mahasiswa/update/{nim}', [MahasiswaDetailController::class, 'update'])->name('mahasiswa.update');
-        Route::get('print-id/{mahasiswa}', [PDFController::class, 'printId'])->name('print-id');
     });
+    Route::get('print-id/{mahasiswa}', [PDFController::class, 'printId'])->name('print-id');
     Route::resource('kalender', KalenderController::class);
     Route::post('getprovinsi', [WilayahController::class, 'getprovinsi'])->name('getprovinsi');
     Route::post('getkabupaten', [WilayahController::class, 'getkabupaten'])->name('getkabupaten');

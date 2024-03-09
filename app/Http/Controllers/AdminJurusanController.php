@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Jurusan;
 use App\Models\Prodi;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class AdminJurusanController extends Controller
 {
@@ -22,11 +23,15 @@ class AdminJurusanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'id_jurusan' => 'required|unique:jurusan,id_jurusan',
             'nama_jurusan' => 'required',
         ],[
+            'id_jurusan.required' => 'Kode tidak boleh kosong!',
+            'id_jurusan.unique' => 'Kode sudah digunakan, pakai yang lain!',
             'nama_jurusan.required' => 'Nama Jurusan tidak boleh kosong!',
         ]);
         $jurusan = new Jurusan;
+        $jurusan->id_jurusan =  $request->input('id_jurusan');
         $jurusan->nama_jurusan =  $request->input('nama_jurusan');
         $jurusan->save();
         return redirect()->route('jurusan.index')->with('success', 'jurusan berhasil ditambahkan');
@@ -34,23 +39,27 @@ class AdminJurusanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'id_jurusan' => [
+                'required',
+                Rule::unique('jurusan')->ignore($id, 'id_jurusan')
+            ],
             'nama_jurusan' => 'required',
         ], [
+            'id_jurusan.required' => 'Kode tidak boleh kosong!',
             'nama_jurusan.required' => 'Nama Jurusan wajib diisi!',
         ]);
 
         $jurusan = Jurusan::find($id);
+        $jurusan->id_jurusan =  $request->input('id_jurusan');
         $jurusan->nama_jurusan =  $request->input('nama_jurusan');
         $jurusan->save();
         return redirect()->route('jurusan.index')->with('success', 'jurusan berhasil diupdate');
     }
     public function destroy($id)
     {
-        $idjurusan = DB::table('prodi')
-            ->where('jurusan_id', $id)
-            ->value('jurusan_id');
-        if ($idjurusan == NULL){
-            $jurusan = jurusan::find($id);
+        $prodi = Prodi::where('jurusan_id', $id)->first();
+        if (!$prodi){
+            $jurusan = Jurusan::find($id);
             $jurusan->delete();
             return redirect()->route('jurusan.index')->with('success', 'Jurusan berhasil dihapus.');
         }else{

@@ -12,18 +12,16 @@
                     <table id="example" class="display text-dark" style="min-width: 845px">
                         <thead>
                             <tr class="text-center">
-                            <th>#</th>
                             <th>Kode Prodi</th>
                             <th>Nama Prodi</th>
-                            <th>Nama Jurusan</th>
                             <th>Jenjang</th>
+                            <th>Nama Jurusan</th>
                             <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($prodi as $p)
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $p->id_prodi }}</td>
                                 <td>{{ $p->nama_prodi }}</td>
                                 <td>{{ $p->jenjang }}</td>
@@ -91,7 +89,7 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="jenjang" >Jurusan</label>
+                        <label class="required-label faded-label" for="jenjang" >Jenjang</label>
                         <select class="form-control" name="jenjang" id="jenjang">
                             <option value="">Pilih Jenjang</option>
                             <option value="D3">D3</option>

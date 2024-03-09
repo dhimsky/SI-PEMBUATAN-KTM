@@ -58,7 +58,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah jurusan</h5>
+                <h5 class="modal-title">Tambah Acara</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
@@ -84,7 +84,7 @@
                     @enderror
                 </div>
                 <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="prodi" style="font-style: italic;">Jurusan</label>
+                    <label class="required-label faded-label" for="prodi" style="font-style: italic;">Prodi</label>
                     <select class="form-control" name="prodi" id="prodi">
                         <option value="">Pilih Prodi</option>
                         @foreach ($prodi as $prodi)
@@ -130,7 +130,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah jurusan</h5>
+                <h5 class="modal-title">Edit Acara</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>

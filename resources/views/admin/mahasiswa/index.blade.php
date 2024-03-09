@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <div class="col-md-12 text-right mb-3">
-                    <a href="{{ route('exportdata.exportexcel') }}" class="btn btn-whatsapp" title="Export ke Excel">
+                    <a href="" data-toggle="modal" data-target=".modalExport" class="btn btn-whatsapp" title="Export ke Excel">
                     <i class="fa fa-file-excel-o"></i></a>
                 </div>
                 <div class="table-responsive">
@@ -41,6 +41,9 @@
                             <td>{{ $m->nama_lengkap }}</td>
                             <td>{{ $m->jenis_kelamin }}</td>
                             <td>
+                                <a href="{{route('print-id', $m->nim)}}" target="_blank"
+                                    class="btn btn-warning">
+                                <i class="fa fa-print"></i></a>
                                 <a href="" class="btn btn-info" data-toggle="modal" data-target="#detailMahasiswa{{ $m->nim }}" title="Lihat detail">
                                     <i class="fa fa-info"></i>
                                 </a>
@@ -102,7 +105,7 @@
                             <img src="{{ asset('storage/pas_foto/' . $m->pas_foto) }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded">
                         </a>
                         @else
-                        <p>Foto tidak tersedia</p>
+                        <img src="{{ asset('/images/profile.jpeg') }}" alt="" class="img-fluid img-3x4 rounded">
                         @endif
                     </div>                    
                     <div class="col-md-8">
@@ -150,7 +153,7 @@
                 <div class="form-group row mb-2">
                     <label for="agama" class="col-sm-5 col-form-label faded-label" >Agama</label>
                     <div class="col-sm-7 text-dark">
-                        : {{ $m->agama }}
+                        : {{ $m->agama->nama_agama }}
                     </div>
                 </div>
                 <div class="form-group row mb-2">
@@ -334,6 +337,12 @@
                     </div>
                 </div>
                 <div class="form-group row mb-2">
+                    <label for="tahun_angkatan" class="col-sm-5 col-form-label faded-label" >Tahun Angkatan</label>
+                    <div class="col-sm-7 text-dark">
+                        : {{ $m->angkatan->tahun_angkatan }}
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
                     <label for="jenis_tinggal_di_cilacap" class="col-sm-5 col-form-label faded-label" >Jenis Tinggal di Cilacap</label>
                     <div class="col-sm-7 text-dark">
                         : {{ $m->jenis_tinggal_di_cilacap }}
@@ -357,14 +366,12 @@
                         : {{ $m->penerima_kartu_prasejahtera }}
                     </div>
                 </div>
-            
                 <div class="form-group row mb-2">
                     <label for="jumlah_tanggungan_keluarga_yang_masih_sekolah" class="col-sm-5 col-form-label faded-label" >Jumlah Tanggungan Keluarga yang Masih Sekolah</label>
                     <div class="col-sm-7 text-dark">
                         : {{ $m->jumlah_tanggungan_keluarga_yang_masih_sekolah }}
                     </div>
                 </div>
-            
                 <div class="form-group row mb-2">
                     <label for="anak_ke" class="col-sm-5 col-form-label faded-label" >Anak Ke</label>
                     <div class="col-sm-7 text-dark">
@@ -397,12 +404,13 @@
                         <div class="col-md-4">
                             @if ($m->pas_foto)
                             <a href="{{ asset('storage/pas_foto/' . $m->pas_foto) }}" target="_blank">
-                                <img src="{{ asset('storage/pas_foto/' . $m->pas_foto) }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded">
+                                <img id="previewImg" src="{{ asset('storage/pas_foto/' . $m->pas_foto) }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded">
                             </a>
                             @else
-                            <img src="{{ asset('/images/profile.jpeg') }}" alt="Foto Kosong" class="img-fluid img-3x4 rounded">
+                            <img src="{{ asset('/images/profile.jpeg') }}" alt="" class="img-fluid img-3x4 rounded">
+                            {{-- <p>Foto tidak tersedia</p> --}}
                             @endif
-                        </div>                    
+                        </div>
                         <div class="col-md-8">
                             <div class="form-group row mb-2">
                                 <label for="nim" class="col-sm-5 col-form-label faded-label required-label" >NIM</label>
@@ -492,22 +500,18 @@
                         </div>
                     </div>
                     <div class="form-group row mb-2">
-                        <label for="agama" class="col-sm-5 col-form-label faded-label required-label" >Agama</label>
+                        <label for="agama_id" class="col-sm-5 col-form-label faded-label required-label" >Agama</label>
                         <div class="col-sm-7">
-                            <select class="form-control @error('agama') is-invalid @enderror" id="agama" name="agama">
-                                <option value="Islam" {{ $m->agama === 'Islam' ? 'selected' : '' }}>Islam</option>
-                                <option value="Protestan" {{ $m->agama === 'Protestan' ? 'selected' : '' }}>Protestan</option>
-                                <option value="Katolik" {{ $m->agama === 'Katolik' ? 'selected' : '' }}>Katolik</option>
-                                <option value="Hindu" {{ $m->agama === 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                <option value="Buddha" {{ $m->agama === 'Buddha' ? 'selected' : '' }}>Buddha</option>
-                                <option value="Khonghucu" {{ $m->agama === 'Khonghucu' ? 'selected' : '' }}>Khonghucu</option>
-                                <option value="Lainnya" {{ $m->agama === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
-                            </select>
-                            @error('agama')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                            <select class="form-control @error('agama_id') is-invalid @enderror" id="agama_id" name="agama_id" for="agama_id">
+                                @foreach ($agama as $a)
+                                    <option value="{{ $a->id_agama }}" {{ $a->id_agama === $m->agama_id ? 'selected' : '' }}>{{ $a->nama_agama }}</option>
+                                @endforeach
+                            </select>          
+                            @error('agama_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         </div>
                     </div>
                     <div class="form-group row mb-2">
@@ -845,9 +849,8 @@
                         <label for="prodi_id" class="col-sm-5 col-form-label faded-label required-label" >Program Studi</label>
                         <div class="col-sm-7">
                             <select class="form-control @error('prodi_id') is-invalid @enderror" id="prodi_id" name="prodi_id" for="prodi_id">
-                                <option value="{{ $m->prodi_id }}">{{ $m->prodi->nama_prodi }}</option>
                                 @foreach ($prodi as $programStudi)
-                                    <option value="{{ $programStudi->id_prodi }}" >{{ $programStudi->nama_prodi }}</option>
+                                    <option value="{{ $programStudi->id_prodi }}" {{ $programStudi->id_prodi === $m->prodi_id ? 'selected' : '' }}>{{ $programStudi->nama_prodi }}</option>
                                 @endforeach
                             </select>          
                             @error('prodi_id')
@@ -866,6 +869,21 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="angkatan_id" class="col-sm-5 col-form-label faded-label required-label" >Tahun Angkatan</label>
+                        <div class="col-sm-7">
+                            <select class="form-control @error('angkatan_id') is-invalid @enderror" id="angkatan_id" name="angkatan_id" for="angkatan_id">
+                                @foreach ($angkatan as $ta)
+                                    <option value="{{ $ta->id_angkatan }}" {{ $ta->id_angkatan === $m->angkatan_id ? 'selected' : '' }}>{{ $ta->tahun_angkatan }}</option>
+                                @endforeach
+                            </select>          
+                            @error('angkatan_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         </div>
                     </div>
                     <div class="form-group row mb-2">
@@ -966,6 +984,44 @@
 </div>
 @endforeach
 
+<div class="modal fade modalExport" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Export Data</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+            <form action="{{ route('exportdata.exportexcel') }}" method="post">
+                @csrf
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="prodi_id" >Pilih Prodi</label>
+                    <select class="form-control" name="prodi_id" id="prodi_id">
+                        <option value="">Semua Prodi</option>
+                        @foreach ($prodi as $programStudi)
+                            <option value="{{ $programStudi->id_prodi }}">{{ $programStudi->nama_prodi }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="tahun_angkatan" >Pilih Angkatan</label>
+                    <select class="form-control" name="tahun_angkatan" id="tahun_angkatan">
+                        <option value="">Semua Angkatan</option>
+                        @foreach ($angkatan as $a)
+                            <option value="{{ $a->id_angkatan }}">{{ $a->tahun_angkatan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Export Excel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <style>
     .img-3x4 {
     width: 100%;
@@ -977,22 +1033,21 @@
 </style>
 
 <script>
-    function updateLabel(input) {
-        var labelUploaded = document.getElementById('uploaded-foto-label');
-        var labelUpload = document.getElementById('upload-foto-label');
+    const inputFoto = document.getElementById('input_pas_foto');
+    const labelFoto = document.getElementById('label_pas_foto');
+    const previewImg = document.getElementById('previewImg');
 
-        if (input.files.length > 0) {
-            labelUploaded.innerHTML = input.files[0].name;
-            labelUploaded.style.display = 'block';
+    inputFoto.addEventListener('change', function() {
+        const fileName = inputFoto.files[0].name;
+        labelFoto.innerHTML = fileName;
+        const file = inputFoto.files[0];
+        const reader = new FileReader();
 
-            labelUpload.style.display = 'none';
-        } else {
-            labelUploaded.style.display = 'none';
-
-            labelUpload.style.display = 'block';
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
         }
-    }
+
+        reader.readAsDataURL(file);
+    });
 </script>
-
 @endsection
-

@@ -17,6 +17,8 @@
           <ul aria-expanded="false">
             <li><a href="{{route('jurusan.index')}}">Jurusan</a></li>
             <li><a href="{{route('prodi.index')}}">Prodi</a></li>
+            <li><a href="{{route('tahunangkatan.index')}}">Tahun Angkatan</a></li>
+            <li><a href="{{route('agama.index')}}">Agama</a></li>
           </ul>
         </li>
         <li><a href="{{ route('data-mahasiswa.index') }}" aria-expanded="false"><i

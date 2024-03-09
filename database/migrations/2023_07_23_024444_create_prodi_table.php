@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('prodi', function (Blueprint $table) {
             $table->string('id_prodi')->primary()->unique();
-            $table->bigInteger('jurusan_id')->unsigned();
+            $table->string('jurusan_id');
             $table->string('jenjang');
             $table->string('nama_prodi');
             $table->timestamps();

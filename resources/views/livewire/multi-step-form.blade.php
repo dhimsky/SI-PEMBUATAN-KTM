@@ -69,18 +69,14 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="required-label faded-label" for="agama" style="font-style: italic;">Agama</label>
-                        <select name="agama" class="form-control @error('agama') is-invalid @enderror" wire:model="agama">
+                        <label class="required-label faded-label" for="agama_id" style="font-style: italic;">Agama</label>
+                        <select class="form-control @error('agama_id') is-invalid @enderror" aria-label="Default select example" for="agama_id" name="agama_id" id="agama_id" wire:model="agama_id">
                             <option selected value="" style="font-style: italic;">-- Pilih Agama --</option>
-                            <option value="Islam" @if(old('agama') == 'Islam') selected @endif>Islam</option>
-                            <option value="Protestan" @if(old('agama') == 'Protestan') selected @endif>Protestan</option>
-                            <option value="Katolik" @if(old('agama') == 'Katolik') selected @endif>Katolik</option>
-                            <option value="Hindu" @if(old('agama') == 'Hindu') selected @endif>Hindu</option>
-                            <option value="Buddha" @if(old('agama') == 'Buddha') selected @endif>Buddha</option>
-                            <option value="Khonghucu" @if(old('agama') == 'Khonghucu') selected @endif>Khonghucu</option>
-                            <option value="Lainnya" @if(old('agama') == 'Lainnya') selected @endif>Lainnya</option>
-                        </select>
-                        @error('agama')
+                            @foreach ($agama as $a)
+                                <option value="{{ $a->id_agama }}">{{ $a->nama_agama }}</option>
+                            @endforeach
+                        </select>  
+                        @error('agama_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -463,11 +459,11 @@
                 <div class="row text-dark">
                     <div class="form-group col-md-3 mb-3">
                         <label class="required-label faded-label" for="prodi_id" style="font-style: italic;">Program Studi</label>
-                        <select class="form-control @error('prodi_id') is-invalid @enderror" aria-label="Default select example" for="prodi_id" name="prodi_id" id="prodi_id" wire:model="prodi_id">
-                            <option selected value="" style="font-style: italic;">-- Pilih Prodi --</option>
-                            @foreach ($prodi as $p)
-                                <option value="{{ $p->id_prodi }}">{{ $p->nama_prodi }}</option>
-                            @endforeach
+                            <select class="form-control @error('prodi_id') is-invalid @enderror" aria-label="Default select example" for="prodi_id" name="prodi_id" id="prodi_id" wire:model="prodi_id">
+                                <option selected value="" style="font-style: italic;">-- Pilih Prodi --</option>
+                                @foreach ($prodi as $p)
+                                    <option value="{{ $p->id_prodi }}">{{ $p->nama_prodi }}</option>
+                                @endforeach
                             </select>                               
                         @error('prodi_id')
                             <span class="invalid-feedback" role="alert">
@@ -479,6 +475,20 @@
                         <label class="required-label faded-label" for="ukt" style="font-style: italic;">Uang Kuliah Tunggal</label>
                         <input type="number" name="ukt" class="form-control @error('ukt') is-invalid @enderror" value="{{ old('ukt') }}" wire:model="ukt">
                         @error('ukt')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3 mb-3">
+                        <label class="required-label faded-label" for="angkatan_id" style="font-style: italic;">Tahun Angkatan</label>
+                            <select class="form-control @error('angkatan_id') is-invalid @enderror" aria-label="Default select example" for="angkatan_id" name="angkatan_id" id="angkatan_id" wire:model="angkatan_id">
+                                <option selected value="" style="font-style: italic;">-- Pilih Tahun Angkatan --</option>
+                                @foreach ($angkatan as $ta)
+                                    <option value="{{ $ta->id_angkatan }}">{{ $ta->tahun_angkatan }}</option>
+                                @endforeach
+                            </select>                               
+                        @error('angkatan_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

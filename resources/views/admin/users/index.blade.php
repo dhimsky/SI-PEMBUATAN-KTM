@@ -82,8 +82,8 @@
                 @enderror
               </div>
               <div class="form-group mb-3">
-                <label class="required-label faded-label" for="username" >Username</label>
-                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Masukan username">
+                <label class="required-label faded-label" for="username" >Nama Lengkap</label>
+                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Masukan nama lengkap">
                 @error('username')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
               </div>
               <div class="form-group mb-3">
                 <label class="required-label faded-label" for="password" >Password</label>
-                <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan password">
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan password">
                 @error('password')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -145,8 +145,8 @@
                       @enderror
                     </div>
                     <div class="form-group mb-3">
-                      <label class="required-label faded-label" for="username" >Username</label>
-                      <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{$u->username}}" placeholder="Masukan username">
+                      <label class="required-label faded-label" for="username" >Nama Lengkap</label>
+                      <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{$u->username}}" placeholder="Masukan nama lengkap">
                       @error('username')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

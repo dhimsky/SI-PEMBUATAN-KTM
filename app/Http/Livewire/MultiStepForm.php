@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Agama;
 use App\Models\Mahasiswa;
 use App\Models\Prodi;
+use App\Models\TahunAngkatan;
 use App\Models\Wilayah;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +21,7 @@ class MultiStepForm extends Component
     public $tempat_lahir;
     public $tanggal_lahir;
     public $jenis_kelamin;
-    public $agama;
+    public $agama_id;
     public $email;
     public $nohp;
     public $pas_foto;
@@ -51,6 +53,7 @@ class MultiStepForm extends Component
     public $pengalaman_organisasi;
     public $prodi_id;
     public $ukt;
+    public $angkatan_id;
     public $jenis_tinggal_di_cilacap;
     public $alat_transportasi_ke_kampus;
     public $sumber_biaya_kuliah;
@@ -84,8 +87,10 @@ class MultiStepForm extends Component
             Wilayah::where('kode', 'like', $this->selectedKecamatan . '_____')->get() : [];
 
         $prodi = Prodi::all();
+        $agama = Agama::all();
+        $angkatan = TahunAngkatan::all();
         
-        return view('livewire.multi-step-form', compact('prodi'));
+        return view('livewire.multi-step-form', compact('prodi','agama','angkatan'));
     }
 
     public function increaseStep(){
@@ -117,7 +122,7 @@ class MultiStepForm extends Component
                     'tempat_lahir' => 'required|string',
                     'tanggal_lahir' => 'required|date',
                     'jenis_kelamin' => 'required|string',
-                    'agama' => 'required|string',
+                    'agama_id' => 'required|string',
                     'email' => 'required|email|unique:mahasiswa,email',
                     'nohp' => 'required|string',
                     'pas_foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
@@ -127,7 +132,7 @@ class MultiStepForm extends Component
                     'tempat_lahir.required' => 'Tempat lahir wajib di isi!',
                     'tanggal_lahir.required' => 'Tanggal lahir wajib di isi!',
                     'jenis_kelamin.required' => 'Jenis kelamin wajib di isi!',
-                    'agama.required' => 'Agama wajib di isi!',
+                    'agama_id.required' => 'Agama wajib di isi!',
                     'email.required' => 'Email wajib di isi!',
                     'email.email' => 'Gunakan format email yang benar!',
                     'email.unique' => 'Email sudah terdaftar!',
@@ -206,6 +211,7 @@ class MultiStepForm extends Component
             $this->validate([
                 'prodi_id' => 'required|string',
                 'ukt' => 'required|string',
+                'angkatan_id' => 'required|string',
                 'jenis_tinggal_di_cilacap' => 'required|string',
                 'alat_transportasi_ke_kampus' => 'required|string',
                 'sumber_biaya_kuliah' => 'nullable|string',
@@ -213,6 +219,7 @@ class MultiStepForm extends Component
             ],[
                 'prodi_id.required' => 'Prodi wajib di isi!',
                 'ukt.required' => 'UKT wajib di isi!',
+                'angkatan_id.required' => 'Tahun Angkatan wajib di isi!',
                 'jenis_tinggal_di_cilacap.required' => 'Tempat tinggal wajib di isi!',
                 'alat_transportasi_ke_kampus.required' => 'Transportasi wajib di isi',
                 'penerima_kartu_prasejahtera.required' => 'Penerima kartu wajib di isi!',
@@ -238,7 +245,7 @@ class MultiStepForm extends Component
                 'anak_ke' => 'required|integer',
             ],[
                 'jumlah_tanggungan_keluarga_yang_masih_sekolah.required' => 'Jumlah tanggungan wajib di isi!',
-            'anak_ke.required' => 'Anak ke berapa wajib di isi!',
+                'anak_ke.required' => 'Anak ke berapa wajib di isi!',
             ]);
         }
 
@@ -249,7 +256,7 @@ class MultiStepForm extends Component
         $mahasiswa->tempat_lahir = $this->tempat_lahir;
         $mahasiswa->tanggal_lahir = $this->tanggal_lahir;
         $mahasiswa->jenis_kelamin = $this->jenis_kelamin;
-        $mahasiswa->agama = $this->agama;
+        $mahasiswa->agama_id = $this->agama_id;
         $mahasiswa->email = $this->email;
         $mahasiswa->nohp = $this->nohp;
         $mahasiswa->pas_foto = $this->filename;
@@ -281,6 +288,7 @@ class MultiStepForm extends Component
         $mahasiswa->pengalaman_organisasi = $this->pengalaman_organisasi;
         $mahasiswa->prodi_id = $this->prodi_id;
         $mahasiswa->ukt = $this->ukt;
+        $mahasiswa->angkatan_id = $this->angkatan_id;
         $mahasiswa->jenis_tinggal_di_cilacap = $this->jenis_tinggal_di_cilacap;
         $mahasiswa->alat_transportasi_ke_kampus = $this->alat_transportasi_ke_kampus;
         $mahasiswa->sumber_biaya_kuliah = $this->sumber_biaya_kuliah;

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('jenis_kelamin');
-            $table->string('agama');
+            $table->string('agama_id');
             $table->string('email')->unique();
             $table->string('nohp');
             $table->string('pas_foto')->nullable();
@@ -63,6 +63,7 @@ return new class extends Migration
             // Data Kuliah
             $table->string('prodi_id');
             $table->string('ukt');
+            $table->string('angkatan_id');
             $table->string('jenis_tinggal_di_cilacap');
             $table->string('alat_transportasi_ke_kampus');
             $table->string('sumber_biaya_kuliah')->nullable();
@@ -75,8 +76,14 @@ return new class extends Migration
             // Foreign key to users table
             $table->foreign('nim')->references('nim')->on('users')->onDelete('cascade');
 
+            //Foreign Agama
+            $table->foreign('agama_id')->references('id_agama')->on('agama')->onDelete('cascade');
+
             // Foreign key to prodi table
             $table->foreign('prodi_id')->references('id_prodi')->on('prodi')->onDelete('cascade');
+
+            //Foreign Angkatan
+            $table->foreign('angkatan_id')->references('id_angkatan')->on('tahunangkatan')->onDelete('cascade');
 
             // Timestamps
             $table->timestamps();

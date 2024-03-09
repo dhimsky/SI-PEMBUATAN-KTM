@@ -17,7 +17,7 @@ class Mahasiswa extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'jenis_kelamin',
-        'agama',
+        'agama_id',
         'email',
         'nohp',
         'pas_foto',
@@ -49,6 +49,7 @@ class Mahasiswa extends Model
         'pengalaman_organisasi',
         'prodi_id',
         'ukt',
+        'id_angkatan',
         'jenis_tinggal_di_cilacap',
         'alat_transportasi_ke_kampus',
         'sumber_biaya_kuliah',
@@ -65,5 +66,13 @@ class Mahasiswa extends Model
     public function prodi()
     {
         return $this->belongsTo(Prodi::class, 'prodi_id', 'id_prodi');
+    }
+    public function agama()
+    {
+        return $this->belongsTo(Agama::class, 'agama_id', 'id_agama');
+    }
+    public function angkatan()
+    {
+        return $this->belongsTo(TahunAngkatan::class, 'angkatan_id', 'id_angkatan');
     }
 }

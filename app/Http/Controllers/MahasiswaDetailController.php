@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agama;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Prodi;
+use App\Models\TahunAngkatan;
 use App\Models\Wilayah;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +17,8 @@ class MahasiswaDetailController extends Controller
     public function detail($nim)
     {
         $prodi = Prodi::all();
+        $agama = Agama::all();
+        $angkatan = TahunAngkatan::all();
         $mahasiswa = Mahasiswa::where('nim', $nim)->first();
 
         if (!$mahasiswa) {
@@ -53,7 +57,7 @@ class MahasiswaDetailController extends Controller
                 ->orderBy('nama', 'asc')
                 ->WhereRaw('LENGTH(kode) = 2')
                 ->get();
-        return view('mahasiswa.isi_data.detail', compact('ds','kec','kab','prov','mahasiswa','prodi','provinsi'));
+        return view('mahasiswa.isi_data.detail', compact('agama','angkatan','ds','kec','kab','prov','mahasiswa','prodi','provinsi'));
     }
     public function update(Request $request, $id)
     {
@@ -62,7 +66,7 @@ class MahasiswaDetailController extends Controller
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string',
-            'agama' => 'required|string',
+            'agama_id' => 'required|string',
             'email' => 'required|email',
             'nohp' => 'required|string',
             'pas_foto' => 'image|mimes:jpeg,png,jpg|max:2048',
@@ -94,6 +98,7 @@ class MahasiswaDetailController extends Controller
             'pengalaman_organisasi' => 'nullable|string',
             'prodi_id' => 'required|string',
             'ukt' => 'required|string',
+            'angkatan_id' => 'required|string',
             'jenis_tinggal_di_cilacap' => 'required|string',
             'alat_transportasi_ke_kampus' => 'required|string',
             'sumber_biaya_kuliah' => 'nullable|string',
@@ -106,7 +111,7 @@ class MahasiswaDetailController extends Controller
             'tempat_lahir.required' => 'Tempat lahir wajib di isi!',
             'tanggal_lahir.required' => 'Tanggal lahir wajib di isi!',
             'jenis_kelamin.required' => 'Jenis kelamin wajib di isi!',
-            'agama.required' => 'Agama wajib di isi!',
+            'agama_id.required' => 'Agama wajib di isi!',
             'email.required' => 'Email wajib di isi!',
             'email.email' => 'Gunakan format email!',
             'nohp.required' => 'No.HP wajib di isi!',
@@ -130,6 +135,7 @@ class MahasiswaDetailController extends Controller
             'jurusan_asal_sekolah.required' => 'Jurusan wajib di isi!',
             'prodi_id.required' => 'Program studi wajib di isi!',
             'ukt.required' => 'UKT wajib di isi!',
+            'angkatan_id.required' => 'Tahun Angkatan wajib di isi!',
             'jenis_tinggal_di_cilacap.required' => 'Jenis tinggal wajib di isi!',
             'alat_transportasi_ke_kampus.required' => 'Alat transportasi wajib di isi!',
             'penerima_kartu_prasejahtera.required' => 'Penerima kartu prasejahtera wajib di isi!',
@@ -147,7 +153,7 @@ class MahasiswaDetailController extends Controller
         $mahasiswa->tempat_lahir = $request->input('tempat_lahir');
         $mahasiswa->tanggal_lahir = $request->input('tanggal_lahir');
         $mahasiswa->jenis_kelamin = $request->input('jenis_kelamin');
-        $mahasiswa->agama = $request->input('agama');
+        $mahasiswa->agama_id = $request->input('agama_id');
         $mahasiswa->email = $request->input('email');
         $mahasiswa->nohp = $request->input('nohp');
         $mahasiswa->provinsi = $request->input('provinsi');
@@ -178,6 +184,7 @@ class MahasiswaDetailController extends Controller
         $mahasiswa->pengalaman_organisasi = $request->input('pengalaman_organisasi');
         $mahasiswa->prodi_id = $request->input('prodi_id');
         $mahasiswa->ukt = $request->input('ukt');
+        $mahasiswa->angkatan_id = $request->input('angkatan_id');
         $mahasiswa->jenis_tinggal_di_cilacap = $request->input('jenis_tinggal_di_cilacap');
         $mahasiswa->alat_transportasi_ke_kampus = $request->input('alat_transportasi_ke_kampus');
         $mahasiswa->sumber_biaya_kuliah = $request->input('sumber_biaya_kuliah');

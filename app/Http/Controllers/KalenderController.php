@@ -40,7 +40,7 @@ class KalenderController extends Controller
             }
         }
 
-        $title = 'Hapus Prodi!';
+        $title = 'Hapus Acara!';
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
         

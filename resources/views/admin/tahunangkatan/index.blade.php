@@ -1,31 +1,31 @@
 @extends('layouts.main-layout')
-@section('tittle', 'Jurusan')
+@section('tittle', 'Tahun Angkatan')
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Tabel Jurusan</h4>
+                <h4 class="card-title">Tabel Tahun Angkatan</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                 <table id="example" class="display text-dark" style="min-width: 845px">
                     <thead>
                         <tr class="text-center">
-                        <th>Kode Jurusan</th>
-                        <th>Nama Jurusan</th>
+                        <th>Kode Angkatan</th>
+                        <th>Tahun Angkatan</th>
                         <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($jurusan as $p)
+                        @foreach ($tahunangkatan as $t)
                         <tr class="text-center">
-                            <td>{{ $p->id_jurusan }}</td>
-                            <td>{{ $p->nama_jurusan }}</td>
+                            <td>{{ $t->id_angkatan }}</td>
+                            <td>{{ $t->tahun_angkatan }}</td>
                             <td>
-                                <a href="" class="fa fa-pencil btn btn-warning" data-toggle="modal" data-target=".editJurusan{{ $p->id_jurusan }}" title="Edit jurusan">
+                                <a href="" class="fa fa-pencil btn btn-warning" data-toggle="modal" data-target=".editAngkatan{{ $t->id_angkatan }}" title="Edit tahunangkatan">
                                 </a>
-                                <a href="{{ route('jurusan.destroy', $p->id_jurusan) }}" class="fa fa-trash btn btn-danger" data-confirm-delete="true" title="Hapus jurusan">
+                                <a href="{{ route('tahunangkatan.destroy', $t->id_angkatan) }}" class="fa fa-trash btn btn-danger" data-confirm-delete="true" title="Hapus tahunangkatan">
                                 </a>
                             </td>
                         </tr>
@@ -38,23 +38,23 @@
     </div>
 </div>
 
-<button class="fa fa-plus wa_btn whatsapp" data-toggle="modal" data-target=".tambahJurusan" title="Tambah jurusan"></button>
+<button class="fa fa-plus wa_btn whatsapp" data-toggle="modal" data-target=".tambahAngkatan" title="Tambah tahun angkatan"></button>
 
-<div class="modal fade tambahJurusan" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade tambahAngkatan" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah jurusan</h5>
+                <h5 class="modal-title">Tambah Tahun Angkatan</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-            <form action="{{ route('jurusan.store') }}" method="POST">
+            <form action="{{ route('tahunangkatan.store') }}" method="POST">
                 @csrf
                 <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="id_jurusan">Kode Jurusan</label>
-                    <input type="text" name="id_jurusan" class="form-control @error('id_jurusan') is-invalid @enderror" value="{{ Session::get('id_jurusan') }}" placeholder="Masukan Kode Jurusan">
-                    @error('id_jurusan')
+                    <label class="required-label faded-label" for="id_angkatan">Kode Angkatan</label>
+                    <input type="text" name="id_angkatan" class="form-control @error('id_angkatan') is-invalid @enderror" value="{{ Session::get('id_angkatan') }}" placeholder="Masukan Kode angkatan">
+                    @error('id_angkatan')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -62,9 +62,9 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="nama_jurusan">Nama jurusan</label>
-                    <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{ Session::get('nama_jurusan') }}" placeholder="Masukan Nama Jurusan">
-                    @error('nama_jurusan')
+                    <label class="required-label faded-label" for="tahun_angkatan">Tahun Angkatan</label>
+                    <input type="text" name="tahun_angkatan" class="form-control @error('tahun_angkatan') is-invalid @enderror" value="{{ Session::get('tahun_angkatan') }}" placeholder="Masukan tahun angkatan">
+                    @error('tahun_angkatan')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -80,32 +80,32 @@
     </div>
 </div>
 
-@foreach ($jurusan as $p)
-<div class="modal fade editJurusan{{ $p->id_jurusan }}" tabindex="-1" role="dialog" aria-hidden="true">
+@foreach ($tahunangkatan as $t)
+<div class="modal fade editAngkatan{{ $t->id_angkatan }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit jurusan</h5>
+                <h5 class="modal-title">Edit Tahun Angkatan</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('jurusan.update', $p->id_jurusan) }}" method="POST">
+                <form action="{{ route('tahunangkatan.update', $t->id_angkatan) }}" method="POST">
                 @csrf
                 @method('PUT')
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="id_jurusan" >Kode Jurusan</label>
-                        <input type="text" name="id_jurusan" class="form-control @error('id_jurusan') is-invalid @enderror" value="{{$p->id_jurusan}}" >
-                        @error('id_jurusan')
+                        <label class="required-label faded-label" for="id_angkatan" >Kode tahunangkatan</label>
+                        <input type="text" name="id_angkatan" class="form-control @error('id_angkatan') is-invalid @enderror" value="{{$t->id_angkatan}}" >
+                        @error('id_angkatan')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="nama_jurusan" >Nama jurusan</label>
-                        <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{$p->nama_jurusan}}" placeholder="Masukan Nama Jurusan">
-                        @error('nama_jurusan')
+                        <label class="required-label faded-label" for="tahun_angkatan" >Tahun Agkatan</label>
+                        <input type="text" name="tahun_angkatan" class="form-control @error('tahun_angkatan') is-invalid @enderror" value="{{$t->tahun_angkatan}}" placeholder="Masukan tahun angkatan">
+                        @error('tahun_angkatan')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                         </span>

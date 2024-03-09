@@ -102,7 +102,7 @@
                     <div class="form-group row mb-2">
                         <label for="agama" class="col-sm-5 col-form-label faded-label" >Agama</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->agama }}
+                            : {{ $mahasiswa->agama->nama_agama }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
@@ -330,6 +330,12 @@
                         </div>
                     </div>
                     <div class="form-group row mb-2">
+                        <label for="angkatan_id" class="col-sm-5 col-form-label faded-label" >Tahun Angkatan</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->angkatan->tahun_angkatan }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
                         <label for="jenis_tinggal_di_cilacap" class="col-sm-5 col-form-label faded-label" >Jenis Tinggal di Cilacap</label>
                         <div class="col-sm-7 text-dark">
                             : {{ $mahasiswa->jenis_tinggal_di_cilacap }}
@@ -390,12 +396,12 @@
                         <div class="col-md-4">
                             @if ($mahasiswa->pas_foto)
                             <a href="{{ asset('storage/pas_foto/' . $mahasiswa->pas_foto) }}" target="_blank">
-                                <img src="{{ asset('storage/pas_foto/' . $mahasiswa->pas_foto) }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded">
+                                <img id="previewImg" src="{{ asset('storage/pas_foto/' . $mahasiswa->pas_foto) }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded">
                             </a>
                             @else
                             <p>Foto tidak tersedia</p>
                             @endif
-                        </div>                    
+                        </div>                  
                         <div class="col-md-8">
                             <div class="form-group row mb-2">
                                 <label for="nim" class="col-sm-5 col-form-label faded-label required-label" >NIM</label>
@@ -483,18 +489,14 @@
                         </div>
                     </div>
                     <div class="form-group row mb-2">
-                        <label for="agama" class="col-sm-5 col-form-label faded-label required-label" >Agama</label>
+                        <label for="agama_id" class="col-sm-5 col-form-label faded-label required-label" >Agama</label>
                         <div class="col-sm-7">
-                            <select name="agama" class="form-control @error('agama') is-invalid @enderror">
-                                <option value="Islam" {{ $mahasiswa->agama === 'Islam' ? 'selected' : '' }}>Islam</option>
-                                <option value="Protestan" {{ $mahasiswa->agama === 'Protestan' ? 'selected' : '' }}>Protestan</option>
-                                <option value="Katolik" {{ $mahasiswa->agama === 'Katolik' ? 'selected' : '' }}>Katolik</option>
-                                <option value="Hindu" {{ $mahasiswa->agama === 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                <option value="Buddha" {{ $mahasiswa->agama === 'Buddha' ? 'selected' : '' }}>Buddha</option>
-                                <option value="Khonghucu" {{ $mahasiswa->agama === 'Khonghucu' ? 'selected' : '' }}>Khonghucu</option>
-                                <option value="Lainnya" {{ $mahasiswa->agama === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
-                            </select>
-                            @error('agama')
+                            <select class="form-control @error('agama_id') is-invalid @enderror" id="agama_id" name="agama_id" for="agama_id">
+                                @foreach ($agama as $a)
+                                    <option value="{{ $a->id_agama }}" {{ $a->id_agama === $a->agama_id ? 'selected' : '' }}>{{ $a->nama_agama }}</option>
+                                @endforeach
+                            </select> 
+                            @error('agama_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -835,14 +837,11 @@
                     <div class="form-group row mb-2">
                         <label for="prodi_id" class="col-sm-5 col-form-label faded-label required-label" >Program Studi</label>
                         <div class="col-sm-7">
-
                             <select class="form-control @error('prodi_id') is-invalid @enderror" id="prodi_id" name="prodi_id" for="prodi_id">
-                                <option value="{{ $mahasiswa->prodi_id }}">{{ $mahasiswa->prodi->nama_prodi }}</option>
                                 @foreach ($prodi as $programStudi)
-                                    <option value="{{ $programStudi->id_prodi }}" >{{ $programStudi->nama_prodi }}</option>
+                                    <option value="{{ $programStudi->id_prodi }}" {{ $programStudi->id_prodi === $programStudi->prodi_id ? 'selected' : '' }}>{{ $programStudi->nama_prodi }}</option>
                                 @endforeach
                             </select>          
-
                             @error('prodi_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -859,6 +858,21 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="angkatan_id" class="col-sm-5 col-form-label faded-label required-label" >Program Studi</label>
+                        <div class="col-sm-7">
+                            <select class="form-control @error('angkatan_id') is-invalid @enderror" id="angkatan_id" name="angkatan_id" for="angkatan_id">
+                                @foreach ($angkatan as $ta)
+                                    <option value="{{ $ta->id_angkatan }}" {{ $ta->id_angkatan === $ta->angkatan_id ? 'selected' : '' }}>{{ $ta->tahun_angkatan }}</option>
+                                @endforeach
+                            </select>          
+                            @error('angkatan_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         </div>
                     </div>
                     <div class="form-group row mb-2">
@@ -970,10 +984,19 @@
 <script>
     const inputFoto = document.getElementById('input_pas_foto');
     const labelFoto = document.getElementById('label_pas_foto');
+    const previewImg = document.getElementById('previewImg');
 
     inputFoto.addEventListener('change', function() {
         const fileName = inputFoto.files[0].name;
         labelFoto.innerHTML = fileName;
+        const file = inputFoto.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
     });
 </script>
 

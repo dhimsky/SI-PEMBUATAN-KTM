@@ -16,13 +16,22 @@ class JurusanSeeder extends Seeder
     public function run()
     {
         $jurusanData = [
-            'Rekayasa Elektro dan Mekatronika',
-            'Komputer dan Bisnis',
-            'Rekayasa Mesin dan Industri Pertanian',
+            [
+                'id_jurusan' => 'REMEK',
+                'nama_jurusan' => 'Rekayasa Elektro dan Mekatronika',
+            ],
+            [
+                'id_jurusan' => 'KOBIS',
+                'nama_jurusan' => 'Komputer dan Bisnis',
+            ],
+            [
+                'id_jurusan' => 'REMIP',
+                'nama_jurusan' => 'Rekayasa Mesin dan Industri Pertanian',
+            ],
         ];
 
         foreach ($jurusanData as $jurusan) {
-            Jurusan::create(['nama_jurusan' => $jurusan]);
+            Jurusan::create($jurusan);
         }
     }
 }

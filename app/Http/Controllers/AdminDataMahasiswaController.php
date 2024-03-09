@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agama;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Prodi;
+use App\Models\TahunAngkatan;
 use Illuminate\Support\Facades\DB;
 
 class AdminDataMahasiswaController extends Controller
@@ -13,7 +15,9 @@ class AdminDataMahasiswaController extends Controller
     public function index()
     {
         $mahasiswa = Mahasiswa::all();
+        $agama = Agama::all();
         $prodi = Prodi::all();
+        $angkatan = TahunAngkatan::all();
 
         $title = 'Hapus Mahasiswa!';
         $text = "Yakin ingin menghapus data ini?";
@@ -55,7 +59,7 @@ class AdminDataMahasiswaController extends Controller
                 ->orderBy('nama', 'asc')
                 ->WhereRaw('LENGTH(kode) = 2')
                 ->get();
-        return view('admin.mahasiswa.index', compact('kodeprovinsi','provinsi','ds','kec','kab','prov','mahasiswa', 'prodi','provinsi','kabupaten','kecamatan'));
+        return view('admin.mahasiswa.index', compact('angkatan','agama','kodeprovinsi','provinsi','ds','kec','kab','prov','mahasiswa', 'prodi','provinsi','kabupaten','kecamatan'));
     }
     public function update(Request $request, $id)
     {
@@ -65,10 +69,10 @@ class AdminDataMahasiswaController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
-            'agama' => 'required',
+            'agama_id' => 'required',
             'email' => 'required|email',
             'nohp' => 'required',
-            'pas_foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'pas_foto' => 'image|mimes:jpeg,png,jpg|max:2048',
             'alamat_jalan' => 'required',
             'rt' => 'required|max:3',
             'rw' => 'required|max:3',
@@ -96,6 +100,7 @@ class AdminDataMahasiswaController extends Controller
             'pengalaman_organisasi' => 'nullable',
             'prodi_id' => 'required',
             'ukt' => 'required',
+            'angkatan_id' => 'required',
             'jenis_tinggal_di_cilacap' => 'required',
             'alat_transportasi_ke_kampus' => 'required',
             'sumber_biaya_kuliah' => 'nullable',
@@ -111,12 +116,11 @@ class AdminDataMahasiswaController extends Controller
             'tanggal_lahir.required' => 'Tanggal lahir tidak boleh kosong!',
             'tanggal_lahir.date' => 'Gunakan format tanggal yang benar!',
             'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong!',
-            'agama.required' => 'Agama tidak boleh kosong!',
+            'agama_id.required' => 'Agama tidak boleh kosong!',
             'email.required' => 'Email tidak boleh kosong!',
             'email.email' => 'Gunakan format email yang benar!',
             'email.unique' => 'Email sudah terdaftar!',
             'nohp.required' => 'No.HP tidak boleh kosong!',
-            'pas_foto.required' => 'Pas foto tidak boleh kosong!',
             'pas_foto.image' => 'Pas foto wajib image!',
             'pas_foto.mimes' => 'Format foto harus .jpg/.jpeg/.png!',
             'pas_foto.max' => 'Maksimal foto 2048 Kb!',
@@ -138,6 +142,7 @@ class AdminDataMahasiswaController extends Controller
 
             'prodi_id.required' => 'Prodi tidak boleh kosong!',
             'ukt.required' => 'UKT tidak boleh kosong!',
+            'angkatan_id' => 'Tahun angkatan tidak boleh kosong!',
             'jenis_tinggal_di_cilacap.required' => 'Tempat tinggal tidak boleh kosong!',
             'alat_transportasi_ke_kampus.required' => 'Transportasi tidak boleh kosong',
             'penerima_kartu_prasejahtera.required' => 'Penerima kartu tidak boleh kosong!',
@@ -156,7 +161,7 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa->tempat_lahir = $request->input('tempat_lahir');
         $mahasiswa->tanggal_lahir = $request->input('tanggal_lahir');
         $mahasiswa->jenis_kelamin = $request->input('jenis_kelamin');
-        $mahasiswa->agama = $request->input('agama');
+        $mahasiswa->agama_id = $request->input('agama_id');
         $mahasiswa->email = $request->input('email');
         $mahasiswa->nohp = $request->input('nohp');
         $mahasiswa->provinsi = $request->input('provinsi');
@@ -187,6 +192,7 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa->pengalaman_organisasi = $request->input('pengalaman_organisasi');
         $mahasiswa->prodi_id = $request->input('prodi_id');
         $mahasiswa->ukt = $request->input('ukt');
+        $mahasiswa->angkatan_id = $request->input('angkatan_id');
         $mahasiswa->jenis_tinggal_di_cilacap = $request->input('jenis_tinggal_di_cilacap');
         $mahasiswa->alat_transportasi_ke_kampus = $request->input('alat_transportasi_ke_kampus');
         $mahasiswa->sumber_biaya_kuliah = $request->input('sumber_biaya_kuliah');

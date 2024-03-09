@@ -123,10 +123,8 @@
                     <img class="img"
                         src="{{ public_path('storage/pas_foto/' . $mahasiswa->pas_foto) }}" alt="" width="60">
                     @else
-                    <span class="tidak-tersedia">Foto tidak tersedia</span>
+                    <img class="img" src="{{ public_path('/images/profile.jpeg') }}" alt="" width="60">
                     @endif
-                    {{-- <img class="mx-auto" src="{{ public_path('images/sign.png') }}" alt="" width="45"
-                        style="margin-left:20px; margin-top: 5px;"> --}}
                 </div>
                 <div class="right-div" style="font-size:10.3px; line-height: 1; padding-left:90px; padding-top:0px">
                     <div class="info">
@@ -177,7 +175,7 @@
                             <tr class="vertical-top">
                                 <td>Agama</td>
                                 <td> : </td>
-                                <td>{{$mahasiswa->agama}}</td>
+                                <td>{{$mahasiswa->agama->nama_agama}}</td>
                             </tr>
                             <tr class="vertical-top">
                                 <td>Program Studi</td>

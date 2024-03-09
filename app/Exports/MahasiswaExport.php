@@ -17,9 +17,30 @@ use Illuminate\Support\Facades\DB;
 
 class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles, WithColumnFormatting
 {
+    protected $prodiId;
+    protected $tahunAngkatan;
+
+    public function __construct($prodiId = null, $tahunAngkatan = null)
+    {
+        $this->prodiId = $prodiId;
+        $this->tahunAngkatan = $tahunAngkatan;
+    }
+
     public function collection()
     {
-        $mahasiswa = Mahasiswa::all();
+        $query = Mahasiswa::query();
+
+        // Filter data berdasarkan prodi_id jika diberikan
+        if ($this->prodiId) {
+            $query->where('prodi_id', $this->prodiId);
+        }
+
+        // Filter data berdasarkan tahun_angkatan jika diberikan
+        if ($this->tahunAngkatan) {
+            $query->where('angkatan_id', $this->tahunAngkatan);
+        }
+
+        $mahasiswa = $query->get();
 
         $data = [];
 
@@ -36,7 +57,7 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 $mhs->tempat_lahir,
                 $mhs->tanggal_lahir,
                 $mhs->jenis_kelamin,
-                $mhs->agama,
+                $mhs->agama->nama_agama,
                 $mhs->email,
                 $mhs->nohp,
                 empty($mhs->pas_foto) ? 'Foto tidak tersedia' : $mhs->pas_foto,
@@ -68,6 +89,7 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 $mhs->pengalaman_organisasi,
                 $mhs->prodi->nama_prodi,
                 $mhs->ukt,
+                $mhs->angkatan->tahun_angkatan,
                 $mhs->jenis_tinggal_di_cilacap,
                 $mhs->alat_transportasi_ke_kampus,
                 $mhs->sumber_biaya_kuliah,
@@ -76,7 +98,6 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 $mhs->anak_ke,
             ];
         }
-
         return collect($data);
     }
 
@@ -131,6 +152,7 @@ private function getWilayahNama($kode)
             'PENGALAMAN ORGANISASI',
             'PROGRAM STUDI',
             'UKT',
+            'TAHUN ANGKATAN',
             'JENIS TINGGAL DI CILACAP',
             'ALAT TRANSPORTASI KE KAMPUS',
             'SUMBER BIAYA KULIAH',
@@ -142,7 +164,7 @@ private function getWilayahNama($kode)
     public function styles(Worksheet $sheet)
     {
         // Menerapkan teks tebal (bold) dan rata tengah (center align) pada heading
-        $sheet->getStyle('A1:AR1')->applyFromArray([
+        $sheet->getStyle('A1:AS1')->applyFromArray([
             'font' => [
                 'bold' => true,
             ],
@@ -153,7 +175,7 @@ private function getWilayahNama($kode)
         ]);
         
         $lastRow = $sheet->getHighestRow();
-        $sheet->getStyle('A2:AR'.$lastRow)->applyFromArray([
+        $sheet->getStyle('A2:AS'.$lastRow)->applyFromArray([
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
                 'vertical' => Alignment::VERTICAL_CENTER,
