@@ -16,7 +16,7 @@ class AdminAgamaController extends Controller
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
     
-        return view ('admin.agama.index', compact('agama'));
+        return view ('admin.dataform.agama.index', compact('agama'));
     }
     public function store(Request $request)
     {

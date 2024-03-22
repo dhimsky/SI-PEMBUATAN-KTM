@@ -18,7 +18,7 @@ class AdminJurusanController extends Controller
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
 
-        return view('admin.jurusan.index',compact('jurusan'));
+        return view('admin.dataform.jurusan.index',compact('jurusan'));
     }
     public function store(Request $request)
     {

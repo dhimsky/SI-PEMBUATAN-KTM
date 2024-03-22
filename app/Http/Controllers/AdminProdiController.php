@@ -19,7 +19,7 @@ class AdminProdiController extends Controller
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
         
-        return view('admin.prodi.index', compact('prodi', 'jurusan'));
+        return view('admin.dataform.prodi.index', compact('prodi', 'jurusan'));
     }
 
     public function store(Request $request)

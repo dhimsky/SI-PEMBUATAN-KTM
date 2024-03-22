@@ -10,7 +10,7 @@ class AdminRolesController extends Controller
     public function index(Request $request)
     {
         $role = Roles::all();
-        return view('admin.role.index',compact('role'));
+        return view('admin.datapengguna.role.index',compact('role'));
     }
     public function edit($id)
     {

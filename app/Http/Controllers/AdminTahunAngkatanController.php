@@ -16,7 +16,7 @@ class AdminTahunAngkatanController extends Controller
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
     
-        return view ('admin.tahunangkatan.index', compact('tahunangkatan'));
+        return view ('admin.dataform.tahunangkatan.index', compact('tahunangkatan'));
     }
     public function store(Request $request)
     {

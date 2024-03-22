@@ -21,7 +21,7 @@ class AdminUsersController extends Controller
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
     
-        return view('admin.users.index', compact('users','role'));
+        return view('admin.datapengguna.users.index', compact('users','role'));
     }
     
     public function create()

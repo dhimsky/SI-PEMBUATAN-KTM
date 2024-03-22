@@ -12,7 +12,7 @@
                   <table id="example" class="display text-dark" style="min-width: 845px">
                       <thead>
                           <tr class="text-center">
-                            <th>Id Role</th>
+                            <th>Kode Role</th>
                             <th>Level</th>
                             <th>Aksi</th>
                           </tr>
@@ -30,14 +30,13 @@
                           </tr>
                           @endforeach
                       </tbody>
-                      <tfoot class="text-center">
+                      {{-- <tfoot class="text-center">
                           <tr>
-                          
-                            <th>Id Role</th>
+                            <th>Kode Role</th>
                             <th>Level</th>
                             <th>Aksi</th>
                           </tr>
-                      </tfoot>
+                      </tfoot> --}}
                   </table>
               </div>
           </div>

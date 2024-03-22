@@ -13,15 +13,11 @@
                     </div>
                     <div class="col-md-2 col-4 mt-md-0 mt-3 text-md-right">
                         <a href="{{route('print-id', $mahasiswa->nim)}}" target="_blank"
-                            class="btn btn-warning">
-                        <i class="fa fa-print"></i></a>
+                            class="btn btn-secondary">
+                        <i class="fa fa-id-card"></i></a>
                         <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#editData">
                             <i class="fa fa-pencil"></i>
                         </a>
-                        {{-- @foreach ($mahasiswas as $mahasiswa)
-                        <a href="{{route('print-id', $mahasiswa->nim)}}" target="_blank"
-                            class="text-indigo-600 hover:text-indigo-900 mx-2">Print</a>
-                        @endforeach --}}
                     </div>
                 </div>
                 <div class="card-body">

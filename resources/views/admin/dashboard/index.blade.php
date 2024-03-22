@@ -5,11 +5,10 @@
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0">
             <div class="welcome-text">
-                <h4>Hi, welcome back {{ Auth::user()->username }}</h4>
+                <h4>Selamat datang, {{ Auth::user()->username }}</h4>
             </div>
         </div>
     </div>
-    
     <div class="row">
         <div class="col-lg-4 col-sm-6">
             <div class="card">

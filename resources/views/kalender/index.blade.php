@@ -13,7 +13,10 @@
                                 <th>Hari</th>
                                 <th>Jam</th>
                                 <th>Kelas</th>
+                                <th>Keterangan</th>
+                                @if (Auth::user()->role_id == '1')
                                 <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -30,11 +33,16 @@
                                     {{ $k->prodi }} - {{ $k->kelas }}
                                 </td>
                                 <td>
+                                    {{ $k->detail }}
+                                </td>
+                                @if (Auth::user()->role_id == '1')
+                                <td>
                                     <a href="" class="fa fa-pencil color-muted" data-toggle="modal" data-target=".editKalender{{ $k->id_kalender }}" title="Edit prodi">
                                     </a>
                                     <a href="{{ route('kalender.destroy', $k->id_kalender) }}" class="fa fa-close color-danger" data-confirm-delete="true" title="Hapus prodi">
                                     </a>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>
@@ -52,7 +60,9 @@
     </div>
 </div>
 </div>
+@if (Auth::user()->role_id == '1')
 <button class="fa fa-plus wa_btn whatsapp" data-toggle="modal" data-target=".tambahKalender" title="Tambah prodi"></button>
+@endif
 
 <div class="modal fade tambahKalender" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">

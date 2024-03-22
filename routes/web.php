@@ -15,7 +15,10 @@ use App\Http\Controllers\AdminDataMahasiswaController;
 use App\Http\Controllers\AdminExportDataController;
 use App\Http\Controllers\MahasiswaCetakKartuController;
 use App\Http\Controllers\AdminJurusanController;
+use App\Http\Controllers\AdminKelolaAkunController;
+use App\Http\Controllers\AdminPengajuanController;
 use App\Http\Controllers\AdminTahunAngkatanController;
+use App\Http\Controllers\AdminUserImportController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\KalenderController;
 
@@ -34,8 +37,13 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('jurusan', AdminJurusanController::class);
         Route::resource('data-mahasiswa', AdminDataMahasiswaController::class);
         Route::post('/exportdata/exportexcel', [AdminExportDataController::class, 'exportexcel'])->name('exportdata.exportexcel');
+        Route::post('/exportdata/exportimg', [AdminExportDataController::class, 'exportimg'])->name('exportdata.exportimg');
         Route::resource('tahunangkatan', AdminTahunAngkatanController::class);
         Route::resource('agama', AdminAgamaController::class);
+        Route::post('/import', [AdminUserImportController::class, 'import'])->name('import');
+        Route::resource('pengajuan', AdminPengajuanController::class);
+        Route::get('kelolaakun', [AdminKelolaAkunController::class, 'index'])->name('kelolaakun.index');
+        Route::post('kelolaakun/gantipassword', [AdminKelolaAkunController::class, 'changePassword'])->name('kelolaakun.gantipw');
     });
     Route::middleware('CekUserLogin:2')->group(function () {
         Route::get('kartu-ktm', [MahasiswaCetakKartuController::class, 'index'])->name('kartu-ktm');

@@ -9,13 +9,13 @@
         </div>
         <div class="card-body">
           <div class="col-md-12 text-right mb-3">
-            
-            </div>
+            <a href="" data-toggle="modal" data-target=".ImportData" class="btn btn-whatsapp" title="Import Excel">
+            <i class="fa fa-cloud-upload"></i></a>
+        </div>
           <div class="table-responsive">
           <table id="example" class="display text-dark" style="min-width: 845px">
               <thead>
                   <tr class="text-center">
-                    <th>#</th>
                     <th>NIM</th>
                     <th>Role</th>
                     <th>Username</th>
@@ -25,7 +25,6 @@
               <tbody>
                   @foreach ($users as $u)
                   <tr class="text-center">
-                      <td>{{ $loop->iteration }}</td>
                       <td>{{ $u->nim }}</td>
                       <td>{{ $u->role->level }}</td>
                       <td>{{ $u->username }}</td>
@@ -51,7 +50,7 @@
   <div class="modal-dialog modal-sm">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title">Tambah Pengguna</h5>
+              <h5 class="modal-title">Tambah Akun</h5>
               <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
               </button>
           </div>
@@ -102,6 +101,35 @@
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade ImportData" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Import Akun</h5>
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+              @csrf
+                <div class="form-group">
+                    <label for="excel_file">Excel File</label>
+                    <input type="file" class="form-control-file @error('excel_file') is-invalid @enderror" id="excel_file" name="excel_file">
+                    @error('excel_file')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Import</button>
+                </div>
             </div>
           </form>
       </div>
