@@ -38,7 +38,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
-            <div class="modal-body">Yakin ingin keluar dari akun ini?</div>
+            <div class="modal-body text-dark">Yakin ingin keluar dari akun ini?</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
                 <form action="{{ url('logout') }}" method="POST">

@@ -17,7 +17,7 @@
                             <th>Aksi</th>
                           </tr>
                       </thead>
-                      <tbody>
+                      <tbody class="table-bordered">
                           @foreach ($role as $r)
                           <tr class="text-center">
                               <td>{{ $r->id }}</td>
@@ -30,13 +30,6 @@
                           </tr>
                           @endforeach
                       </tbody>
-                      {{-- <tfoot class="text-center">
-                          <tr>
-                            <th>Kode Role</th>
-                            <th>Level</th>
-                            <th>Aksi</th>
-                          </tr>
-                      </tfoot> --}}
                   </table>
               </div>
           </div>
@@ -68,7 +61,8 @@
               </div>
               <div class="form-group mb-3">
                 <label class="required-label faded-label" for="level" >Level Role</label>
-                <input type="text" name="level" class="form-control @error('level') is-invalid @enderror" value="{{ $r->level }}" placeholder="Admin, Mahasiswa, dsb.">
+                <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Nama dari role"></i></span>
+                <input type="text" name="level" class="form-control @error('level') is-invalid @enderror" value="{{ $r->level }}" placeholder="Masukan nama role">
                 @error('level')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>

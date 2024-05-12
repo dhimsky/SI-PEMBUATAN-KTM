@@ -12,27 +12,47 @@ use Illuminate\Support\Facades\DB;
 
 class AdminDataMahasiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::all();
+        $mahasiswa = Mahasiswa::query();
         $agama = Agama::all();
         $prodi = Prodi::all();
         $angkatan = TahunAngkatan::all();
+
+        if ($request->filled('angkatan_id')) {
+            $angkatan_id = $request->input('angkatan_id');
+            $mahasiswa->where('angkatan_id', $request->angkatan_id);
+        }
+        if ($request->filled('prodi_id')) {
+            $prodi_id = $request->input('prodi_id');
+            $mahasiswa->where('prodi_id', $request->prodi_id);
+        }
+        $mahasiswa = $mahasiswa->get();
 
         $title = 'Hapus Mahasiswa!';
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
 
-        foreach ($mahasiswa as $mhs) {
-            $kodeprovinsi = $mhs->provinsi;
-            
+        $kodeprovinsi = null;
+        $kodekabupaten = null;
+        $kodekecamatan = null;
+        $kodedesa_kelurahan = null;
+        $prov = null;
+        $kab = null;
+        $kec = null;
+        $ds = null;
+        $kabupaten = null;
+        $kecamatan = null;
+        
+        foreach ($mahasiswa as $m) {
+            $kodeprovinsi = $m->provinsi;
             $provinsi = DB::table('wilayah')
                 ->select('nama')
                 ->where('kode', $kodeprovinsi)
                 ->first(); // Menggunakan first() karena hanya ingin mengambil satu baris
             $prov = $provinsi->nama; // Mengambil nama provinsi dari objek $provinsi
-
-            $kodekabupaten = $mhs->kabupaten;
+            // dd($prov);
+            $kodekabupaten = $m->kabupaten;
             $kabupaten = DB::table('wilayah')
                 ->select('nama')
                 ->where('kode', $kodekabupaten)
@@ -40,27 +60,28 @@ class AdminDataMahasiswaController extends Controller
             // dd($kabupaten);
             $kab = $kabupaten->nama; // Mengambil nama kabupaten dari objek $kabupaten
 
-            $kodekecamatan = $mhs->kecamatan;
+            $kodekecamatan = $m->kecamatan;
             $kecamatan = DB::table('wilayah')
                 ->select('nama')
                 ->where('kode', $kodekecamatan)
                 ->first(); // Menggunakan first() karena hanya ingin mengambil satu baris
             $kec = $kecamatan->nama; // Mengambil nama kecamatan dari objek $kecamatan
 
-            $kodedesa_kelurahan = $mhs->desa_kelurahan;
+            $kodedesa_kelurahan = $m->desa_kelurahan;
             $desa_kelurahan = DB::table('wilayah')
                 ->select('nama')
                 ->where('kode', $kodedesa_kelurahan)
                 ->first(); // Menggunakan first() karena hanya ingin mengambil satu baris
             $ds = $desa_kelurahan->nama; // Mengambil nama desa_kelurahan dari objek $desa_kelurahan
         }
-        
         $provinsi = DB::table('wilayah')
                 ->orderBy('nama', 'asc')
                 ->WhereRaw('LENGTH(kode) = 2')
                 ->get();
+        
         return view('admin.mahasiswa.index', compact('angkatan','agama','kodeprovinsi','provinsi','ds','kec','kab','prov','mahasiswa', 'prodi','provinsi','kabupaten','kecamatan'));
     }
+    
     public function store(Request $request){
         $request->validate([
             'nim' => 'required|unique:mahasiswa,nim',
@@ -73,12 +94,13 @@ class AdminDataMahasiswaController extends Controller
             'email' => 'required|email',
             'nohp' => 'required',
             'pas_foto' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'provinsi' => 'required',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+            'desa_kelurahan' => 'required',
             'alamat_jalan' => 'required',
             'rt' => 'required|max:3',
             'rw' => 'required|max:3',
-            'desa_kelurahan' => 'required',
-            'kecamatan' => 'required',
-            'kabupaten' => 'required',
             'nama_ayah' => 'required',
             'nik_ayah' => 'nullable|max:16',
             'tempat_lahir_ayah' => 'nullable',

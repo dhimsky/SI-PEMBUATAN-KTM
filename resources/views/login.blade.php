@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Template Main CSS File -->
     <link href="{{ asset('/') }}css/style.css" rel="stylesheet" />
- </head>
- <body>
+</head>
+<body>
         @include('sweetalert::alert')
         <section class="login-block">
             <!-- Container-fluid starts -->
@@ -23,12 +23,12 @@
                                 <img src="{{ asset('/') }}images/logoPNC.png" style="width: 3cm; height: 3.2cm;" alt="logo.png">
                             </div>
                             <div class="auth-box card">
-                                <div class="card-block">
-                                    <div class="row m-b-20">
-                                        <div class="col-md-12">
-                                            <h3 class="text-center">Sign In</h3>
-                                        </div>
+                                <div class="row m-b-10 mt-3">
+                                    <div class="col-md-12">
+                                        <h3 class="text-center">eKTM</h3>
                                     </div>
+                                </div>
+                                <div class="card-block">
                                     <div class="form-group form-primary">
                                         <input type="text" name="nim" class="form-control @error('nim') is-invalid @enderror" required value="{{ Session::get('nim') }}">
                                         <span class="form-bar"></span>
@@ -51,7 +51,7 @@
                                     @enderror
                                     <div class="row m-t-30">
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Sign in</button>
+                                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Masuk</button>
                                         </div>
                                     </div>
                                 </div>

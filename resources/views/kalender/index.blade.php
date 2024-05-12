@@ -19,7 +19,7 @@
                                 @endif
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-bordered">
                             @foreach ($kalender as $k)
                             <tr>
                                 <td>

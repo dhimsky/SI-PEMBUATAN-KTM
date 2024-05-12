@@ -36,25 +36,25 @@ class ProdiSeeder extends Seeder
             ],
             [
                 'id_prodi' => 'TI',
-                'jurusan_id' => 'KOBIS',
+                'jurusan_id' => 'JKB',
                 'nama_prodi' => 'Teknik Informatika',
                 'jenjang' => 'D3',
             ],
             [
                 'id_prodi' => 'RKS',
-                'jurusan_id' => 'KOBIS',
+                'jurusan_id' => 'JKB',
                 'nama_prodi' => 'Rekayasa Keamanan Siber',
                 'jenjang' => 'D4',
             ],
             [
                 'id_prodi' => 'RM',
-                'jurusan_id' => 'KOBIS',
+                'jurusan_id' => 'JKB',
                 'nama_prodi' => 'Rekayasa Multimedia',
                 'jenjang' => 'D4',
             ],
             [
                 'id_prodi' => 'ALKS',
-                'jurusan_id' => 'KOBIS',
+                'jurusan_id' => 'JKB',
                 'nama_prodi' => 'Akutansi Lembaga Keuangan Syariah',
                 'jenjang' => 'D4',
             ],
@@ -74,6 +74,12 @@ class ProdiSeeder extends Seeder
                 'id_prodi' => 'TPPA',
                 'jurusan_id' => 'REMIP',
                 'nama_prodi' => 'Teknik Pengembangan Produk Agroindustri',
+                'jenjang' => 'D4',
+            ],
+            [
+                'id_prodi' => 'TRET',
+                'jurusan_id' => 'REMIP',
+                'nama_prodi' => 'Teknologi Rekayasa Energi Terbarukan',
                 'jenjang' => 'D4',
             ],
         ];

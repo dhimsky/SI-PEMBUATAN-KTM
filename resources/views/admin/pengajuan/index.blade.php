@@ -5,9 +5,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Tabel Data Mahasiswa</h4>
+                <h4 class="card-title">Tabel Pengajuan KTM</h4>
             </div>
             <div class="card-body">
+                <div class="col-md-12 text-right mb-3">
+                    <a href="" data-toggle="modal" data-target=".modalExport" class="btn btn-whatsapp" title="Export Data">
+                    <i class="fa fa-cloud-download"></i></a>
+                </div>
                 <div class="table-responsive">
                 <table id="example" class="display text-dark" style="min-width: 845px">
                     <thead>
@@ -18,7 +22,7 @@
                             <th>AKSI</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-bordered">
                         @foreach ($pengajuan as $p)
                         <tr class="text-center">                           
                             <td>{{ $p->id_pengajuan }}</td>
@@ -145,4 +149,70 @@
     </div>
 </div>
 @endforeach
+
+<div class="modal fade modalExport" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Export Data</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+            <form id="exportForm" action="{{ route('exportdata.exportpengajuan') }}" method="post">
+                @csrf
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="prodi_id" >Pilih Prodi</label>
+                    <select class="form-control" name="prodi_id" id="prodi_id">
+                        <option value="">Semua Prodi</option>
+                        @foreach ($prodi as $programStudi)
+                            <option value="{{ $programStudi->id_prodi }}">{{ $programStudi->nama_prodi }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="required-label faded-label" for="tahun_angkatan" >Pilih Angkatan</label>
+                    <select class="form-control" name="tahun_angkatan" id="tahun_angkatan">
+                        <option value="">Semua Angkatan</option>
+                        @foreach ($angkatan as $a)
+                            <option value="{{ $a->id_angkatan }}">{{ $a->tahun_angkatan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" onclick="submitForm('{{ route('exportdata.exportpengajuan') }}')">Export Excel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm('{{ route('exportdata.exportimgpengajuan') }}')">Export Foto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function submitForm(action) {
+        document.getElementById('exportForm').action = action;
+        document.getElementById('exportForm').submit();
+    }
+</script>
+
+<script>
+    document.addEventListener('change', function(event) {
+        const target = event.target;
+        if (target && target.id.startsWith('input_pas_foto')) {
+            const fileName = target.files[0].name;
+            const labelFoto = target.closest('.custom-file').querySelector('.custom-file-label');
+            labelFoto.innerHTML = fileName;
+
+            const previewImgId = target.id.replace('input_pas_foto', 'previewImg');
+            const previewImg = document.getElementById(previewImgId);
+            if (previewImg) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                }
+                reader.readAsDataURL(target.files[0]);
+            }
+        }
+    });
+</script>
 @endsection

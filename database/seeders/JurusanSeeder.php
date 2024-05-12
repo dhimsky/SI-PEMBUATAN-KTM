@@ -21,7 +21,7 @@ class JurusanSeeder extends Seeder
                 'nama_jurusan' => 'Rekayasa Elektro dan Mekatronika',
             ],
             [
-                'id_jurusan' => 'KOBIS',
+                'id_jurusan' => 'JKB',
                 'nama_jurusan' => 'Komputer dan Bisnis',
             ],
             [

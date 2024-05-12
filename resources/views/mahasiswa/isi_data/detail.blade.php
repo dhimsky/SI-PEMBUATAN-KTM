@@ -6,17 +6,18 @@
         <div class="col-md-8 offset-md-2">
             <div class="card mt-5">
                 <div class="row">
-                    <div class="col-md-10 col-8">
+                    <div class="col-md-6 col-8">
                         <div class="card-header">
                             <h3>Data Mahasiswa</h3>
                         </div>
                     </div>
-                    <div class="col-md-2 col-4 mt-md-0 mt-3 text-md-right">
-                        <a href="{{route('print-id', $mahasiswa->nim)}}" target="_blank"
-                            class="btn btn-secondary">
-                        <i class="fa fa-id-card"></i></a>
+                    <div class="col-md-6 col-4 mt-md-0 mt-3 text-md-right">
+                        {{-- <a href="{{route('print-id', $mahasiswa->nim)}}" target="_blank" class="btn btn-secondary"> --}}
+                        <a href="{{ route('print-id', $mahasiswa) }}" target="_blank" class="btn btn-secondary">
+                        <i class="fa fa-id-card"></i> Cetak Kartu
+                        </a>
                         <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#editData">
-                            <i class="fa fa-pencil"></i>
+                            <i class="fa fa-pencil"></i> Edit
                         </a>
                     </div>
                 </div>

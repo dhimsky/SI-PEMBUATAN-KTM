@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Id Card</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}images/logoPNC.png">
+
+    <title>Cetak KTMe</title>
     <style>
         .page-break {
             page-break-after: always;
@@ -107,7 +109,13 @@
             margin-top:4px;
             border-radius: 2px;
         }
-
+        img.qrcode {
+            padding-top: 175px;
+            width: 31px;
+            height: 31px;
+            left: 2px;
+            position: absolute;
+        }
     </style>
 </head>
 
@@ -117,11 +125,10 @@
         <div class="main">
             <img class="background-image" src="{{public_path('images/FrameCard2.png')}}" alt="">
             <div class="main-data">
-
                 <div class="left-div">
                     @if ($mahasiswa->pas_foto)
                     <img class="img"
-                        src="{{ public_path('storage/pas_foto/' . $mahasiswa->pas_foto) }}" alt="" width="60">
+                    src="{{ public_path('storage/pas_foto/' . $mahasiswa->pas_foto) }}" alt="" width="60">
                     @else
                     <img class="img" src="{{ public_path('/images/profile.jpeg') }}" alt="" width="60">
                     @endif
@@ -140,7 +147,7 @@
                                 <td>{{$mahasiswa->nim}}</td>
                             </tr>
                             <tr class="vertical-top">
-                                <td>Tempat/Tgl Lahir</td>
+                                <td>Tempat/ Tgl. Lahir</td>
                                 <td> : </td>
                                 <td>
                                     <?php
@@ -163,7 +170,7 @@
                                         // Ubah format tanggal dari "YYYY-MM-DD" menjadi "DD NamaBulan YYYY" dalam bahasa Indonesia
                                         $tanggal_lahir = date('d', strtotime($mahasiswa->tanggal_lahir)) . ' ' . $bulan[date('F', strtotime($mahasiswa->tanggal_lahir))] . ' ' . date('Y', strtotime($mahasiswa->tanggal_lahir));
                                         
-                                        echo $mahasiswa->tempat_lahir . '/' . $tanggal_lahir;
+                                        echo $mahasiswa->tempat_lahir . '/ ' . $tanggal_lahir;
                                     ?>
                                 </td>
                             </tr>
@@ -183,10 +190,8 @@
                                 <td>{{$mahasiswa->prodi->nama_prodi}}</td>
                             </tr>
                         </table>
-                        {{-- <span class="capitalize">Nama Lengkap : </span>{{$mahasiswa->nama_lengkap}}<br>
-                        <span class="text-md">NIM : </span>{{$mahasiswa->nim}}<br>
-                        <span class="text-md">Program Studi : </span>{{$mahasiswa->prodi->nama_prodi}}<br> --}}
                     </div>
+                        <img src="data:image/png;base64, {!! base64_encode($qrCode) !!}" class="qrcode" />
                 </div>
             </div>
         </div>
@@ -196,5 +201,4 @@
     @endif
     @endforeach
 </body>
-
 </html>

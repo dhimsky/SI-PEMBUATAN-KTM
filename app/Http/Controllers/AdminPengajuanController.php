@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
+use App\Models\Prodi;
+use App\Models\TahunAngkatan;
 use Illuminate\Http\Request;
 
 class AdminPengajuanController extends Controller
 {
     public function index(){
         $pengajuan = Pengajuan::all();
+        $prodi = Prodi::all();
+        $angkatan = TahunAngkatan::all();
 
         $title = 'Hapus Pengajuan!';
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
 
-        return view('admin.pengajuan.index', compact('pengajuan'));
+        return view('admin.pengajuan.index', compact('pengajuan','prodi','angkatan'));
     }
 
     public function store(Request $request){

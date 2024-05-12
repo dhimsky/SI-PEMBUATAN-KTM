@@ -17,7 +17,7 @@
                         <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-bordered">
                         @foreach ($tahunangkatan as $t)
                         <tr class="text-center">
                             <td>{{ $t->id_angkatan }}</td>
@@ -53,7 +53,8 @@
                 @csrf
                 <div class="form-group mb-3">
                     <label class="required-label faded-label" for="id_angkatan">Kode Angkatan</label>
-                    <input type="text" name="id_angkatan" class="form-control @error('id_angkatan') is-invalid @enderror" value="{{ Session::get('id_angkatan') }}" placeholder="Masukan Kode angkatan">
+                    <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: 21"></i></span>
+                    <input type="text" name="id_angkatan" class="form-control @error('id_angkatan') is-invalid @enderror" value="{{ Session::get('id_angkatan') }}" placeholder="Masukan kode angkatan">
                     @error('id_angkatan')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -63,6 +64,7 @@
 
                 <div class="form-group mb-3">
                     <label class="required-label faded-label" for="tahun_angkatan">Tahun Angkatan</label>
+                    <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: 2021"></i></span>
                     <input type="text" name="tahun_angkatan" class="form-control @error('tahun_angkatan') is-invalid @enderror" value="{{ Session::get('tahun_angkatan') }}" placeholder="Masukan tahun angkatan">
                     @error('tahun_angkatan')
                     <span class="invalid-feedback" role="alert">
@@ -94,8 +96,9 @@
                 @csrf
                 @method('PUT')
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="id_angkatan" >Kode tahunangkatan</label>
-                        <input type="text" name="id_angkatan" class="form-control @error('id_angkatan') is-invalid @enderror" value="{{$t->id_angkatan}}" >
+                        <label class="required-label faded-label" for="id_angkatan" >Kode Angkatan</label>
+                        <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: 21"></i></span>
+                        <input type="text" name="id_angkatan" class="form-control @error('id_angkatan') is-invalid @enderror" value="{{$t->id_angkatan}}" placeholder="Masukan kode angkatan">
                         @error('id_angkatan')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -104,6 +107,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="tahun_angkatan" >Tahun Agkatan</label>
+                        <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: 2021"></i></span>
                         <input type="text" name="tahun_angkatan" class="form-control @error('tahun_angkatan') is-invalid @enderror" value="{{$t->tahun_angkatan}}" placeholder="Masukan tahun angkatan">
                         @error('tahun_angkatan')
                         <span class="invalid-feedback" role="alert">

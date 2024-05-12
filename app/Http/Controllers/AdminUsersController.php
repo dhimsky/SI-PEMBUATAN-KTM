@@ -88,6 +88,9 @@ public function update(Request $request, $id)
     $user->nim = $request->input('nim');
     $user->username = $request->input('username');
     $user->role_id = $request->input('role_id');
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->input('password'));
+    }
     $user->save();
 
     return redirect()->route('account.index')->with('success', 'Account berhasil diupdate');

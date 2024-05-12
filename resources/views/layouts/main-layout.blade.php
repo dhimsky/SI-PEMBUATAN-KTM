@@ -106,14 +106,76 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
+    {{-- <script>
+        $(function () {
+        $('#provinsi').on('change', function(){
+            let id_provinsi = $(this).val(); // Menggunakan $(this) untuk mengambil nilai yang dipilih
+            console.log(id_provinsi);
+            $.ajax({
+                type: 'POST',
+                url: "{{route('getprovinsi')}}",
+                data: {
+                    id_provinsi: id_provinsi,
+                },
+                cache: false,
+                success: function (msg) {
+                    $('#kabupaten').html(msg);
+                    $('#kecamatan').empty(); // Mengosongkan opsi kecamatan setelah perubahan provinsi
+                    $('#desa_kelurahan').empty(); // Mengosongkan opsi desa/kelurahan setelah perubahan provinsi
+                },
+                error: function(data){
+                    console.log('error', data);
+                },
+            })
+        });
+    
+        $('#kabupaten').on('change', function(){
+            let id_kabupaten = $(this).val(); // Menggunakan $(this) untuk mengambil nilai yang dipilih
+            $.ajax({
+                type: 'POST',
+                url: "{{route('getkabupaten')}}",
+                data: {
+                    id_kabupaten: id_kabupaten,
+                },
+                cache: false,
+                success: function (msg) {
+                    $('#kecamatan').html(msg);
+                    $('#desa_kelurahan').empty(); // Mengosongkan opsi desa/kelurahan setelah perubahan kabupaten
+                },
+                error: function(data){
+                    console.log('error', data);
+                },
+            })
+        });
+    
+        $('#kecamatan').on('change', function(){
+            let id_kecamatan = $(this).val(); // Menggunakan $(this) untuk mengambil nilai yang dipilih
+            $.ajax({
+                type: 'POST',
+                url: "{{route('getkecamatan')}}",
+                data: {
+                    id_kecamatan: id_kecamatan,
+                },
+                cache: false,
+                success: function (msg) {
+                    $('#desa_kelurahan').html(msg);
+                },
+                error: function(data){
+                    console.log('error', data);
+                },
+            })
+        });
+    });
+    </script> --}}
+    
     <script>
         $(function () {
             $.ajaxSetup({
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
             });
             $(function () {
-                $('#provinsi').on('change', function(){
-                    let id_provinsi = $('#provinsi').val();
+                $('#provinsiadd').on('change', function(){
+                    let id_provinsi = $('#provinsiadd').val();
                     console.log(id_provinsi);
                     $.ajax({
                         type: 'POST',
@@ -123,15 +185,15 @@
                         },
                         cache: false,
                         success: function (msg) {
-                            $('#kabupaten').html(msg);
+                            $('#kabupatenadd').html(msg);
                         },
                         error: function(data){
                             console.log('error', data);
                         },
                     })
                 })
-                $('#kabupaten').on('change', function(){
-                    let id_kabupaten = $('#kabupaten').val();
+                $('#kabupatenadd').on('change', function(){
+                    let id_kabupaten = $('#kabupatenadd').val();
                     $.ajax({
                         type: 'POST',
                         url: "{{route('getkabupaten')}}",
@@ -140,15 +202,15 @@
                         },
                         cache: false,
                         success: function (msg) {
-                            $('#kecamatan').html(msg);
+                            $('#kecamatanadd').html(msg);
                         },
                         error: function(data){
                             console.log('error', data);
                         },
                     })
                 })
-                $('#kecamatan').on('change', function(){
-                    let id_kecamatan = $('#kecamatan').val();
+                $('#kecamatanadd').on('change', function(){
+                    let id_kecamatan = $('#kecamatanadd').val();
                     $.ajax({
                         type: 'POST',
                         url: "{{route('getkecamatan')}}",
@@ -157,7 +219,7 @@
                         },
                         cache: false,
                         success: function (msg) {
-                            $('#desa_kelurahan').html(msg);
+                            $('#desa_kelurahanadd').html(msg);
                         },
                         error: function(data){
                             console.log('error', data);
@@ -179,9 +241,14 @@
             });
         @endif
     </script>
+    <script>
+    // Inisialisasi popover
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+    </script>
     </body>
 </html>
 @stack('script-alt')
-<!-- Page level custom scripts -->
 <!-- <script src="{{ asset('backend/js/demo/chart-area-demo.js') }}"></script>
 <script src="{{ asset('backend/js/demo/chart-pie-demo.js') }}"></script> -->

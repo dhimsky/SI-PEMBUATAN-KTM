@@ -18,11 +18,11 @@
                   <tr class="text-center">
                     <th>NIM</th>
                     <th>Role</th>
-                    <th>Username</th>
+                    <th>Nama Lengkap</th>
                     <th>Aksi</th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody class="table-bordered">
                   @foreach ($users as $u)
                   <tr class="text-center">
                       <td>{{ $u->nim }}</td>
@@ -59,7 +59,8 @@
               @csrf
               <div class="form-group mb-3">
                 <label class="required-label faded-label" for="nim" >NIM</label>
-                <input type="number" name="nim" class="form-control @error('nim') is-invalid @enderror" placeholder="Contoh: 210202098">
+                <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Nomor Induk Mahasiswa"></i></span>
+                <input type="number" name="nim" class="form-control @error('nim') is-invalid @enderror" placeholder="Masukan NIM">
                 @error('nim')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -69,7 +70,7 @@
               <div class="form-group mb-3">
                 <label class="required-label faded-label" for="role_id" >Level</label>
                 <select class="form-control select2" aria-label="Default select example" for="role_id" name="role_id" id="role_id">
-                  <option value="">Pilih Level</option>
+                  <option selected disabled value="">Pilih Level</option>
                   @foreach ($role as $r)
                       <option value="{{ $r->id }}">{{ $r->level }}</option>
                   @endforeach
@@ -91,6 +92,7 @@
               </div>
               <div class="form-group mb-3">
                 <label class="required-label faded-label" for="password" >Password</label>
+                <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Password baru"></i></span>
                 <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan password">
                 @error('password')
                 <span class="invalid-feedback" role="alert">
@@ -151,7 +153,8 @@
                 @method('PUT')
                     <div class="form-group mb-3">
                       <label class="required-label faded-label" for="nim" >NIM</label>
-                      <input type="number" name="nim" class="form-control @error('nim') is-invalid @enderror" value="{{$u->nim}}" placeholder="Contoh: 210202098">
+                      <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Nomor Induk Mahasiswa"></i></span>
+                      <input type="number" name="nim" class="form-control @error('nim') is-invalid @enderror" value="{{$u->nim}}" placeholder="Masukan NIM">
                       @error('nim')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -161,9 +164,8 @@
                     <div class="form-group mb-3">
                       <label class="required-label faded-label" for="role_id" >Level</label>
                       <select class="form-control select2" aria-label="Default select example" for="role_id" name="role_id" id="role_id">
-                        <option value="{{ $u->role_id }}">{{ $u->role->level }}</option>
                         @foreach ($role as $r)
-                            <option value="{{ $r->id }}">{{ $r->level }}</option>
+                          <option value="{{ $r->id }}" @if($u->role_id == $r->id) selected @endif>{{ $r->level }}</option>
                         @endforeach
                       </select>
                       @error('role_id')
@@ -176,6 +178,16 @@
                       <label class="required-label faded-label" for="username" >Nama Lengkap</label>
                       <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{$u->username}}" placeholder="Masukan nama lengkap">
                       @error('username')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                      <label class="required-label faded-label" for="password" >Ubah Password</label>
+                      <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan password baru">
+                      <small class="text-muted">Kosongkan jika tidak ingin mengubah password.</small>
+                      @error('password')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                       </span>

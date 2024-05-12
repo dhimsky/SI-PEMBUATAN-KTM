@@ -17,7 +17,7 @@
                         <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-bordered">
                         @foreach ($agama as $a)
                         <tr class="text-center">
                             <td>{{ $a->id_agama }}</td>
@@ -53,7 +53,8 @@
                 @csrf
                 <div class="form-group mb-3">
                     <label class="required-label faded-label" for="id_agama">Kode Agama</label>
-                    <input type="text" name="id_agama" class="form-control @error('id_agama') is-invalid @enderror" value="{{ Session::get('id_agama') }}" placeholder="Masukan Kode Agama">
+                    <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: IS"></i></span>
+                    <input type="text" name="id_agama" class="form-control @error('id_agama') is-invalid @enderror" value="{{ Session::get('id_agama') }}" placeholder="Masukan kode agama">
                     @error('id_agama')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -95,7 +96,8 @@
                 @method('PUT')
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="id_agama" >Kode Agama</label>
-                        <input type="text" name="id_agama" class="form-control @error('id_agama') is-invalid @enderror" value="{{$a->id_agama}}" >
+                        <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: IS"></i></span>
+                        <input type="text" name="id_agama" class="form-control @error('id_agama') is-invalid @enderror" value="{{$a->id_agama}}" placeholder="Masukan kode agama">
                         @error('id_agama')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -104,7 +106,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="nama_agama" >Nama Agama</label>
-                        <input type="text" name="nama_agama" class="form-control @error('nama_agama') is-invalid @enderror" value="{{$a->nama_agama}}" placeholder="Masukan anama agama">
+                        <input type="text" name="nama_agama" class="form-control @error('nama_agama') is-invalid @enderror" value="{{$a->nama_agama}}" placeholder="Masukan nama agama">
                         @error('nama_agama')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

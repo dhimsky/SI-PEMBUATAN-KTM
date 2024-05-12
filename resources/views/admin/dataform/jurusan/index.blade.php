@@ -17,7 +17,7 @@
                         <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-bordered">
                         @foreach ($jurusan as $p)
                         <tr class="text-center">
                             <td>{{ $p->id_jurusan }}</td>
@@ -53,7 +53,8 @@
                 @csrf
                 <div class="form-group mb-3">
                     <label class="required-label faded-label" for="id_jurusan">Kode Jurusan</label>
-                    <input type="text" name="id_jurusan" class="form-control @error('id_jurusan') is-invalid @enderror" value="{{ Session::get('id_jurusan') }}" placeholder="Masukan Kode Jurusan">
+                    <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: KOBIS"></i></span>
+                    <input type="text" name="id_jurusan" class="form-control @error('id_jurusan') is-invalid @enderror" value="{{ Session::get('id_jurusan') }}" placeholder="Masukan kode jurusan">
                     @error('id_jurusan')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -62,8 +63,8 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="nama_jurusan">Nama jurusan</label>
-                    <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{ Session::get('nama_jurusan') }}" placeholder="Masukan Nama Jurusan">
+                    <label class="required-label faded-label" for="nama_jurusan">Nama Jurusan</label>
+                    <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{ Session::get('nama_jurusan') }}" placeholder="Masukan nama jurusan">
                     @error('nama_jurusan')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -95,7 +96,8 @@
                 @method('PUT')
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="id_jurusan" >Kode Jurusan</label>
-                        <input type="text" name="id_jurusan" class="form-control @error('id_jurusan') is-invalid @enderror" value="{{$p->id_jurusan}}" >
+                        <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: KOBIS"></i></span>
+                        <input type="text" name="id_jurusan" class="form-control @error('id_jurusan') is-invalid @enderror" value="{{$p->id_jurusan}}" placeholder="Masukan kode jurusan">
                         @error('id_jurusan')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -103,8 +105,8 @@
                         @enderror
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required-label faded-label" for="nama_jurusan" >Nama jurusan</label>
-                        <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{$p->nama_jurusan}}" placeholder="Masukan Nama Jurusan">
+                        <label class="required-label faded-label" for="nama_jurusan" >Nama Jurusan</label>
+                        <input type="text" name="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror" value="{{$p->nama_jurusan}}" placeholder="Masukan nama jurusan">
                         @error('nama_jurusan')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

@@ -19,7 +19,7 @@
                             <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-bordered">
                             @foreach ($prodi as $p)
                             <tr class="text-center">
                                 <td>{{ $p->id_prodi }}</td>
@@ -58,7 +58,8 @@
                     @csrf
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="id_prodi" >Kode Prodi</label>
-                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{ Session::get('id_prodi') }}" placeholder="Contoh: TI, RKS dsb.">
+                        <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: TI"></i></span>
+                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{ Session::get('id_prodi') }}" placeholder="Masukan kode prodi">
                         @error('id_prodi')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -77,7 +78,7 @@
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="jurusan_id" >Jurusan</label>
                         <select class="form-control" name="jurusan_id" id="jurusan_id">
-                            <option value="">Pilih Jurusan</option>
+                            <option selected disabled value="">Pilih Jurusan</option>
                             @foreach ($jurusan as $j)
                             <option value="{{ $j->id_jurusan }}">{{ $j->nama_jurusan }}</option>
                             @endforeach
@@ -91,7 +92,7 @@
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="jenjang" >Jenjang</label>
                         <select class="form-control" name="jenjang" id="jenjang">
-                            <option value="">Pilih Jenjang</option>
+                            <option selected disabled value="">Pilih Jenjang</option>
                             <option value="D3">D3</option>
                             <option value="D4">D4</option>
                         </select>
@@ -126,7 +127,8 @@
                 @method('PUT')
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="id_prodi" >Kode Prodi</label>
-                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{$p->id_prodi}}" placeholder="Contoh: TI, RKS dsb.">
+                        <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: TI"></i></span>
+                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{$p->id_prodi}}" placeholder="Masukan kode prodi">
                         @error('id_prodi')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -145,7 +147,6 @@
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="jurusan_id" >Jurusan</label>
                         <select class="form-control" name="jurusan_id" id="jurusan_id">
-                            <option value="">{{ $p->jurusan->nama_jurusan }}</option>
                             @foreach ($jurusan as $j)
                                 <option value="{{ $j->id_jurusan }}" @if($j->id_jurusan == $p->jurusan_id) selected @endif>{{ $j->nama_jurusan }}</option>
                             @endforeach
