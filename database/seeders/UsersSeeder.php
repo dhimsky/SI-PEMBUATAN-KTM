@@ -34,13 +34,19 @@ class UsersSeeder extends Seeder
             [
                 'nim' => '123',
                 'role_id' => 1,
-                'username' => 'Admin123',
+                'username' => 'Tanti Oki',
                 'password' => bcrypt(123)
             ],
             [
                 'nim' => '321',
                 'role_id' => 3,
-                'username' => 'Pegawai Bank',
+                'username' => 'Insan Ahmad',
+                'password' => bcrypt(123)
+            ],
+            [
+                'nim' => '210202031',
+                'role_id' => 2,
+                'username' => 'Dhimas Afrisetiawan',
                 'password' => bcrypt(123)
             ],
         ];

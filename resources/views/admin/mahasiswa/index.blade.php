@@ -921,7 +921,7 @@
                         <div class="col-sm-7">
                             <select class="form-control" aria-label="Default select example" name="provinsi" id="provinsi{{ $m->nim }}" required>
                                 {{-- <option value="{{ $kodeprovinsi }}">{{ mb_convert_case($prov, MB_CASE_TITLE) }}</option> --}}
-                                <option value="{{ $m->provinsi }}">{{ DB::table('wilayah')->where('kode', $m->provinsi)->value('nama') }}</option>
+                                <option value="{{ $m->provinsi }}">{{ ucwords(strtolower(DB::table('wilayah')->where('kode', $m->provinsi)->value('nama'))) }}</option>
                                 @foreach ($provinsi as $p)
                                     <option value="{{ $p->kode }}">{{ mb_convert_case($p->nama, MB_CASE_TITLE) }}</option>
                                 @endforeach
@@ -938,7 +938,7 @@
                         <div class="col-sm-7">
                             <select class="form-control" aria-label="Default select example" name="kabupaten" id="kabupaten{{$m->nim}}" >
                                 @if ($kab)
-                                    <option value="{{ $m->kabupaten }}">{{ mb_convert_case($kab, MB_CASE_TITLE) }}</option>
+                                    <option value="{{ $m->kabupaten }}">{{ ucwords(strtolower(DB::table('wilayah')->where('kode', $m->kabupaten)->value('nama'))) }}</option>
                                 @else
                                     <option disabled>Tidak ada data kabupaten</option>
                                 @endif
@@ -956,7 +956,7 @@
                         <div class="col-sm-7">
                             <select class="form-control" aria-label="Default select example" name="kecamatan" id="kecamatan{{$m->nim}}" >
                                 @if ($kec)
-                                    <option value="{{ $m->kecamatan }}">{{ $kec }}</option>
+                                    <option value="{{ $m->kecamatan }}">{{ ucwords(strtolower(DB::table('wilayah')->where('kode', $m->kecamatan)->value('nama'))) }}</option>
                                 @else
                                     <option disabled>Tidak ada data kabupaten</option>
                                 @endif
@@ -974,7 +974,7 @@
                         <div class="col-sm-7">
                             <select class="form-control" aria-label="Default select example" name="desa_kelurahan" id="desa_kelurahan{{$m->nim}}" >
                                 @if ($ds)
-                                    <option value="{{ $m->desa_kelurahan }}">{{ $ds }}</option>
+                                    <option value="{{ $m->desa_kelurahan }}">{{ ucwords(strtolower(DB::table('wilayah')->where('kode', $m->desa_kelurahan)->value('nama'))) }}</option>
                                 @else
                                     <option disabled>Tidak ada data kabupaten</option>
                                 @endif
@@ -1733,8 +1733,6 @@
     </div>
 </div>
 @endforeach
-
-
 
 <div class="modal fade modalExport" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">

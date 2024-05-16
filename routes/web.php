@@ -51,8 +51,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('jurusan', AdminJurusanController::class);
         Route::resource('data-mahasiswa', AdminDataMahasiswaController::class);
         Route::resource('pengajuan', AdminPengajuanController::class);
-
-        //Filtering Data
     });
     Route::middleware('CekUserLogin:2')->group(function () {
         Route::view('/isi-data', 'mahasiswa.data-diri.isi_data')->name('isi-data');

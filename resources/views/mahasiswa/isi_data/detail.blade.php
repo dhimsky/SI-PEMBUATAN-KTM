@@ -414,7 +414,7 @@
                             <div class="form-group row mb-2">
                                 <label for="nama_lengkap" class="col-sm-5 col-form-label faded-label required-label" >Nama Lengkap</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" name="nama_lengkap" value="{{ $mahasiswa->nama_lengkap }}" placeholder="Masukan nama lengkap">
+                                    <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" name="nama_lengkap" value="{{ $mahasiswa->nama_lengkap }}" placeholder="Masukan nama lengkap" readonly>
                                     @error('nama_lengkap')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

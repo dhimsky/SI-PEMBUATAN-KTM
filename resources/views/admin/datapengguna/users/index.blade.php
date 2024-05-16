@@ -11,7 +11,7 @@
           <div class="col-md-12 text-right mb-3">
             <a href="" data-toggle="modal" data-target=".ImportData" class="btn btn-whatsapp" title="Import Excel">
             <i class="fa fa-cloud-upload"></i></a>
-        </div>
+          </div>
           <div class="table-responsive">
           <table id="example" class="display text-dark" style="min-width: 845px">
               <thead>
@@ -120,9 +120,9 @@
           <div class="modal-body">
             <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
               @csrf
-                <div class="form-group">
-                    <label for="excel_file">Excel File</label>
-                    <input type="file" class="form-control-file @error('excel_file') is-invalid @enderror" id="excel_file" name="excel_file">
+                <div class="custom-file">
+                    <label class="custom-file-label" for="excel_file" id="file_label">Excel File</label>
+                    <input type="file" class="form-control-file @error('excel_file') is-invalid @enderror" id="excel_file" name="excel_file" accept=".xls, .xlsx" onchange="updateLabel(this)">
                     @error('excel_file')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -203,4 +203,11 @@
     </div>
 </div>
 @endforeach
+
+<script>
+  function updateLabel(input) {
+      var fileName = input.files[0].name;
+      document.getElementById('file_label').innerText = fileName;
+  }
+</script>
 @endsection

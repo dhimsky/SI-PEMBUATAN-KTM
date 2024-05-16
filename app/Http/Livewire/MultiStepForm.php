@@ -123,7 +123,7 @@ class MultiStepForm extends Component
                     'tanggal_lahir' => 'required|date',
                     'jenis_kelamin' => 'required|string',
                     'agama_id' => 'required|string',
-                    'email' => 'required|email|unique:mahasiswa,email',
+                    'email' => 'required|email|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/|unique:mahasiswa,email',
                     'nohp' => 'required|string',
                     'pas_foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 ], [
@@ -136,6 +136,7 @@ class MultiStepForm extends Component
                     'email.required' => 'Email wajib di isi!',
                     'email.email' => 'Gunakan format email yang benar!',
                     'email.unique' => 'Email sudah terdaftar!',
+                    'email.regex' => 'Gunakan format email yang benar!',
                     'nohp.required' => 'No.HP wajib di isi!',
                     'pas_foto.required' => 'Pas foto wajib di isi!',
                     'pas_foto.image' => 'Pas foto wajib image!',

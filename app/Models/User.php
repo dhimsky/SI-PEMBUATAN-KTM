@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 use App\Models\Roles;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -21,13 +22,21 @@ class User extends Authenticatable
     protected $primaryKey = 'nim';
     public $incrementing = false; // Karena kolom 'nim' bukan auto-increment
     public $timestamps = true;
-
+    
+    use LogsActivity;
+    
     protected $fillable = [
         'nim',
         'role_id',
         'username',
         'password',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logUnguarded();
+    }
 
     // Relationship dengan model Role
     public function role()

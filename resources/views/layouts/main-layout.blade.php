@@ -39,8 +39,8 @@
             <div class="nav-header">
                 <a href="{{ route('dashboard') }}" class="brand-logo">
                     <img class="logo-abbr" src="{{ asset('/') }}images/logoPNC.png" alt="">
-                    <img class="logo-compact" src="{{ asset('/') }}assets/images/textlogo.png" alt="">
-                    <img class="brand-title" src="{{ asset('/') }}assets/images/textlogo.png" alt="">
+                    <img class="logo-compact" src="{{ asset('/') }}assets/images/eKTM.png" alt="">
+                    <img class="brand-title" src="{{ asset('/') }}assets/images/eKTM.png" alt="">
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">
@@ -53,8 +53,8 @@
             <div class="nav-header">
                 <a href="{{ route('home') }}" class="brand-logo">
                     <img class="logo-abbr" src="{{ asset('/') }}images/logoPNC.png" alt="">
-                    <img class="logo-compact" src="{{ asset('/') }}assets/images/textlogo.png" alt="">
-                    <img class="brand-title" src="{{ asset('/') }}assets/images/textlogo.png" alt="">
+                    <img class="logo-compact" src="{{ asset('/') }}assets/images/eKTM.png" alt="">
+                    <img class="brand-title" src="{{ asset('/') }}assets/images/eKTM.png" alt="">
                 </a>
                 <div class="nav-control">
                     <div class="hamburger">

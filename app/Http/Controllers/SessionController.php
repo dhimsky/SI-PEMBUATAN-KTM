@@ -37,8 +37,10 @@ class SessionController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             if ($user->role_id == '1' || $user->role_id == '3') {
+                activity()->causedBy(Auth::user())->log('User Admin ' . auth()->user()->nim . ' melakukan login');
                 return redirect()->intended('dashboard')->with('toast_success','Selamat, anda berhasil masuk.');
             } elseif ($user->role_id == '2') {
+                activity()->causedBy(Auth::user())->log('User Mahasiswa ' . auth()->user()->nim . ' melakukan login');
                 return redirect()->intended('home')->with('toast_success','Selamat, anda berhasil masuk.');
             }
         }

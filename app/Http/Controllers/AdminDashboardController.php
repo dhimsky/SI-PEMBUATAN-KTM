@@ -6,6 +6,7 @@ use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
 
 class AdminDashboardController extends Controller
 {
@@ -39,6 +40,8 @@ class AdminDashboardController extends Controller
         $CilacaputaraCount = Mahasiswa::where('kecamatan','33.01.23')->count();
         $KampunglautCount = Mahasiswa::where('kecamatan','33.01.24')->count();
 
+        $log = Activity::latest()->paginate();
+
         return view('admin.dashboard.index', compact('accountCount', 'mahasiswaCount', 'notcompleteCount','KedungrejaCount', 'KesugihanCount', 'AdipalaCount',
         'BinangunCount', 'NusawunguCount', 'KroyaCount',
         'MaosCount', 'JeruklegiCount', 'KawungantenCount',
@@ -46,6 +49,6 @@ class AdminDashboardController extends Controller
         'CimangguCount', 'MajenangCount', 'WanarejaCount',
         'DayeuhluhurCount', 'SampangCount', 'CipariCount',
         'PatimuanCount', 'BantasariCount', 'CilacapselatanCount',
-        'CilacaptengahCount', 'CilacaputaraCount', 'KampunglautCount'));
+        'CilacaptengahCount', 'CilacaputaraCount', 'KampunglautCount'), ['models' => $log]);
     }
 }
