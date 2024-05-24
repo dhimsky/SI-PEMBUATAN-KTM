@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('prodi', function (Blueprint $table) {
             $table->string('id_prodi')->primary()->unique();
-            $table->string('jurusan_id');
-            $table->string('jenjang');
-            $table->string('nama_prodi');
+            $table->string('jurusan_id', 15);
+            $table->string('jenjang', 5);
+            $table->string('nama_prodi', 50);
             $table->timestamps();
 
             $table->foreign('jurusan_id')->references('id_jurusan')->on('jurusan')->onDelete('cascade');

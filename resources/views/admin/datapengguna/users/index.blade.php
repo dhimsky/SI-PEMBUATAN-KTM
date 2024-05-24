@@ -10,7 +10,7 @@
         <div class="card-body">
           <div class="col-md-12 text-right mb-3">
             <a href="" data-toggle="modal" data-target=".ImportData" class="btn btn-whatsapp" title="Import Excel">
-            <i class="fa fa-cloud-upload"></i></a>
+            Import akun <i class="fa fa-cloud-upload"></i></a>
           </div>
           <div class="table-responsive">
           <table id="example" class="display text-dark" style="min-width: 845px">
@@ -27,7 +27,7 @@
                   <tr class="text-center">
                       <td>{{ $u->nim }}</td>
                       <td>{{ $u->role->level }}</td>
-                      <td>{{ $u->username }}</td>
+                      <td>{{ mb_convert_case($u->username, MB_CASE_TITLE) }}</td>
                       <td>
                           <a href="" class="fa fa-pencil btn btn-warning" data-toggle="modal" data-target=".editUser{{ $u->nim }}" title="Edit pengguna">
                           </a>
@@ -90,16 +90,7 @@
                 </span>
                 @enderror
               </div>
-              <div class="form-group mb-3">
-                <label class="required-label faded-label" for="password" >Password</label>
-                <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Password baru"></i></span>
-                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan password">
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-              </div>
+              <small class="text-dark">Password default : abcd1234</small>
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Simpan</button>
@@ -118,6 +109,9 @@
               </button>
           </div>
           <div class="modal-body">
+            <div class="mb-3">
+              <a href="{{ asset('assets/files/format_import.xlsx') }}" style="text-decoration: underline">Download format</a>
+            </div>
             <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
               @csrf
                 <div class="custom-file">
@@ -185,7 +179,7 @@
                     </div>
                     <div class="form-group mb-3">
                       <label class="required-label faded-label" for="password" >Ubah Password</label>
-                      <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan password baru">
+                      <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukan password baru">
                       <small class="text-muted">Kosongkan jika tidak ingin mengubah password.</small>
                       @error('password')
                       <span class="invalid-feedback" role="alert">

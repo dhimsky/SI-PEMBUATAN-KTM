@@ -333,6 +333,12 @@
                         </div>
                     </div>
                     <div class="form-group row mb-2">
+                        <label for="angkatan_id" class="col-sm-5 col-form-label faded-label" >Status Mahasiswa</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->status_mhs }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
                         <label for="jenis_tinggal_di_cilacap" class="col-sm-5 col-form-label faded-label" >Jenis Tinggal di Cilacap</label>
                         <div class="col-sm-7 text-dark">
                             : {{ $mahasiswa->jenis_tinggal_di_cilacap }}

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('agama', function (Blueprint $table) {
             $table->string('id_agama')->primary()->unique();
-            $table->string('nama_agama');
+            $table->string('nama_agama', 15);
             $table->timestamps();
         });
     }

@@ -18,7 +18,6 @@
                 <table id="example" class="display text-dark" style="min-width: 845px">
                     <thead>
                         <tr class="text-center">
-                            <th>ID PENGAJUAN</th>
                             <th>NIM</th>
                             <th>STATUS</th>
                             <th>AKSI</th>
@@ -27,11 +26,10 @@
                     <tbody>
                         @foreach ($pengajuan as $p)
                         <tr class="text-center">                           
-                            <td>{{ $p->id_pengajuan }}</td>
                             <td>{{ $p->nim_id }}</td>
                             <td>
                                 <span class="
-                                @if($p->status == 'proses')
+                                @if($p->status == 'pending')
                                     badge bg-info
                                 @elseif($p->status == 'diterima')
                                     badge bg-success

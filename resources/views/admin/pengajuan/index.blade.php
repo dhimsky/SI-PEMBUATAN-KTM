@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="col-md-12 text-right mb-3">
                     <a href="" data-toggle="modal" data-target=".modalExport" class="btn btn-whatsapp" title="Export Data">
-                    <i class="fa fa-cloud-download"></i></a>
+                    Export data <i class="fa fa-cloud-download"></i></a>
                 </div>
                 <div class="table-responsive">
                 <table id="example" class="display text-dark" style="min-width: 845px">
@@ -29,7 +29,7 @@
                             <td>{{ $p->nim_id }}</td>
                             <td>
                                 <span class="
-                                @if($p->status == 'proses')
+                                @if($p->status == 'pending')
                                     badge bg-info
                                 @elseif($p->status == 'diterima')
                                     badge bg-success
@@ -129,7 +129,7 @@
                 <div class="form-group mb-3">
                     <label class="faded-label" for="status" style="font-style: italic;">Status</label>
                     <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
-                        <option value="proses" {{ $p->status === 'proses' ? 'selected' : '' }}>proses</option>
+                        <option value="pending" {{ $p->status === 'pending' ? 'selected' : '' }}>pending</option>
                         <option value="diterima" {{ $p->status === 'diterima' ? 'selected' : '' }}>diterima</option>
                         <option value="ditolak" {{ $p->status === 'ditolak' ? 'selected' : '' }}>ditolak</option>
                     </select>

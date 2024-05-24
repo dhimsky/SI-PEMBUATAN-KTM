@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Roles;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminRolesController extends Controller
 {
@@ -22,6 +24,7 @@ class AdminRolesController extends Controller
         $role = Roles::find($id);
         $role->level =  $request->input('level');
         $role->save();
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' melakukan update roles');
         return redirect()->route('role.index')->with('toast_success', 'Tabel Role berhasil diupdate');
     }
     // public function destroy($id)

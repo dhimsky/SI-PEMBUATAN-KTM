@@ -9,11 +9,11 @@
         </li>
         <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">Data Pengguna</span></a>
             <ul aria-expanded="false" class="mm-collapse">
-                <li><a href="/users/role">Role</a></li>
-                <li><a href="/users/account">Account</a></li>
+                <li><a href="{{route('role.index')}}">Role</a></li>
+                <li><a href="{{route('account.index')}}">Account</a></li>
             </ul>
         </li>
-        <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-chart-bar-33"></i><span class="nav-text">Data Form</span></a>
+        <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-file-o"></i><span class="nav-text">Data Form</span></a>
           <ul aria-expanded="false">
             <li><a href="{{route('jurusan.index')}}">Jurusan</a></li>
             <li><a href="{{route('prodi.index')}}">Prodi</a></li>
@@ -45,7 +45,7 @@
         <li><a href="{{ route('mahasiswa.detail', ['nim' => Auth::user()->nim]) }}" aria-expanded="false"><i class="icon icon-form">
           </i><span class="nav-text">Data Anda</span></a>
         </li>
-        <li><a href="{{ route('pengajuanktm.index') }}" aria-expanded="false"><i class="fa fa-id-card">
+        <li><a href="{{ route('pengajuanktm.index', ['nim' => Auth::user()->nim]) }}" aria-expanded="false"><i class="fa fa-id-card">
         </i><span class="nav-text">Pengajuan KTM</span></a>
       </li>
         <li><a href="{{ route('kalender.index') }}" aria-expanded="false">

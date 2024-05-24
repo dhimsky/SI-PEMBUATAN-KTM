@@ -93,6 +93,7 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 $p->prodi->nama_prodi,
                 $p->ukt,
                 $p->angkatan->tahun_angkatan,
+                $p->status_mhs,
                 $p->jenis_tinggal_di_cilacap,
                 $p->alat_transportasi_ke_kampus,
                 $p->sumber_biaya_kuliah,
@@ -117,7 +118,7 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return [
             'ID PENGAJUAN',
-            'STATUS',
+            'STATUS PENGAJUAN',
             'NIM',
             'NAMA LENGKAP',
             'NIK',
@@ -125,8 +126,8 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'TANGGAL LAHIR',
             'JENIS KELAMIN',
             'AGAMA',
-            'EMAL',
-            'No. HP',
+            'EMAIL',
+            'NO. HP',
             'PAS FOTO',
             'PROVINSI',
             'KABUPATEN',
@@ -139,14 +140,14 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'NIK AYAH',
             'TEMPAT LAHIR AYAH',
             'TANGGAL LAHIR AYAH',
-            'PENDIDIKAN AYAH',
+            'PENDIDIKAN TERAKHIR AYAH',
             'PEKERJAAN AYAH',
             'PENGHASILAN AYAH',
             'NAMA IBU',
             'NIK IBU',
             'TEMPAT LAHIR IBU',
             'TANGGAL LAHIR IBU',
-            'PENDIDIKAN IBU',
+            'PENDIDIKAN TERAKHIR IBU',
             'PEKERJAAN IBU',
             'PENGHASILAN IBU',
             'NAMA WALI',
@@ -157,6 +158,7 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             'PROGRAM STUDI',
             'UKT',
             'TAHUN ANGKATAN',
+            'STATUS MAHASISWA',
             'JENIS TINGGAL DI CILACAP',
             'ALAT TRANSPORTASI KE KAMPUS',
             'SUMBER BIAYA KULIAH',
@@ -168,7 +170,7 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
     public function styles(Worksheet $sheet)
     {
         // Menerapkan teks tebal (bold) dan rata tengah (center align) pada heading
-        $sheet->getStyle('A1:AU1')->applyFromArray([
+        $sheet->getStyle('A1:AV1')->applyFromArray([
             'font' => [
                 'bold' => true,
             ],
@@ -179,7 +181,7 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
         ]);
         
         $lastRow = $sheet->getHighestRow();
-        $sheet->getStyle('A2:AU'.$lastRow)->applyFromArray([
+        $sheet->getStyle('A2:AV'.$lastRow)->applyFromArray([
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
                 'vertical' => Alignment::VERTICAL_CENTER,
@@ -193,8 +195,13 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
             ],
         ]);
 
+        for ($row = 2; $row <= $lastRow; $row++) {
+            $cell = $sheet->getCell('D' . $row);
+            $cell->setValue(strtoupper($cell->getValue()));
+        }
+
         // Menentukan range berdasarkan seluruh data (misalnya dari A2 sampai AU$lastRow)
-        $range = 'A2:AU'.$lastRow;
+        $range = 'A2:AV'.$lastRow;
 
         // Mendapatkan conditional styles dari range yang ditentukan
         $conditionalStyles = $sheet->getStyle($range)->getConditionalStyles();
@@ -203,7 +210,7 @@ class PengajuanExport implements FromCollection, WithHeadings, ShouldAutoSize, W
         $conditional1 = new Conditional();
         $conditional1->setConditionType(Conditional::CONDITION_CELLIS);
         $conditional1->setOperatorType(Conditional::OPERATOR_EQUAL);
-        $conditional1->addCondition('proses');
+        $conditional1->addCondition('pending');
         $conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_BLUE);
 
         // Conditional Style for "diterima" (green font color)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
 use App\Models\Agama;
 use App\Models\Mahasiswa;
@@ -10,10 +10,19 @@ use App\Models\TahunAngkatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class MahasiswaPengajuanController extends Controller
 {
     public function index(){
+        $user = Auth::user();
+        $mahasiswa = Mahasiswa::where('nim', $user->nim)->first();
+        if (!$mahasiswa) {
+            return redirect()->route('isi-data')->with('info', 'Data anda belum lengkap!, silahkan lengkapi data anda terlebih dahulu.');
+        }
+        if ($mahasiswa->status_mhs === 'Tidak aktif') {
+            return redirect()->route('home')->with('info', 'Anda tidak lagi sebagai mahasiswa.');
+        }
         $title = 'Hapus Pengajuan!';
         $text = "Yakin ingin menghapus data ini?";
         confirmDelete($title, $text);
@@ -74,10 +83,17 @@ class MahasiswaPengajuanController extends Controller
     public function store(){
         $user = Auth::user();
         $mahasiswa = Mahasiswa::where('nim', $user->nim)->first();
+
+        $existingPengajuan = Pengajuan::where('nim_id', $mahasiswa->nim)->exists();
+
+        if ($existingPengajuan) {
+            return redirect()->route('pengajuanktm.index')->with('error', 'Anda sudah melakukan pengajuan KTM sebelumnya.');
+        }
+
         $pengajuan = new Pengajuan();
 
         $pengajuan->nim_id = $mahasiswa->nim;
-        $pengajuan->status = 'proses';
+        $pengajuan->status = 'pending';
         $pengajuan->nama_lengkap = $mahasiswa->nama_lengkap;
         $pengajuan->nik = $mahasiswa->nik;
         $pengajuan->tempat_lahir = $mahasiswa->tempat_lahir;
@@ -122,13 +138,15 @@ class MahasiswaPengajuanController extends Controller
         $pengajuan->penerima_kartu_prasejahtera = $mahasiswa->penerima_kartu_prasejahtera;
         $pengajuan->jumlah_tanggungan_keluarga_yang_masih_sekolah = $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah;
         $pengajuan->anak_ke = $mahasiswa->anak_ke;
+        $pengajuan->status_mhs = $mahasiswa->status_mhs;
         $pengajuan->save();
+        activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' melakukan pengajuan KTM');
         return redirect()->route('pengajuanktm.index')->with('success', 'Berhasil ditambahkan dalam pengajuan.');
     }
     public function destroy($id){
         $pengajuan = Pengajuan::find($id);
         $pengajuan->delete();
-
+        activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' menghapus pengajuan KTM');
         return redirect()->route('pengajuanktm.index')->with('success', 'Pengajuan berhasil dihapus.');
     }
 }

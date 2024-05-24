@@ -8,6 +8,12 @@
                 <h4 class="card-title">Tabel Data Mahasiswa</h4>
             </div>
             <div class="card-body">
+                <div class="col-md-12 text-right mb-3">
+                    <a href="" class="btn btn-whatsapp" data-toggle="modal" data-target=".modalStatus">
+                    Ubah status <i class="fa fa-check-circle"></i></a>
+                    <a href="" class="btn btn-whatsapp" data-toggle="modal" data-target=".modalExport">
+                    Export data <i class="fa fa-cloud-download"></i></a>
+                </div>
                 <form action="{{ route('data-mahasiswa.index') }}" method="GET">
                 <div class="row mb-3">
                         <div class="col-md-3 mb-2">
@@ -29,12 +35,9 @@
                         <div class="col-md-1">
                             <button id="btnFilter" class="btn btn-whatsapp"><i class="fa fa-search"></i></button>
                         </div>
-                        <div class="col-md-4 text-right mb-3">
-                            <a href="" class="btn btn-whatsapp" data-toggle="modal" data-target=".modalExport">
-                            <i class="fa fa-cloud-download"></i></a>
-                        </div>
                     </div>
                 </form>
+                
                 <div class="table-responsive">
                     <table id="example" class="display text-dark" style="min-width: 845px">
                         <thead>
@@ -62,7 +65,7 @@
                                     @endif
                                 </td>                            
                                 <td>{{ $m->nim }}</td>
-                                <td>{{ $m->nama_lengkap }}</td>
+                                <td>{{ mb_convert_case($m->nama_lengkap, MB_CASE_TITLE) }}</td>
                                 <td>{{ $m->prodi->nama_prodi }}</td>
                                 <td>{{ $m->angkatan->tahun_angkatan }}</td>
                                 <td>
@@ -1392,7 +1395,20 @@
                             @enderror
                         </div>
                     </div>
-                    
+                    <div class="form-group row mb-2 ml-2 mr-2">
+                        <label for="status_mhs" class="col-sm-5 col-form-label faded-label required-label" >Status Mahasiswa</label>
+                        <div class="col-sm-7">
+                            <select class="form-control @error('status_mhs') is-invalid @enderror" id="status_mhs" name="status_mhs">
+                                <option value="Aktif" {{ $m->status_mhs === 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="Tidak aktif" {{ $m->status_mhs === 'Tidak aktif' ? 'selected' : '' }}>Tidak aktif</option>
+                            </select>
+                            @error('status_mhs')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-dark" data-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -1690,6 +1706,12 @@
                     </div>
                 </div>
                 <div class="form-group row mb-2">
+                    <label for="tahun_angkatan" class="col-sm-5 col-form-label faded-label" >Tahun Angkatan</label>
+                    <div class="col-sm-7 text-dark">
+                        : {{ $m->status_mhs }}
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
                     <label for="jenis_tinggal_di_cilacap" class="col-sm-5 col-form-label faded-label" >Jenis Tinggal di Cilacap</label>
                     <div class="col-sm-7 text-dark">
                         : {{ $m->jenis_tinggal_di_cilacap }}
@@ -1742,32 +1764,79 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
-        <div class="modal-body">
-            <form id="exportForm" action="{{ route('exportdata.exportexcel') }}" method="post">
-                @csrf
-                <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="prodi_id" >Pilih Prodi</label>
-                    <select class="form-control" name="prodi_id" id="prodi_id">
-                        <option value="">Semua Prodi</option>
-                        @foreach ($prodi as $programStudi)
-                            <option value="{{ $programStudi->id_prodi }}">{{ $programStudi->nama_prodi }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="tahun_angkatan" >Pilih Angkatan</label>
-                    <select class="form-control" name="tahun_angkatan" id="tahun_angkatan">
-                        <option value="">Semua Angkatan</option>
-                        @foreach ($angkatan as $a)
-                            <option value="{{ $a->id_angkatan }}">{{ $a->tahun_angkatan }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" onclick="submitForm('{{ route('exportdata.exportexcel') }}')">Export Excel</button>
-                    <button type="button" class="btn btn-primary" onclick="submitForm('{{ route('exportdata.exportimg') }}')">Export Foto</button>
-                </div>
-            </form>
+            <div class="modal-body">
+                <form id="exportForm" action="{{ route('exportdata.exportexcel') }}" method="post">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="prodi_id" >Pilih Prodi</label>
+                        <select class="form-control" name="prodi_id" id="prodi_id">
+                            <option value="">Semua Prodi</option>
+                            @foreach ($prodi as $programStudi)
+                                <option value="{{ $programStudi->id_prodi }}">{{ $programStudi->nama_prodi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="tahun_angkatan" >Pilih Angkatan</label>
+                        <select class="form-control" name="tahun_angkatan" id="tahun_angkatan">
+                            <option value="">Semua Angkatan</option>
+                            @foreach ($angkatan as $a)
+                                <option value="{{ $a->id_angkatan }}">{{ $a->tahun_angkatan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" onclick="submitForm('{{ route('exportdata.exportexcel') }}')">Export Excel</button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm('{{ route('exportdata.exportimg') }}')">Export Foto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modalStatus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Ubah Status Mahasiswa</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('mahasiswa.update-status') }}" method="post">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="prodi_id" >Pilih Prodi</label>
+                        <select class="form-control" name="prodi_id" id="prodi_id">
+                            <option value="">-- Pilih Prodi --</option>
+                            @foreach ($prodi as $programStudi)
+                                <option value="{{ $programStudi->id_prodi }}">{{ $programStudi->nama_prodi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="angkatan_id" >Pilih Angkatan</label>
+                        <select class="form-control" name="angkatan_id" id="angkatan_id">
+                            <option value="">-- Pilih Angkatan --</option>
+                            @foreach ($angkatan as $a)
+                                <option value="{{ $a->id_angkatan }}">{{ $a->tahun_angkatan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="status_mhs" >Pilih Status Mahasiswa</label>
+                        <select class="form-control" name="status_mhs" id="status_mhs">
+                            <option selected value="">-- Pilih Status --</option>
+                            <option value="Aktif">Aktif</option>
+                            <option value="Tidak aktif">Tidak Aktif</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">Ubah status</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

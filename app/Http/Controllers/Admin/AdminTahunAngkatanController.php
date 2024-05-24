@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\TahunAngkatan;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminTahunAngkatanController extends Controller
 {
@@ -32,6 +34,7 @@ class AdminTahunAngkatanController extends Controller
         $tahunangkatan->id_angkatan =  $request->input('id_angkatan');
         $tahunangkatan->tahun_angkatan =  $request->input('tahun_angkatan');
         $tahunangkatan->save();
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah tahun angkatan');
         return redirect()->route('tahunangkatan.index')->with('success', 'Tahun angkatan berhasil ditambahkan');
     }
     public function update(Request $request, $id)
@@ -51,6 +54,7 @@ class AdminTahunAngkatanController extends Controller
         $tahunangkatan->id_angkatan =  $request->input('id_angkatan');
         $tahunangkatan->tahun_angkatan =  $request->input('tahun_angkatan');
         $tahunangkatan->save();
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel tahun angkatan');
         return redirect()->route('tahunangkatan.index')->with('success', 'Tahun angkatan berhasil diupdate.');
     }
     public function destroy($id)
@@ -59,6 +63,7 @@ class AdminTahunAngkatanController extends Controller
         if (!$mahasiswa){
             $tahunangkatan = TahunAngkatan::find($id);
             $tahunangkatan->delete();
+            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus tahun angkatan');
             return redirect()->route('tahunangkatan.index')->with('success', 'Tahun angkatan berhasil dihapus.');
         }else{
             return redirect()->route('tahunangkatan.index')->with('error','Tidak dapat menghapus!, tahun angkatan sedang digunakan pada tabel Mahasiswa.');

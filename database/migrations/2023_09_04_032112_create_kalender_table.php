@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id('id_kalender');
             $table->date('tanggal');
             $table->time('jam');
-            $table->string('prodi');
-            $table->string('kelas');
-            $table->string('detail')->nullable();
+            $table->string('prodi', 5);
+            $table->string('kelas', 15);
+            $table->string('detail', 50)->nullable();
 
             // Foreign key to prodi table
             $table->foreign('prodi')->references('id_prodi')->on('prodi')->onDelete('cascade');

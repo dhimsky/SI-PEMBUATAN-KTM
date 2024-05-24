@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
 use App\Models\Agama;
 use Illuminate\Http\Request;
@@ -11,6 +11,7 @@ use App\Models\Wilayah;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class MahasiswaDetailController extends Controller
 {
@@ -210,7 +211,7 @@ class MahasiswaDetailController extends Controller
 
         // Simpan data mahasiswa yang sudah diupdate
         $mahasiswa->save();
-
+        activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' mengubah data');
         // Redirect ke halaman tampilan data mahasiswa
         return redirect()->route('mahasiswa.detail',['nim' => Auth::user()->nim])->with('success', 'Data mahasiswa berhasil diupdate.');
     }

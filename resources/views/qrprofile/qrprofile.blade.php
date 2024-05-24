@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-8">
                                     <div class="card-header">
-                                        <h3>Data Mahasiswa</h3>
+                                        <h3>Profile Mahasiswa</h3>
                                     </div>
                                 </div>
                             </div>
@@ -75,6 +75,12 @@
                                         <label for="angkatan" class="col-sm-5 col-form-label faded-label" >Tahun Angkatan</label>
                                         <div class="col-sm-7 text-dark">
                                             : {{ $mahasiswa->angkatan->tahun_angkatan }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-2">
+                                        <label for="angkatan" class="col-sm-5 col-form-label faded-label" >Status Mahasiswa</label>
+                                        <div class="col-sm-7 text-dark">
+                                            : {{ $mahasiswa->status_mhs }}
                                         </div>
                                     </div>
                                 </div>

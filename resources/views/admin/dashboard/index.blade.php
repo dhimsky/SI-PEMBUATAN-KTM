@@ -46,14 +46,40 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="card">
+                <div class="stat-widget-two card-body">
+                    <div class="stat-content">
+                        <div class="stat-text">Total Mahasiswa Aktif</div>
+                        <div class="stat-digit">{{ $mahasiswaActive }}</div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" style="width: {{ $mahasiswaActive / $mahasiswaCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $mahasiswaActive }}" aria-valuemin="0" aria-valuemax="{{ $mahasiswaCount }}"></div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="card">
+                <div class="stat-widget-two card-body">
+                    <div class="stat-content">
+                        <div class="stat-text">Total Mahasiswa Tidak Aktif</div>
+                        <div class="stat-digit">{{ $mahasiswaNonActive }}</div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger" style="width: {{ $mahasiswaNonActive / $mahasiswaCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $mahasiswaNonActive }}" aria-valuemin="0" aria-valuemax="{{ $mahasiswaCount }}"></div>
+                    </div>    
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-lg-7 col-sm-6">
+        <div class="col-lg-6 col-sm-6">
             <div class="card">
                 <div class="stat-widget-two card-body">
                     <div class="start-content">
-                        <div class="stat-text">Peta Mahasiswa</div>
+                        <div class="stat-text">Jumlah Mahasiswa Tiap Kecamatan <br> Pada Kabupaten Cilacap</div>
                     </div>
                 </div>
                 <svg viewBox="0 0 999.75118 999.75118" enable-background="new 0 0 999.75118 999.75118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -7371,7 +7397,7 @@
                 </svg>
             </div>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Log Aktivitas</h4>
@@ -7381,12 +7407,15 @@
                         @foreach ($models as $l)
                         <div class="media">
                             <div class="media-body">
-                                <h4 class="media-heading text-primary">{{ $l->causer->username }}</h4>
+                                <h4 class="media-heading text-primary"></h4>
                                 <p>{{ $l->description }}</p>
                                 <p class="comment-date">{{ \Carbon\Carbon::parse($l->created_at)->diffForHumans() }}</p>
                             </div>
                         </div>
                         @endforeach
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        {{ $models->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>

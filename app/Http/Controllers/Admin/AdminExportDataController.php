@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Exports\MahasiswaExport;
@@ -10,6 +10,7 @@ use App\Exports\MahasiswaImagesExport;
 use App\Exports\PengajuanExport;
 use App\Exports\PengajuanImagesExport;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use App\Http\Controllers\Controller;
 
 class AdminExportDataController extends Controller
 {

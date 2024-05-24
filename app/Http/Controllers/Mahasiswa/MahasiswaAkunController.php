@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Models\Mahasiswa;
+use App\Http\Controllers\Controller;
 
 class MahasiswaAkunController extends Controller
 {
@@ -31,7 +32,7 @@ class MahasiswaAkunController extends Controller
         $user->update([
             'password' => Hash::make($request->new_password)
         ]);
-
+        activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' mengganti password');
         return redirect()->route('akun.index')->with('toast_success', 'Kata sandi berhasil di ubah');
     }
 }

@@ -296,6 +296,7 @@ class MultiStepForm extends Component
         $mahasiswa->penerima_kartu_prasejahtera = $this->penerima_kartu_prasejahtera;
         $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah = $this->jumlah_tanggungan_keluarga_yang_masih_sekolah;
         $mahasiswa->anak_ke = $this->anak_ke;
+        $mahasiswa->status_mhs = 'Aktif';
         
         $mahasiswa->save();
         

@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Agama;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Mahasiswa;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminAgamaController extends Controller
 {
@@ -32,6 +34,7 @@ class AdminAgamaController extends Controller
         $agama->id_agama =  $request->input('id_agama');
         $agama->nama_agama =  $request->input('nama_agama');
         $agama->save();
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah agama');
         return redirect()->route('agama.index')->with('success', 'Agama berhasil ditambahkan!');
     }
     public function update(Request $request, $id)
@@ -51,6 +54,7 @@ class AdminAgamaController extends Controller
         $agama->id_agama =  $request->input('id_agama');
         $agama->nama_agama =  $request->input('nama_agama');
         $agama->save();
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel agama');
         return redirect()->route('agama.index')->with('success', 'Agama berhasil diupdate.');
     }
     public function destroy($id)
@@ -59,6 +63,7 @@ class AdminAgamaController extends Controller
         if (!$mahasiswa){
             $agama = Agama::find($id);
             $agama->delete();
+            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus agama');
             return redirect()->route('agama.index')->with('success', 'Agama berhasil dihapus.');
         }else{
             return redirect()->route('agama.index')->with('error','Tidak dapat menghapus!, agama sedang digunakan pada tabel Mahasiswa.');

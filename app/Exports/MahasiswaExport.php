@@ -90,6 +90,7 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 $mhs->prodi->nama_prodi,
                 $mhs->ukt,
                 $mhs->angkatan->tahun_angkatan,
+                $mhs->status_mhs,
                 $mhs->jenis_tinggal_di_cilacap,
                 $mhs->alat_transportasi_ke_kampus,
                 $mhs->sumber_biaya_kuliah,
@@ -121,8 +122,8 @@ private function getWilayahNama($kode)
             'TANGGAL LAHIR',
             'JENIS KELAMIN',
             'AGAMA',
-            'EMAL',
-            'No. HP',
+            'EMAIL',
+            'NO. HP',
             'PAS FOTO',
             'PROVINSI',
             'KABUPATEN',
@@ -130,19 +131,19 @@ private function getWilayahNama($kode)
             'DESA/KELURAHAN',
             'RT',
             'RW',
-            'ALAMAT JALAN',
+            'NAMA JALAN',
             'NAMA AYAH',
             'NIK AYAH',
             'TEMPAT LAHIR AYAH',
             'TANGGAL LAHIR AYAH',
-            'PENDIDIKAN AYAH',
+            'PENDIDIKAN TERAKHIR AYAH',
             'PEKERJAAN AYAH',
             'PENGHASILAN AYAH',
             'NAMA IBU',
             'NIK IBU',
             'TEMPAT LAHIR IBU',
             'TANGGAL LAHIR IBU',
-            'PENDIDIKAN IBU',
+            'PENDIDIKAN TERAKHIR IBU',
             'PEKERJAAN IBU',
             'PENGHASILAN IBU',
             'NAMA WALI',
@@ -153,6 +154,7 @@ private function getWilayahNama($kode)
             'PROGRAM STUDI',
             'UKT',
             'TAHUN ANGKATAN',
+            'STATUS MAHASISWA',
             'JENIS TINGGAL DI CILACAP',
             'ALAT TRANSPORTASI KE KAMPUS',
             'SUMBER BIAYA KULIAH',
@@ -164,7 +166,7 @@ private function getWilayahNama($kode)
     public function styles(Worksheet $sheet)
     {
         // Menerapkan teks tebal (bold) dan rata tengah (center align) pada heading
-        $sheet->getStyle('A1:AS1')->applyFromArray([
+        $sheet->getStyle('A1:AT1')->applyFromArray([
             'font' => [
                 'bold' => true,
             ],
@@ -175,7 +177,7 @@ private function getWilayahNama($kode)
         ]);
         
         $lastRow = $sheet->getHighestRow();
-        $sheet->getStyle('A2:AS'.$lastRow)->applyFromArray([
+        $sheet->getStyle('A2:AT'.$lastRow)->applyFromArray([
             'alignment' => [
                 'horizontal' => Alignment::HORIZONTAL_CENTER,
                 'vertical' => Alignment::VERTICAL_CENTER,
@@ -188,6 +190,11 @@ private function getWilayahNama($kode)
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
             ],
         ]);
+
+        for ($row = 2; $row <= $lastRow; $row++) {
+            $cell = $sheet->getCell('B' . $row);
+            $cell->setValue(strtoupper($cell->getValue()));
+        }
     }
 
     public function columnFormats(): array

@@ -58,6 +58,7 @@ class Pengajuan extends Model
         'penerima_kartu_prasejahtera',
         'jumlah_tanggungan_keluarga_yang_masih_sekolah',
         'anak_ke',
+        'status_mhs',
     ];
 
     public function mahasiswa()

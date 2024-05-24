@@ -23,7 +23,7 @@ class User extends Authenticatable
     public $incrementing = false; // Karena kolom 'nim' bukan auto-increment
     public $timestamps = true;
     
-    use LogsActivity;
+
     
     protected $fillable = [
         'nim',
@@ -31,12 +31,6 @@ class User extends Authenticatable
         'username',
         'password',
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-        ->logUnguarded();
-    }
 
     // Relationship dengan model Role
     public function role()

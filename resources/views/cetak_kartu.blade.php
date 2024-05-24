@@ -116,6 +116,13 @@
             left: 2px;
             position: absolute;
         }
+
+        .angkatan{
+            padding-top: 55px;
+            font-size: 6px;
+            position: absolute;
+            right: 4;
+        }
     </style>
 </head>
 
@@ -125,6 +132,9 @@
         <div class="main">
             <img class="background-image" src="{{public_path('images/FrameCard2.png')}}" alt="">
             <div class="main-data">
+                <div class="angkatan">
+                    TA. {{$mahasiswa->angkatan->tahun_angkatan}}
+                </div>
                 <div class="left-div">
                     @if ($mahasiswa->pas_foto)
                     <img class="img"

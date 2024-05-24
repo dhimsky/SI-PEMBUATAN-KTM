@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
+use App\Http\Controllers\Controller;
 
 class AdminDashboardController extends Controller
 {
@@ -14,6 +15,8 @@ class AdminDashboardController extends Controller
         $accountCount = User::where('role_id', '2')->count();
         $mahasiswaCount = Mahasiswa::count();
         $notcompleteCount = $accountCount - $mahasiswaCount;
+        $mahasiswaActive = Mahasiswa::where('status_mhs', 'Aktif')->count();
+        $mahasiswaNonActive = Mahasiswa::where('status_mhs', 'Tidak aktif')->count();
 
         $KedungrejaCount = Mahasiswa::where('kecamatan','33.01.01')->count();
         $KesugihanCount = Mahasiswa::where('kecamatan','33.01.02')->count();
@@ -40,9 +43,9 @@ class AdminDashboardController extends Controller
         $CilacaputaraCount = Mahasiswa::where('kecamatan','33.01.23')->count();
         $KampunglautCount = Mahasiswa::where('kecamatan','33.01.24')->count();
 
-        $log = Activity::latest()->paginate();
+        $log = Activity::latest()->paginate(10);
 
-        return view('admin.dashboard.index', compact('accountCount', 'mahasiswaCount', 'notcompleteCount','KedungrejaCount', 'KesugihanCount', 'AdipalaCount',
+        return view('admin.dashboard.index', compact('mahasiswaNonActive', 'mahasiswaActive', 'accountCount', 'mahasiswaCount', 'notcompleteCount','KedungrejaCount', 'KesugihanCount', 'AdipalaCount',
         'BinangunCount', 'NusawunguCount', 'KroyaCount',
         'MaosCount', 'JeruklegiCount', 'KawungantenCount',
         'GandrungmanguCount', 'SidarejaCount', 'KarangpucungCount',

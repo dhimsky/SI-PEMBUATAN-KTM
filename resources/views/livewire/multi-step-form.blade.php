@@ -103,7 +103,7 @@
                     <div class="form-group col-md-3 mb-3">
                         <label class="required-label faded-label" for="pas_foto" style="font-style: italic;">Pas Foto</label>
                         <div class="custom-file">
-                            <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="input_pas_foto" wire:model="pas_foto" >
+                            <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="input_pas_foto" wire:model="pas_foto" accept=".jpg, .jpeg, .png">
                             <label class="custom-file-label" id="label_pas_foto" for="input_pas_foto">
                                 @if($pas_foto && !is_string($pas_foto))
                                     Foto Terpilih
@@ -231,8 +231,8 @@
     
                     <!-- Alamat Jalan Input -->
                     <div class="form-group col-md-5 mb-3">
-                        <label class="required-label faded-label" for="alamat_jalan" style="font-style: italic;">Jalan</label>
-                        <input type="text" name="alamat_jalan" class="form-control @error('alamat_jalan') is-invalid @enderror" value="{{ old('alamat_jalan') }}" wire:model="alamat_jalan">
+                        <label class="required-label faded-label" for="alamat_jalan" style="font-style: italic;">Nama Jalan</label>
+                        <input type="text" name="alamat_jalan" class="form-control @error('alamat_jalan') is-invalid @enderror" value="{{ old('alamat_jalan') }}" wire:model="alamat_jalan" placeholder="Contoh: Melati No.3">
                         @error('alamat_jalan')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -290,14 +290,34 @@
                     </div>
     
                     <div class="form-group col-md-3 mb-3">
-                        <label class="faded-label" for="pendidikan_ayah" style="font-style: italic;">Pendidikan Ayah</label>
-                        <input type="text" name="pendidikan_ayah" class="form-control @error('pendidikan_ayah') is-invalid @enderror" value="{{ old('pendidikan_ayah') }}" wire:model="pendidikan_ayah">
+                        <label class="faded-label" for="pendidikan_ayah" style="font-style: italic;">Pendidikan Terakhir Ayah</label>
+                        <select name="pendidikan_ayah" class="form-control @error('pendidikan_ayah') is-invalid @enderror" wire:model="pendidikan_ayah">
+                            <option selected value="" style="font-style: italic;">-- Pilih Pendidikan Terakhir --</option>
+                            <option value="SD" @if(old('pendidikan_ayah') == 'SD') selected @endif>SD</option>
+                            <option value="SLTP" @if(old('pendidikan_ayah') == 'SLTP') selected @endif>SLTP</option>
+                            <option value="SLTA" @if(old('pendidikan_ayah') == 'SLTA') selected @endif>SLTA</option>
+                            <option value="D1" @if(old('pendidikan_ayah') == 'D1') selected @endif>D1</option>
+                            <option value="D2" @if(old('pendidikan_ayah') == 'D2') selected @endif>D2</option>
+                            <option value="D3" @if(old('pendidikan_ayah') == 'D3') selected @endif>D3</option>
+                            <option value="S1" @if(old('pendidikan_ayah') == 'S1') selected @endif>S1</option>
+                            <option value="S2" @if(old('pendidikan_ayah') == 'S2') selected @endif>S2</option>
+                            <option value="S3" @if(old('pendidikan_ayah') == 'S3') selected @endif>S3</option>
+                        </select>
                         @error('pendidikan_ayah')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
+                    {{-- <div class="form-group col-md-3 mb-3">
+                        <label class="faded-label" for="pendidikan_ayah" style="font-style: italic;">Pendidikan Terakhir Ayah</label>
+                        <input type="text" name="pendidikan_ayah" class="form-control @error('pendidikan_ayah') is-invalid @enderror" value="{{ old('pendidikan_ayah') }}" wire:model="pendidikan_ayah">
+                        @error('pendidikan_ayah')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div> --}}
                     <div class="form-group col-md-3 mb-3">
                         <label class="faded-label" for="pekerjaan_ayah" style="font-style: italic;">Pekerjaan Ayah</label>
                         <input type="text" name="pekerjaan_ayah" class="form-control @error('pekerjaan_ayah') is-invalid @enderror" value="{{ old('pekerjaan_ayah') }}" wire:model="pekerjaan_ayah">
@@ -320,7 +340,7 @@
                 <hr style="border: 0.2px solid">
                 <div class="row mt-3">
                     <div class="form-group col-md-3 mb-3">
-                        <label class="required-label faded-label" for="nama_ibu" style="font-style: italic;">Nama ibu</label>
+                        <label class="required-label faded-label" for="nama_ibu" style="font-style: italic;">Nama Ibu</label>
                         <input type="text" name="nama_ibu" class="form-control @error('nama_ibu') is-invalid @enderror" value="{{ old('nama_ibu') }}" wire:model="nama_ibu">
                         @error('nama_ibu')
                             <span class="invalid-feedback" role="alert">
@@ -329,7 +349,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="faded-label" for="nik_ibu" style="font-style: italic;">NIK ibu</label>
+                        <label class="faded-label" for="nik_ibu" style="font-style: italic;">NIK Ibu</label>
                         <input type="number" name="nik_ibu" class="form-control @error('nik_ibu') is-invalid @enderror" value="{{ old('nik_ibu') }}" wire:model="nik_ibu">
                         @error('nik_ibu')
                             <span class="invalid-feedback" role="alert">
@@ -338,7 +358,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="faded-label" for="tempat_lahir_ibu" style="font-style: italic;">Tempat Lahir ibu</label>
+                        <label class="faded-label" for="tempat_lahir_ibu" style="font-style: italic;">Tempat Lahir Ibu</label>
                         <input type="text" name="tempat_lahir_ibu" class="form-control @error('tempat_lahir_ibu') is-invalid @enderror" value="{{ old('tempat_lahir_ibu') }}" wire:model="tempat_lahir_ibu">
                         @error('tempat_lahir_ibu')
                             <span class="invalid-feedback" role="alert">
@@ -347,7 +367,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="faded-label" for="tanggal_lahir_ibu" style="font-style: italic;">Tanggal Lahir ibu</label>
+                        <label class="faded-label" for="tanggal_lahir_ibu" style="font-style: italic;">Tanggal Lahir Ibu</label>
                         <input type="date" name="tanggal_lahir_ibu" class="form-control @error('tanggal_lahir_ibu') is-invalid @enderror" value="{{ old('tanggal_lahir_ibu') }}" wire:model="tanggal_lahir_ibu">
                         @error('tanggal_lahir_ibu')
                             <span class="invalid-feedback" role="alert">
@@ -357,16 +377,36 @@
                     </div>
     
                     <div class="form-group col-md-3 mb-3">
-                        <label class="faded-label" for="pendidikan_ibu" style="font-style: italic;">Pendidikan ibu</label>
-                        <input type="text" name="pendidikan_ibu" class="form-control @error('pendidikan_ibu') is-invalid @enderror" value="{{ old('pendidikan_ibu') }}" wire:model="pendidikan_ibu">
+                        <label class="faded-label" for="pendidikan_ibu" style="font-style: italic;">Pendidikan Terakhir Ibu</label>
+                        <select name="pendidikan_ibu" class="form-control @error('pendidikan_ibu') is-invalid @enderror" wire:model="pendidikan_ibu">
+                            <option selected value="" style="font-style: italic;">-- Pilih Pendidikan Terakhir --</option>
+                            <option value="SD" @if(old('pendidikan_ibu') == 'SD') selected @endif>SD</option>
+                            <option value="SLTP" @if(old('pendidikan_ibu') == 'SLTP') selected @endif>SLTP</option>
+                            <option value="SLTA" @if(old('pendidikan_ibu') == 'SLTA') selected @endif>SLTA</option>
+                            <option value="D1" @if(old('pendidikan_ibu') == 'D1') selected @endif>D1</option>
+                            <option value="D2" @if(old('pendidikan_ibu') == 'D2') selected @endif>D2</option>
+                            <option value="D3" @if(old('pendidikan_ibu') == 'D3') selected @endif>D3</option>
+                            <option value="S1" @if(old('pendidikan_ibu') == 'S1') selected @endif>S1</option>
+                            <option value="S2" @if(old('pendidikan_ibu') == 'S2') selected @endif>S2</option>
+                            <option value="S3" @if(old('pendidikan_ibu') == 'S3') selected @endif>S3</option>
+                        </select>
                         @error('pendidikan_ibu')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
+                    {{-- <div class="form-group col-md-3 mb-3">
+                        <label class="faded-label" for="pendidikan_ibu" style="font-style: italic;">Pendidikan Terakhir Ibu</label>
+                        <input type="text" name="pendidikan_ibu" class="form-control @error('pendidikan_ibu') is-invalid @enderror" value="{{ old('pendidikan_ibu') }}" wire:model="pendidikan_ibu">
+                        @error('pendidikan_ibu')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div> --}}
                     <div class="form-group col-md-3 mb-3">
-                        <label class="faded-label" for="pekerjaan_ibu" style="font-style: italic;">Pekerjaan ibu</label>
+                        <label class="faded-label" for="pekerjaan_ibu" style="font-style: italic;">Pekerjaan Ibu</label>
                         <input type="text" name="pekerjaan_ibu" class="form-control @error('pekerjaan_ibu') is-invalid @enderror" value="{{ old('pekerjaan_ibu') }}" wire:model="pekerjaan_ibu">
                         @error('pekerjaan_ibu')
                             <span class="invalid-feedback" role="alert">
@@ -375,7 +415,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="faded-label" for="penghasilan_ibu" style="font-style: italic;">Penghasilan ibu</label>
+                        <label class="faded-label" for="penghasilan_ibu" style="font-style: italic;">Penghasilan Ibu</label>
                         <input type="number" name="penghasilan_ibu" class="form-control @error('penghasilan_ibu') is-invalid @enderror" value="{{ old('penghasilan_ibu') }}" wire:model="penghasilan_ibu">
                         @error('penghasilan_ibu')
                             <span class="invalid-feedback" role="alert">

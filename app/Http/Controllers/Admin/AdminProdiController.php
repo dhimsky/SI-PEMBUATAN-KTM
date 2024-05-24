@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Prodi;
 use App\Models\Mahasiswa;
 use App\Models\Jurusan;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminProdiController extends Controller
 {
@@ -43,7 +45,7 @@ class AdminProdiController extends Controller
             'jurusan_id' => $request->input('jurusan_id'),
             'jenjang' => $request->input('jenjang'),
         ]);
-
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah prodi');
         return redirect()->route('prodi.index')->with('success', 'Prodi berhasil ditambahkan.');
     }
 
@@ -71,7 +73,7 @@ class AdminProdiController extends Controller
         $prodi->jurusan_id = $request->input('jurusan_id');
         $prodi->jenjang = $request->input('jenjang');
         $prodi->save();
-
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel prodi');
         return redirect()->route('prodi.index')->with('success', 'Prodi berhasil diupdate');
     }
 
@@ -81,6 +83,7 @@ class AdminProdiController extends Controller
         if (!$mahasiswa) {
             $prodi = Prodi::find($id);
             $prodi->delete();
+            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus prodi');
             return redirect()->route('prodi.index')->with('success', 'Prodi berhasil dihapus.');
         } else {
             return redirect()->route('prodi.index')->with('error', 'Tidak dapat menghapus!, Prodi sedang digunakan oleh tabel Mahasiswa.');

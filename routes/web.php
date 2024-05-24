@@ -1,27 +1,27 @@
 <?php
 
-use App\Http\Controllers\AdminAgamaController;
+use App\Http\Controllers\Admin\AdminAgamaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\WilayahController;
-use App\Http\Controllers\AdminUsersController;
-use App\Http\Controllers\AdminRolesController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\MahasiswaDashboardController;
-use App\Http\Controllers\AdminProdiController;
-use App\Http\Controllers\MahasiswaAkunController;
-use App\Http\Controllers\MahasiswaDetailController;
-use App\Http\Controllers\AdminDataMahasiswaController;
-use App\Http\Controllers\AdminExportDataController;
-use App\Http\Controllers\MahasiswaCetakKartuController;
-use App\Http\Controllers\AdminJurusanController;
-use App\Http\Controllers\AdminKelolaAkunController;
-use App\Http\Controllers\AdminPengajuanController;
-use App\Http\Controllers\AdminTahunAngkatanController;
-use App\Http\Controllers\AdminUserImportController;
+use App\Http\Controllers\Admin\AdminUsersController;
+use App\Http\Controllers\Admin\AdminRolesController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Mahasiswa\MahasiswaDashboardController;
+use App\Http\Controllers\Admin\AdminProdiController;
+use App\Http\Controllers\Mahasiswa\MahasiswaAkunController;
+use App\Http\Controllers\Mahasiswa\MahasiswaDetailController;
+use App\Http\Controllers\Admin\AdminDataMahasiswaController;
+use App\Http\Controllers\Admin\AdminExportDataController;
+use App\Http\Controllers\Mahasiswa\MahasiswaCetakKartuController;
+use App\Http\Controllers\Admin\AdminJurusanController;
+use App\Http\Controllers\Admin\AdminKelolaAkunController;
+use App\Http\Controllers\Admin\AdminPengajuanController;
+use App\Http\Controllers\Admin\AdminTahunAngkatanController;
+use App\Http\Controllers\Admin\AdminUserImportController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\KalenderController;
-use App\Http\Controllers\MahasiswaPengajuanController;
+use App\Http\Controllers\Mahasiswa\MahasiswaPengajuanController;
 use App\Http\Controllers\QrProfileController;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Crypt;
@@ -34,7 +34,7 @@ Route::post('loginsession', [SessionController::class, 'login']);
 Route::post('logout', [SessionController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::middleware('CekUserLogin:1,3')->group(function () {
+    Route::prefix('admin')->middleware('CekUserLogin:1,3')->group(function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('kelolaakun', [AdminKelolaAkunController::class, 'index'])->name('kelolaakun.index');
         Route::post('kelolaakun/gantipassword', [AdminKelolaAkunController::class, 'changePassword'])->name('kelolaakun.gantipw');
@@ -45,11 +45,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/import', [AdminUserImportController::class, 'import'])->name('import');
         Route::resource('tahunangkatan', AdminTahunAngkatanController::class);
         Route::resource('agama', AdminAgamaController::class);
-        Route::resource('users/role', AdminRolesController::class);
-        Route::resource('users/account', AdminUsersController::class);
+        Route::resource('role', AdminRolesController::class);
+        Route::resource('account', AdminUsersController::class);
         Route::resource('prodi', AdminProdiController::class);
         Route::resource('jurusan', AdminJurusanController::class);
         Route::resource('data-mahasiswa', AdminDataMahasiswaController::class);
+        Route::post('data-mahasiswa/update-status', [AdminDataMahasiswaController::class, 'updateStatusMhs'])->name('mahasiswa.update-status');
         Route::resource('pengajuan', AdminPengajuanController::class);
     });
     Route::middleware('CekUserLogin:2')->group(function () {

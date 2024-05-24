@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Agama;
 use Illuminate\Http\Request;
@@ -9,12 +9,16 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Prodi;
 use App\Models\TahunAngkatan;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminDataMahasiswaController extends Controller
 {
     public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::query();
+        $mahasiswa = Mahasiswa::query()->latest();
         $agama = Agama::all();
         $prodi = Prodi::all();
         $angkatan = TahunAngkatan::all();
@@ -176,6 +180,13 @@ class AdminDataMahasiswaController extends Controller
             'anak_ke.required' => 'Anak ke berapa tidak boleh kosong!',
         ]);
 
+        $user = new User;
+        $user->nim = $request->input('nim');
+        $user->username = $request->input('nama_lengkap');
+        $user->password = Hash::make('abcd1234');
+        $user->role_id = 2;
+        $user->save();
+
         $mahasiswa = new Mahasiswa;
         $mahasiswa->nim = $request->input('nim');
         $mahasiswa->nama_lengkap = $request->input('nama_lengkap');
@@ -221,6 +232,7 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa->penerima_kartu_prasejahtera = $request->input('penerima_kartu_prasejahtera');
         $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah = $request->input('jumlah_tanggungan_keluarga_yang_masih_sekolah');
         $mahasiswa->anak_ke = $request->input('anak_ke');
+        $mahasiswa->status_mhs = 'Aktif';
         
         if ($request->hasFile('pas_foto')) {
             // if ($mahasiswa->pas_foto) {
@@ -232,7 +244,9 @@ class AdminDataMahasiswaController extends Controller
             $mahasiswa->pas_foto = $fileName;
         }
         $mahasiswa->save();
-        return redirect()->route('data-mahasiswa.index')->with('success', 'Data mahasiswa berhasil diupdate.');
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah mahasiswa');
+
+        return redirect()->route('data-mahasiswa.index')->with('success', 'Data mahasiswa berhasil ditambahkan.');
     }
     public function update(Request $request, $id)
     {
@@ -373,6 +387,7 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa->penerima_kartu_prasejahtera = $request->input('penerima_kartu_prasejahtera');
         $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah = $request->input('jumlah_tanggungan_keluarga_yang_masih_sekolah');
         $mahasiswa->anak_ke = $request->input('anak_ke');
+        $mahasiswa->status_mhs = $request->input('status_mhs');
 
         // Cek apakah ada foto baru yang diunggah
         if ($request->hasFile('pas_foto')) {
@@ -385,17 +400,53 @@ class AdminDataMahasiswaController extends Controller
             $file = $request->file('pas_foto');
             $fileName = $mahasiswa->nim  . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/pas_foto', $fileName);
-
             // Simpan nama foto ke dalam database
             $mahasiswa->pas_foto = $fileName;
         }
-
-        // Simpan data mahasiswa yang sudah diupdate
         $mahasiswa->save();
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel mahasiswa');
 
-        // Redirect ke halaman tampilan data mahasiswa
         return redirect()->route('data-mahasiswa.index')->with('success', 'Data mahasiswa berhasil diupdate.');
     }
+
+    public function updateStatusMhs(Request $request)
+    {
+        $request->validate([
+            'angkatan_id' => 'required',
+            'prodi_id' => 'required',
+            'status_mhs' => 'required',
+        ], [
+            'angkatan_id.required' => 'Pilih angkatan terlebih dahulu.',
+            'prodi_id.required' => 'Pilih program studi terlebih dahulu.',
+            'status_mhs.required' => 'Pilih status mahasiswa yang ingin diubah.',
+        ]);
+        
+        // Periksa jika angkatan_id dan prodi_id tidak kosong
+        if ($request->filled('angkatan_id') && $request->filled('prodi_id')) {
+            $angkatan_id = $request->input('angkatan_id');
+            $prodi_id = $request->input('prodi_id');
+    
+            // Periksa jika status_mhs dipilih
+            if ($request->filled('status_mhs')) {
+                $status_mhs = $request->input('status_mhs');
+    
+                // Ambil data mahasiswa berdasarkan angkatan_id dan prodi_id yang dipilih
+                $mahasiswa = Mahasiswa::where('angkatan_id', $angkatan_id)
+                                    ->where('prodi_id', $prodi_id)
+                                    ->get();
+    
+                // Lakukan perubahan status_mhs
+                foreach ($mahasiswa as $mhs) {
+                    $mhs->update(['status_mhs' => $status_mhs]);
+                }
+                activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah status mahasiswa');
+                return redirect()->route('data-mahasiswa.index')->with('success', 'Status mahasiswa berhasil diubah.');
+            } else {
+                return redirect()->route('data-mahasiswa.index')->with('error', 'Pilih status mahasiswa yang ingin diubah.');
+            }
+        }
+    }
+    
     
     public function destroy($id)
     {
@@ -406,6 +457,7 @@ class AdminDataMahasiswaController extends Controller
                 unlink($pathFoto);
             }
             $mahasiswa->delete();
+            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus mahasiswa');
             return redirect()->route('data-mahasiswa.index')->with('success', 'Mahasiswa berhasil dihapus');
         }
             return redirect()->route('data-mahasiswa.index')->with('error', 'Gagal menghapus mahasiswa');

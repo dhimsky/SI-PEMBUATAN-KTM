@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Mahasiswa;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
 use App\Models\TahunAngkatan;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPengajuanController extends Controller
 {
@@ -80,7 +82,7 @@ class AdminPengajuanController extends Controller
             'jumlah_tanggungan_keluarga_yang_masih_sekolah' => $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah,
             'anak_ke' => $mahasiswa->anak_ke
         ]);
-
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah pengajuan');
         return redirect()->route('pengajuan.index')->with('success', 'Berhasil ditambahkan dalam pengajuan.');
     }
 
@@ -99,6 +101,7 @@ class AdminPengajuanController extends Controller
         $pengajuan->status = $request->input('status');
         $pengajuan->save();
 
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel pengajuan');
         return redirect()->route('pengajuan.index')->with('success', 'Pengajuan berhasil di update.');
     }
 
@@ -106,6 +109,7 @@ class AdminPengajuanController extends Controller
         $pengajuan = Pengajuan::find($id);
         $pengajuan->delete();
 
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus pengajuan');
         return redirect()->route('pengajuan.index')->with('success', 'Pengajuan berhasil dihapus.');
     }
 }

@@ -13,9 +13,9 @@ class SessionController extends Controller
         $user = Auth::user();
         if ($user) {
             if ($user->role_id == '1' || $user->role_id == '3') {
-                return redirect()->intended('dashboard');
+                return redirect()->route('dashboard');
             } elseif ($user->role_id == '2') {
-                return redirect()->intended('home');
+                return redirect()->route('home');
             }
         }
         return view('login');
@@ -37,20 +37,20 @@ class SessionController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             if ($user->role_id == '1' || $user->role_id == '3') {
-                activity()->causedBy(Auth::user())->log('User Admin ' . auth()->user()->nim . ' melakukan login');
-                return redirect()->intended('dashboard')->with('toast_success','Selamat, anda berhasil masuk.');
+                activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' melakukan login');
+                return redirect()->route('dashboard')->with('toast_success','Selamat, anda berhasil masuk.');
             } elseif ($user->role_id == '2') {
-                activity()->causedBy(Auth::user())->log('User Mahasiswa ' . auth()->user()->nim . ' melakukan login');
-                return redirect()->intended('home')->with('toast_success','Selamat, anda berhasil masuk.');
+                activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' melakukan login');
+                return redirect()->route('home')->with('toast_success','Selamat, anda berhasil masuk.');
             }
         }
         return redirect('/')->with('toast_error','NIM atau Password yang dimasukkan tidak sesuai');
     }
     public function logout(Request $request) {
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' melakukan logout');
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect('/')->with('toast_success', 'Berhasil Keluar');
     }
 }

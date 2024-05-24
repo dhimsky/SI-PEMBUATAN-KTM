@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Prodi;
 use App\Models\Kalender;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class KalenderController extends Controller
@@ -67,7 +68,7 @@ class KalenderController extends Controller
             'kelas' => $request->input('kelas'),
             'detail' => $request->input('detail'),
         ]);
-
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah kalender');
         return redirect()->route('kalender.index')->with('success', 'Berhasil ditambahkan dalam kalender.');
     }
 
@@ -92,6 +93,7 @@ class KalenderController extends Controller
         $kalender->detail = $request->input('detail');
         $kalender->save();
 
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel kalender');
         return redirect()->route('kalender.index')->with('success', 'Kalender berhasil diupdate.');
     }
 
@@ -99,6 +101,7 @@ class KalenderController extends Controller
         $kalender = Kalender::find($id);
         $kalender->delete();
 
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus kalender');
         return redirect()->route('kalender.index')->with('success', 'Kalender berhasil dihapus.');
     }
 }
