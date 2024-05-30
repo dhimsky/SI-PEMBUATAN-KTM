@@ -148,7 +148,7 @@
                     <div class="form-group mb-3">
                       <label class="required-label faded-label" for="nim" >NIM</label>
                       <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Nomor Induk Mahasiswa"></i></span>
-                      <input type="number" name="nim" class="form-control @error('nim') is-invalid @enderror" value="{{$u->nim}}" placeholder="Masukan NIM">
+                      <input type="number" name="nim" class="form-control @error('nim') is-invalid @enderror" value="{{$u->nim}}" placeholder="Masukan NIM" readonly>
                       @error('nim')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

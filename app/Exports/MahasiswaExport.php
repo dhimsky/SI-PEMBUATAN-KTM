@@ -67,7 +67,7 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 mb_convert_case($ds, MB_CASE_TITLE),
                 $mhs->rt,
                 $mhs->rw,
-                $mhs->alamat_jalan,
+                $mhs->nama_jalan,
                 $mhs->nama_ayah,
                 $mhs->nik_ayah,
                 $mhs->tempat_lahir_ayah,

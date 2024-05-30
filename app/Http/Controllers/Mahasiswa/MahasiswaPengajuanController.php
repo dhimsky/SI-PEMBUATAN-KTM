@@ -93,7 +93,7 @@ class MahasiswaPengajuanController extends Controller
         $pengajuan = new Pengajuan();
 
         $pengajuan->nim_id = $mahasiswa->nim;
-        $pengajuan->status = 'pending';
+        $pengajuan->status = 'proses';
         $pengajuan->nama_lengkap = $mahasiswa->nama_lengkap;
         $pengajuan->nik = $mahasiswa->nik;
         $pengajuan->tempat_lahir = $mahasiswa->tempat_lahir;
@@ -108,7 +108,7 @@ class MahasiswaPengajuanController extends Controller
         $pengajuan->kecamatan = $mahasiswa->kecamatan;
         $pengajuan->rt = $mahasiswa->rt;
         $pengajuan->rw = $mahasiswa->rw;
-        $pengajuan->alamat_jalan = $mahasiswa->alamat_jalan;
+        $pengajuan->nama_jalan = $mahasiswa->nama_jalan;
         $pengajuan->desa_kelurahan = $mahasiswa->desa_kelurahan;
         $pengajuan->nama_ayah = $mahasiswa->nama_ayah;
         $pengajuan->nik_ayah = $mahasiswa->nik_ayah;

@@ -46,7 +46,7 @@ class AdminPengajuanController extends Controller
             'agama_id' => $mahasiswa->agama_id,
             'email' => $mahasiswa->email,
             'nohp' => $mahasiswa->nohp,
-            'alamat_jalan' => $mahasiswa->alamat_jalan,
+            'nama_jalan' => $mahasiswa->nama_jalan,
             'rt' => $mahasiswa->rt,
             'rw' => $mahasiswa->rw,
             'desa_kelurahan' => $mahasiswa->desa_kelurahan,

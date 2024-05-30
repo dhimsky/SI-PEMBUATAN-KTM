@@ -54,7 +54,9 @@
                         <div class="stat-digit">{{ $mahasiswaActive }}</div>
                     </div>
                     <div class="progress">
+                        @if ($mahasiswaCount)
                         <div class="progress-bar progress-bar-success" style="width: {{ $mahasiswaActive / $mahasiswaCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $mahasiswaActive }}" aria-valuemin="0" aria-valuemax="{{ $mahasiswaCount }}"></div>
+                        @endif
                     </div>    
                 </div>
             </div>
@@ -67,7 +69,9 @@
                         <div class="stat-digit">{{ $mahasiswaNonActive }}</div>
                     </div>
                     <div class="progress">
+                        @if ($mahasiswaCount)
                         <div class="progress-bar progress-bar-danger" style="width: {{ $mahasiswaNonActive / $mahasiswaCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $mahasiswaNonActive }}" aria-valuemin="0" aria-valuemax="{{ $mahasiswaCount }}"></div>
+                        @endif
                     </div>    
                 </div>
             </div>
@@ -7408,20 +7412,19 @@
                         <div class="media">
                             <div class="media-body">
                                 <h4 class="media-heading text-primary"></h4>
-                                <p>{{ $l->description }}</p>
                                 <p class="comment-date">{{ \Carbon\Carbon::parse($l->created_at)->diffForHumans() }}</p>
+                                <p class="mt-3">{{ $l->description }}</p>
                             </div>
                         </div>
                         @endforeach
                     </div>
                     <div class="d-flex justify-content-center">
-                        {{ $models->links('pagination::bootstrap-4') }}
+                        {{ $models->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
 </div>
 {{-- Kedungreja --}}
 <div class="modal fade Kedungreja" tabindex="-1" role="dialog" aria-hidden="true">

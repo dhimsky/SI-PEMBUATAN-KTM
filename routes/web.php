@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('kelolaakun', [AdminKelolaAkunController::class, 'index'])->name('kelolaakun.index');
         Route::post('kelolaakun/gantipassword', [AdminKelolaAkunController::class, 'changePassword'])->name('kelolaakun.gantipw');
+        Route::post('kelolaakun/gantinama', [AdminKelolaAkunController::class, 'update'])->name('kelolaakun.gantinama');
         Route::post('/exportdata/exportexcel', [AdminExportDataController::class, 'exportexcel'])->name('exportdata.exportexcel');
         Route::post('/exportdata/exportimg', [AdminExportDataController::class, 'exportimg'])->name('exportdata.exportimg');
         Route::post('/exportdata/exportimgpengajuan', [AdminExportDataController::class, 'exportimgpengajuan'])->name('exportdata.exportimgpengajuan');
@@ -53,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('data-mahasiswa/update-status', [AdminDataMahasiswaController::class, 'updateStatusMhs'])->name('mahasiswa.update-status');
         Route::resource('pengajuan', AdminPengajuanController::class);
     });
-    Route::middleware('CekUserLogin:2')->group(function () {
+    Route::prefix('mahasiswa')->middleware('CekUserLogin:2')->group(function () {
         Route::view('/isi-data', 'mahasiswa.data-diri.isi_data')->name('isi-data');
         Route::get('kartu-ktm', [MahasiswaCetakKartuController::class, 'index'])->name('kartu-ktm');
         Route::get('home', [MahasiswaDashboardController::class, 'index'])->name('home');
@@ -76,5 +77,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('kalender', KalenderController::class);
 
-    Route::get('mahasiswa/profile/{encryptedNim}', [QrProfileController::class, 'index'])->name('qrprofile');
 });
+Route::get('mahasiswa/profile/{encryptedNim}', [QrProfileController::class, 'index'])->name('qrprofile');

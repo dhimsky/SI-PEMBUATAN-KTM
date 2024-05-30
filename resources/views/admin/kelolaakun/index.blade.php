@@ -8,25 +8,29 @@
                 <div class="card-header">
                     <h3>Akun Anda</h3>
                 </div>
-                <div class="card-body">
-                    @foreach ($user as $u)
-                    <div class="form-group row mb-2 mt-2">
-                        <label for="nim" class="col-sm-4 col-form-label faded-label" style="font-style: italic;">NIM</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nim" value="{{ $u->nim }}" readonly>
+                <form action="{{ route('kelolaakun.gantinama') }}" method="post">
+                    @csrf
+                    <div class="card-body">
+                        @foreach ($user as $u)
+                        <div class="form-group row mb-2 mt-2">
+                            <label for="nim" class="col-sm-4 col-form-label faded-label" style="font-style: italic;">NIM</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="nim" class="form-control" id="nim" value="{{ $u->nim }}" readonly>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="nama_lengkap" class="col-sm-4 col-form-label faded-label" style="font-style: italic;">Nama Lengkap</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nama_lengkap" value="{{ $u->username }}" readonly>
+                        <div class="form-group row mb-2">
+                            <label for="nama_lengkap" class="col-sm-4 col-form-label faded-label" style="font-style: italic;">Nama Lengkap</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="username" class="form-control" id="nama_lengkap" value="{{ $u->username }}">
+                            </div>
                         </div>
+                        <div class="text-right">
+                            <a href="" class="btn btn-secondary" data-toggle="modal" data-target=".akunSet{{ $u->nim }}">Ubah Password</a>
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                        </div>
+                        @endforeach
                     </div>
-                    <div class="text-right">
-                        <a href="" class="btn btn-secondary" data-toggle="modal" data-target=".akunSet{{ $u->nim }}">Ubah Password</a>
-                    </div>
-                    @endforeach
-                </div>
+                </form>
             </div>
         </div>
     </div>

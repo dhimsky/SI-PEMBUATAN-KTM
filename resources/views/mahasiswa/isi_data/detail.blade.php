@@ -6,21 +6,21 @@
         <div class="col-md-8 offset-md-2">
             <div class="card mt-5">
                 <div class="row">
-                    <div class="col-md-6 col-8">
+                    <div class="col-md-6 col-6">
                         <div class="card-header">
                             <h3>Data Mahasiswa</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 col-4 mt-md-0 mt-3 text-md-right">
-                        {{-- <a href="{{route('print-id', $mahasiswa->nim)}}" target="_blank" class="btn btn-secondary"> --}}
-                        <a href="{{ route('print-id', $mahasiswa) }}" target="_blank" class="btn btn-secondary">
-                        <i class="fa fa-id-card"></i> Cetak Kartu
+                    <div class="col-md-6 col-6 mt-md-4 mt-3 text-md-right">
+                        <a href="{{ route('print-id', $mahasiswa) }}" target="_blank" class="btn btn-secondary mb-1">
+                        <i class="fa fa-id-card"></i> Cetak eKTM
                         </a>
-                        <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#editData">
-                            <i class="fa fa-pencil"></i> Edit
+                        <a href="" class="btn btn-secondary mb-1" data-toggle="modal" data-target="#editData">
+                            <i class="fa fa-pencil"></i> Edit data
                         </a>
                     </div>
                 </div>
+                <hr>
                 <div class="card-body">
                     <div class="form-group row mb-2 mt-2">
                         <div class="col-md-4">
@@ -151,9 +151,9 @@
                         </div>
                     </div>
                     <div class="form-group row mb-2">
-                        <label for="alamat_jalan" class="col-sm-5 col-form-label faded-label" >Alamat Jalan</label>
+                        <label for="nama_jalan" class="col-sm-5 col-form-label faded-label" >Nama Jalan</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->alamat_jalan }}
+                            : {{ $mahasiswa->nama_jalan }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
@@ -606,10 +606,10 @@
                         </div>
                     </div>
                     <div class="form-group row mb-2">
-                        <label for="alamat_jalan" class="col-sm-5 col-form-label faded-label required-label" >Alamat Jalan</label>
+                        <label for="nama_jalan" class="col-sm-5 col-form-label faded-label required-label" >Nama Jalan</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('alamat_jalan') is-invalid @enderror" id="alamat_jalan" name="alamat_jalan" value="{{ $mahasiswa->alamat_jalan }}" placeholder="Contoh: Jl. Melati No.003">
-                            @error('alamat_jalan')
+                            <input type="text" class="form-control @error('nama_jalan') is-invalid @enderror" id="nama_jalan" name="nama_jalan" value="{{ $mahasiswa->nama_jalan }}" placeholder="Contoh: Jl. Melati No.003">
+                            @error('nama_jalan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

@@ -18,6 +18,18 @@ class AdminKelolaAkunController extends Controller
         $role = Roles::all();
         return view('admin.kelolaakun.index', compact('role','user',));
     }
+    public function update(Request $request){
+        $user = Auth::user();
+        $request->validate([
+            'username' => 'required',
+        ],[
+            'username.required' => 'Isi nama anda!'
+        ]);
+        $user->update([
+            'username' => $request->username
+        ]);
+        return redirect()->route('kelolaakun.index')->with('toast_success', 'Nama lengkap berhasil di ubah');
+    }
     public function changePassword(ChangePasswordRequest $request)
     {
         $user = Auth::user();

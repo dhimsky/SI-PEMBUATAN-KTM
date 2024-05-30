@@ -98,7 +98,7 @@
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="id_angkatan" >Kode Angkatan</label>
                         <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: 21"></i></span>
-                        <input type="text" name="id_angkatan" class="form-control @error('id_angkatan') is-invalid @enderror" value="{{$t->id_angkatan}}" placeholder="Masukan kode angkatan">
+                        <input type="text" name="id_angkatan" class="form-control @error('id_angkatan') is-invalid @enderror" value="{{$t->id_angkatan}}" placeholder="Masukan kode angkatan" readonly>
                         @error('id_angkatan')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

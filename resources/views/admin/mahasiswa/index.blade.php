@@ -340,12 +340,12 @@
                     </div>
                     <div class="form-group row mb-2 mr-2 ml-2">
                         <div class="col-sm-5 d-flex align-items-center">
-                            <label for="alamat_jalan" class=" col-form-label faded-label required-label" >Alamat Jalan</label>
+                            <label for="nama_jalan" class=" col-form-label faded-label required-label" >Nama Jalan</label>
                             <i class="fa fa-question-circle ml-1" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: Jl. Melati No.3"></i>
                         </div>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('alamat_jalan') is-invalid @enderror" id="alamat_jalan" name="alamat_jalan" placeholder="Masukan jalan" value="{{ old('alamat_jalan') }}">
-                            @error('alamat_jalan')
+                            <input type="text" class="form-control @error('nama_jalan') is-invalid @enderror" id="nama_jalan" name="nama_jalan" placeholder="Masukan jalan" value="{{ old('nama_jalan') }}">
+                            @error('nama_jalan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -1014,12 +1014,12 @@
                     </div>
                     <div class="form-group row mb-2 ml-2 mr-2">
                         <div class="col-sm-5 d-flex align-items-center">
-                            <label for="alamat_jalan" class=" col-form-label faded-label required-label" >Alamat Jalan</label>
+                            <label for="nama_jalan" class=" col-form-label faded-label required-label" >Nama Jalan</label>
                             <i class="fa fa-question-circle ml-1" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: Jl. Melati No.3"></i>
                         </div>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('alamat_jalan') is-invalid @enderror" id="alamat_jalan" name="alamat_jalan" value="{{ $m->alamat_jalan }}" placeholder="Masukan jalan">
-                            @error('alamat_jalan')
+                            <input type="text" class="form-control @error('nama_jalan') is-invalid @enderror" id="nama_jalan" name="nama_jalan" value="{{ $m->nama_jalan }}" placeholder="Masukan jalan">
+                            @error('nama_jalan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -1564,9 +1564,9 @@
                     </div>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="alamat_jalan" class="col-sm-5 col-form-label faded-label" >Alamat Lengkap</label>
+                    <label for="nama_jalan" class="col-sm-5 col-form-label faded-label" >Alamat Lengkap</label>
                     <div class="col-sm-7 text-dark">
-                        : {{ $m->alamat_jalan }}, RT.{{ $m->rt }}/RW.{{ $m->rw }},
+                        : {{ $m->nama_jalan }}, RT.{{ $m->rt }}/RW.{{ $m->rw }},
                         Desa {{ DB::table('wilayah')->where('kode', $m->desa_kelurahan)->value('nama') }},
                         Kec. {{ DB::table('wilayah')->where('kode', $m->kecamatan)->value('nama') }},
                         {{ mb_convert_case(DB::table('wilayah')->where('kode', $m->kabupaten)->value('nama'), MB_CASE_TITLE) }},

@@ -31,7 +31,7 @@ class MultiStepForm extends Component
     public $desa_kelurahan;
     public $rt;
     public $rw;
-    public $alamat_jalan;
+    public $nama_jalan;
     public $nama_ayah;
     public $nik_ayah;
     public $tempat_lahir_ayah;
@@ -163,7 +163,7 @@ class MultiStepForm extends Component
                 'desa_kelurahan' => 'required',
                 'rt' => 'required|max:3',
                 'rw' => 'required|max:3',
-                'alamat_jalan' => 'required',
+                'nama_jalan' => 'required',
             ],[
                 'provinsi.required' => 'Provinsi wajib di isi!',
                 'kabupaten.required' => 'Kabupaten wajib di isi!',
@@ -172,7 +172,7 @@ class MultiStepForm extends Component
                 'rt.max' => 'RT maksimal 3 karakter!',
                 'rw.required' => 'RW wajib di isi!',
                 'rw.max' => 'RW maksimal 3 karakter!',
-                'alamat_jalan' => 'Jalan wajib di isi!',
+                'nama_jalan' => 'Jalan wajib di isi!',
             ]);
         }
         elseif($this->currentStep == 3){
@@ -267,7 +267,7 @@ class MultiStepForm extends Component
         $mahasiswa->desa_kelurahan = $this->selectedDesa;
         $mahasiswa->rt = $this->rt;
         $mahasiswa->rw = $this->rw;
-        $mahasiswa->alamat_jalan = $this->alamat_jalan;
+        $mahasiswa->nama_jalan = $this->nama_jalan;
         $mahasiswa->nama_ayah = $this->nama_ayah;
         $mahasiswa->nik_ayah = $this->nik_ayah;
         $mahasiswa->tempat_lahir_ayah = $this->tempat_lahir_ayah;

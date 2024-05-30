@@ -54,6 +54,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mb-2">
+                                        <label for="alamat" class="col-sm-5 col-form-label faded-label" >Alamat</label>
+                                        <div class="col-sm-7 text-dark">
+                                            : Jalan {{ $mahasiswa->nama_jalan}}, RT.{{ $mahasiswa->rt}}/RW.{{ $mahasiswa->rw}}, {{ $ds}}, {{ $kec}}, {{ mb_convert_case($kab, MB_CASE_TITLE) }}, {{ mb_convert_case($prov, MB_CASE_TITLE) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-2">
                                         <label for="nohp" class="col-sm-5 col-form-label faded-label" >Perguruan Tinggi</label>
                                         <div class="col-sm-7 text-dark">
                                             : Politeknik Negeri Cilacap

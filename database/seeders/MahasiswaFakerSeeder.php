@@ -43,7 +43,7 @@ class MahasiswaFakerSeeder extends Seeder
                 'desa_kelurahan' => $faker->numerify('11.02.06.2002'),
                 'rt' => $faker->numerify('###'),
                 'rw' => $faker->numerify('###'),
-                'alamat_jalan' => $faker->streetAddress,
+                'nama_jalan' => $faker->streetAddress,
                 'nama_ayah' => $faker->name,
                 'nik_ayah' => $faker->unique()->numerify('################'),
                 'tempat_lahir_ayah' => $faker->city,

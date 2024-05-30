@@ -97,7 +97,6 @@ public function update(Request $request, $id)
 
     public function destroy($id)
     {
-
         $idUsers = DB::table('mahasiswa')
             ->where('nim', $id)
             ->value('nim');

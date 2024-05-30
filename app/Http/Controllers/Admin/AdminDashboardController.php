@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 
 class AdminDashboardController extends Controller
 {
-    public function index () {
+    public function index (Request $request) {
         $accountCount = User::where('role_id', '2')->count();
         $mahasiswaCount = Mahasiswa::count();
         $notcompleteCount = $accountCount - $mahasiswaCount;
@@ -43,7 +43,7 @@ class AdminDashboardController extends Controller
         $CilacaputaraCount = Mahasiswa::where('kecamatan','33.01.23')->count();
         $KampunglautCount = Mahasiswa::where('kecamatan','33.01.24')->count();
 
-        $log = Activity::latest()->paginate(10);
+        $log = Activity::latest()->paginate();
 
         return view('admin.dashboard.index', compact('mahasiswaNonActive', 'mahasiswaActive', 'accountCount', 'mahasiswaCount', 'notcompleteCount','KedungrejaCount', 'KesugihanCount', 'AdipalaCount',
         'BinangunCount', 'NusawunguCount', 'KroyaCount',

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tahunangkatan', function (Blueprint $table) {
             $table->string('id_angkatan')->primary()->unique();
-            $table->string('tahun_angkatan', 10);
+            $table->integer('tahun_angkatan');
             $table->timestamps();
         });
     }

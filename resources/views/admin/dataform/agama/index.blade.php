@@ -97,7 +97,7 @@
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="id_agama" >Kode Agama</label>
                         <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: IS"></i></span>
-                        <input type="text" name="id_agama" class="form-control @error('id_agama') is-invalid @enderror" value="{{$a->id_agama}}" placeholder="Masukan kode agama">
+                        <input type="text" name="id_agama" class="form-control @error('id_agama') is-invalid @enderror" value="{{$a->id_agama}}" placeholder="Masukan kode agama" readonly>
                         @error('id_agama')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

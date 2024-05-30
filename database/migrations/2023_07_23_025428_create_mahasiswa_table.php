@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('jenis_kelamin', 15);
             $table->string('agama_id');
             $table->string('email', 35)->unique();
-            $table->string('nohp');
+            $table->string('nohp', 15);
             $table->string('pas_foto')->nullable();
 
             // Alamat
@@ -31,9 +31,9 @@ return new class extends Migration
             $table->string('kabupaten', 15);
             $table->string('kecamatan', 15);
             $table->string('desa_kelurahan', 15);
-            $table->string('rt', 3);
-            $table->string('rw', 3);
-            $table->string('alamat_jalan', 15);
+            $table->integer('rt');
+            $table->integer('rw');
+            $table->string('nama_jalan', 15);
 
             // Orang Tua Kandung
             $table->string('nama_ayah', 50);
@@ -42,14 +42,14 @@ return new class extends Migration
             $table->date('tanggal_lahir_ayah')->nullable();
             $table->string('pendidikan_ayah', 20)->nullable();
             $table->string('pekerjaan_ayah', 25)->nullable();
-            $table->string('penghasilan_ayah', 15)->nullable();
+            $table->integer('penghasilan_ayah')->nullable();
             $table->string('nama_ibu', 50);
             $table->string('nik_ibu', 16)->nullable();
             $table->string('tempat_lahir_ibu', 20)->nullable();
             $table->date('tanggal_lahir_ibu')->nullable();
             $table->string('pendidikan_ibu', 20)->nullable();
             $table->string('pekerjaan_ibu', 25)->nullable();
-            $table->string('penghasilan_ibu', 15)->nullable();
+            $table->integer('penghasilan_ibu')->nullable();
 
             // Wali
             $table->string('nama_wali', 50)->nullable();
@@ -62,7 +62,7 @@ return new class extends Migration
 
             // Data Kuliah
             $table->string('prodi_id');
-            $table->string('ukt', 15);
+            $table->integer('ukt');
             $table->string('angkatan_id');
             $table->string('jenis_tinggal_di_cilacap', 25);
             $table->string('alat_transportasi_ke_kampus', 25);

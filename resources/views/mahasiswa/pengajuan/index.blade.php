@@ -29,12 +29,10 @@
                             <td>{{ $p->nim_id }}</td>
                             <td>
                                 <span class="
-                                @if($p->status == 'pending')
+                                @if($p->status == 'proses')
                                     badge bg-info
-                                @elseif($p->status == 'diterima')
+                                @elseif($p->status == 'selesai')
                                     badge bg-success
-                                @elseif($p->status == 'ditolak')
-                                    badge bg-danger
                                 @endif">
                                     {{ $p->status }}
                                 </span>
@@ -172,9 +170,9 @@
                     </div>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="alamat_jalan" class="col-sm-5 col-form-label faded-label" >Alamat Jalan</label>
+                    <label for="nama_jalan" class="col-sm-5 col-form-label faded-label" >Nama Jalan</label>
                     <div class="col-sm-7 text-dark">
-                        : {{ $p->alamat_jalan }}
+                        : {{ $p->nama_jalan }}
                     </div>
                 </div>
                 <div class="form-group row mb-2">

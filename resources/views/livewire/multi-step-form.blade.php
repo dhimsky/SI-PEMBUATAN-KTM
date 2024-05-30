@@ -231,9 +231,9 @@
     
                     <!-- Alamat Jalan Input -->
                     <div class="form-group col-md-5 mb-3">
-                        <label class="required-label faded-label" for="alamat_jalan" style="font-style: italic;">Nama Jalan</label>
-                        <input type="text" name="alamat_jalan" class="form-control @error('alamat_jalan') is-invalid @enderror" value="{{ old('alamat_jalan') }}" wire:model="alamat_jalan" placeholder="Contoh: Melati No.3">
-                        @error('alamat_jalan')
+                        <label class="required-label faded-label" for="nama_jalan" style="font-style: italic;">Nama Jalan</label>
+                        <input type="text" name="nama_jalan" class="form-control @error('nama_jalan') is-invalid @enderror" value="{{ old('nama_jalan') }}" wire:model="nama_jalan" placeholder="Contoh: Melati No.3">
+                        @error('nama_jalan')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

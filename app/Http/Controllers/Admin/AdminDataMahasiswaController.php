@@ -102,7 +102,7 @@ class AdminDataMahasiswaController extends Controller
             'kecamatan' => 'required',
             'kabupaten' => 'required',
             'desa_kelurahan' => 'required',
-            'alamat_jalan' => 'required',
+            'nama_jalan' => 'required',
             'rt' => 'required|max:3',
             'rw' => 'required|max:3',
             'nama_ayah' => 'required',
@@ -161,7 +161,7 @@ class AdminDataMahasiswaController extends Controller
             'rt.max' => 'RT maksimal 3 karakter!',
             'rw.required' => 'RW tidak boleh kosong!',
             'rw.max' => 'RW maksimal 3 karakter!',
-            'alamat_jalan' => 'Jalan tidak boleh kosong!',
+            'nama_jalan' => 'Jalan tidak boleh kosong!',
 
             'nama_ayah.required' => 'Nama ayah tidak boleh kosong!',
             'nama_ibu.required' => 'Nama ibu tidak boleh kosong!',
@@ -202,7 +202,7 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa->kecamatan = $request->input('kecamatan');
         $mahasiswa->rt = $request->input('rt');
         $mahasiswa->rw = $request->input('rw');
-        $mahasiswa->alamat_jalan = $request->input('alamat_jalan');
+        $mahasiswa->nama_jalan = $request->input('nama_jalan');
         $mahasiswa->desa_kelurahan = $request->input('desa_kelurahan');
         $mahasiswa->nama_ayah = $request->input('nama_ayah');
         $mahasiswa->nik_ayah = $request->input('nik_ayah');
@@ -260,7 +260,7 @@ class AdminDataMahasiswaController extends Controller
             'email' => 'required|email|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/',
             'nohp' => 'required',
             'pas_foto' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'alamat_jalan' => 'required',
+            'nama_jalan' => 'required',
             'rt' => 'required|max:3',
             'rw' => 'required|max:3',
             'desa_kelurahan' => 'required',
@@ -320,7 +320,7 @@ class AdminDataMahasiswaController extends Controller
             'rt.max' => 'RT maksimal 3 karakter!',
             'rw.required' => 'RW tidak boleh kosong!',
             'rw.max' => 'RW maksimal 3 karakter!',
-            'alamat_jalan' => 'Jalan tidak boleh kosong!',
+            'nama_jalan' => 'Jalan tidak boleh kosong!',
 
             'nama_ayah.required' => 'Nama ayah tidak boleh kosong!',
             'nama_ibu.required' => 'Nama ibu tidak boleh kosong!',
@@ -357,7 +357,7 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa->kecamatan = $request->input('kecamatan');
         $mahasiswa->rt = $request->input('rt');
         $mahasiswa->rw = $request->input('rw');
-        $mahasiswa->alamat_jalan = $request->input('alamat_jalan');
+        $mahasiswa->nama_jalan = $request->input('nama_jalan');
         $mahasiswa->desa_kelurahan = $request->input('desa_kelurahan');
         $mahasiswa->nama_ayah = $request->input('nama_ayah');
         $mahasiswa->nik_ayah = $request->input('nik_ayah');

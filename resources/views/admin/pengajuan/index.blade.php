@@ -29,12 +29,10 @@
                             <td>{{ $p->nim_id }}</td>
                             <td>
                                 <span class="
-                                @if($p->status == 'pending')
+                                @if($p->status == 'proses')
                                     badge bg-info
-                                @elseif($p->status == 'diterima')
+                                @elseif($p->status == 'selesai')
                                     badge bg-success
-                                @elseif($p->status == 'ditolak')
-                                    badge bg-danger
                                 @endif">
                                     {{ $p->status }}
                                 </span>
@@ -85,8 +83,7 @@
                         <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
                             <option selected disabled value="" style="font-style: italic;">Pilih Status</option>
                             <option value="proses" @if(old('status') == 'proses') selected @endif>proses</option>
-                            <option value="diterima" @if(old('status') == 'diterima') selected @endif>diterima</option>
-                            <option value="ditolak" @if(old('status') == 'ditolak') selected @endif>ditolak</option>
+                            <option value="selesai" @if(old('status') == 'selesai') selected @endif>selesai</option>
                         </select>
                     @error('status')
                     <span class="invalid-feedback" role="alert">
@@ -119,7 +116,7 @@
                 @method('PUT')
                 <div class="form-group mb-3">
                     <label class="required-label faded-label" for="nim_id" style="font-style: italic;">NIM</label>
-                    <input type="text" name="nim_id" class="form-control @error('nim_id') is-invalid @enderror" value="{{ $p->nim_id }}" >
+                    <input type="text" name="nim_id" class="form-control @error('nim_id') is-invalid @enderror" value="{{ $p->nim_id }}" readonly>
                     @error('nim_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -129,9 +126,8 @@
                 <div class="form-group mb-3">
                     <label class="faded-label" for="status" style="font-style: italic;">Status</label>
                     <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
-                        <option value="pending" {{ $p->status === 'pending' ? 'selected' : '' }}>pending</option>
-                        <option value="diterima" {{ $p->status === 'diterima' ? 'selected' : '' }}>diterima</option>
-                        <option value="ditolak" {{ $p->status === 'ditolak' ? 'selected' : '' }}>ditolak</option>
+                        <option value="proses" {{ $p->status === 'proses' ? 'selected' : '' }}>proses</option>
+                        <option value="selesai" {{ $p->status === 'selesai' ? 'selected' : '' }}>selesai</option>
                     </select>
                     @error('status')
                     <span class="invalid-feedback" role="alert">
@@ -158,32 +154,33 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
-        <div class="modal-body">
-            <form id="exportForm" action="{{ route('exportdata.exportpengajuan') }}" method="post">
-                @csrf
-                <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="prodi_id" >Pilih Prodi</label>
-                    <select class="form-control" name="prodi_id" id="prodi_id">
-                        <option value="">Semua Prodi</option>
-                        @foreach ($prodi as $programStudi)
-                            <option value="{{ $programStudi->id_prodi }}">{{ $programStudi->nama_prodi }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="tahun_angkatan" >Pilih Angkatan</label>
-                    <select class="form-control" name="tahun_angkatan" id="tahun_angkatan">
-                        <option value="">Semua Angkatan</option>
-                        @foreach ($angkatan as $a)
-                            <option value="{{ $a->id_angkatan }}">{{ $a->tahun_angkatan }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" onclick="submitForm('{{ route('exportdata.exportpengajuan') }}')">Export Excel</button>
-                    <button type="button" class="btn btn-primary" onclick="submitForm('{{ route('exportdata.exportimgpengajuan') }}')">Export Foto</button>
-                </div>
-            </form>
+            <div class="modal-body">
+                <form id="exportForm" action="{{ route('exportdata.exportpengajuan') }}" method="post">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="prodi_id" >Pilih Prodi</label>
+                        <select class="form-control" name="prodi_id" id="prodi_id">
+                            <option value="">Semua Prodi</option>
+                            @foreach ($prodi as $programStudi)
+                                <option value="{{ $programStudi->id_prodi }}">{{ $programStudi->nama_prodi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="tahun_angkatan" >Pilih Angkatan</label>
+                        <select class="form-control" name="tahun_angkatan" id="tahun_angkatan">
+                            <option value="">Semua Angkatan</option>
+                            @foreach ($angkatan as $a)
+                                <option value="{{ $a->id_angkatan }}">{{ $a->tahun_angkatan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" onclick="submitForm('{{ route('exportdata.exportpengajuan') }}')">Export Excel</button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm('{{ route('exportdata.exportimgpengajuan') }}')">Export Foto</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

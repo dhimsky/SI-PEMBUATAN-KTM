@@ -128,7 +128,7 @@
                     <div class="form-group mb-3">
                         <label class="required-label faded-label" for="id_prodi" >Kode Prodi</label>
                         <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Contoh: TI"></i></span>
-                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{$p->id_prodi}}" placeholder="Masukan kode prodi">
+                        <input type="text" name="id_prodi" class="form-control @error('id_prodi') is-invalid @enderror" value="{{$p->id_prodi}}" placeholder="Masukan kode prodi" readonly>
                         @error('id_prodi')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

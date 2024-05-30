@@ -27,7 +27,7 @@ class Mahasiswa extends Model
         'desa_kelurahan',
         'rt',
         'rw',
-        'alamat_jalan',
+        'nama_jalan',
         'nama_ayah',
         'nik_ayah',
         'tempat_lahir_ayah',
