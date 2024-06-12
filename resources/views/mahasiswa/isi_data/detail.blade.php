@@ -392,7 +392,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('mahasiswa.update', $mahasiswa->nim) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('mahasiswa.update', Crypt::encryptString($mahasiswa->nim)) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group row mb-2">
@@ -686,11 +686,11 @@
                         <label for="penghasilan_ayah" class="col-sm-5 col-form-label faded-label " >Penghasilan Ayah</label>
                         <div class="col-sm-7">
                             <select class="form-control @error('penghasilan_ayah') is-invalid @enderror" id="penghasilan_ayah" name="penghasilan_ayah">
-                                <option value="<1jt" {{ $mahasiswa->penghasilan_ayah === '<1jt' ? 'selected' : '' }}>&lt; 1jt</option>
-                                <option value="1jt - 2jt" {{ $mahasiswa->penghasilan_ayah === '1jt - 2jt' ? 'selected' : '' }}>1jt - 2jt</option>
-                                <option value="2jt - 3jt" {{ $mahasiswa->penghasilan_ayah === '2jt - 3jt' ? 'selected' : '' }}>2jt - 3jt</option>
-                                <option value="3jt - 4jt" {{ $mahasiswa->penghasilan_ayah === '3jt - 4jt' ? 'selected' : '' }}>3jt - 4jt</option>
-                                <option value=">5jt" {{ $mahasiswa->penghasilan_ayah === '>5jt' ? 'selected' : '' }}>&gt; 5jt</option>
+                                <option value="< 1.000.000" {{ $mahasiswa->penghasilan_ayah === '< 1.000.000' ? 'selected' : '' }}>&lt; 1.000.000</option>
+                                <option value="1.000.000 - 2.000.000" {{ $mahasiswa->penghasilan_ayah === '1.000.000 - 2.000.000' ? 'selected' : '' }}>1.000.000 - 2.000.000</option>
+                                <option value="2.000.000 - 3.000.000" {{ $mahasiswa->penghasilan_ayah === '2.000.000 - 3.000.000' ? 'selected' : '' }}>2.000.000 - 3.000.000</option>
+                                <option value="3.000.000 - 4.000.000" {{ $mahasiswa->penghasilan_ayah === '3.000.000 - 4.000.000' ? 'selected' : '' }}>3.000.000 - 4.000.000</option>
+                                <option value="> 5.000.000" {{ $mahasiswa->penghasilan_ayah === '5.000.000' ? 'selected' : '' }}>&gt; 5.000.000</option>
                             </select>
                             @error('penghasilan_ayah')
                                         <span class="invalid-feedback" role="alert">
@@ -769,11 +769,11 @@
                         <label for="penghasilan_ibu" class="col-sm-5 col-form-label faded-label" >Penghasilan Ibu</label>
                         <div class="col-sm-7">
                             <select class="form-control @error('penghasilan_ibu') is-invalid @enderror" id="penghasilan_ibu" name="penghasilan_ibu">
-                                <option value="<1jt" {{ $mahasiswa->penghasilan_ibu === '<1jt' ? 'selected' : '' }}>&lt; 1jt</option>
-                                <option value="1jt - 2jt" {{ $mahasiswa->penghasilan_ibu === '1jt - 2jt' ? 'selected' : '' }}>1jt - 2jt</option>
-                                <option value="2jt - 3jt" {{ $mahasiswa->penghasilan_ibu === '2jt - 3jt' ? 'selected' : '' }}>2jt - 3jt</option>
-                                <option value="3jt - 4jt" {{ $mahasiswa->penghasilan_ibu === '3jt - 4jt' ? 'selected' : '' }}>3jt - 4jt</option>
-                                <option value=">5jt" {{ $mahasiswa->penghasilan_ibu === '>5jt' ? 'selected' : '' }}>&gt; 5jt</option>
+                                <option value="< 1.000.000" {{ $mahasiswa->penghasilan_ibu === '< 1.000.000' ? 'selected' : '' }}>&lt; 1.000.000</option>
+                                <option value="1.000.000 - 2.000.000" {{ $mahasiswa->penghasilan_ibu === '1.000.000 - 2.000.000' ? 'selected' : '' }}>1.000.000 - 2.000.000</option>
+                                <option value="2.000.000 - 3.000.000" {{ $mahasiswa->penghasilan_ibu === '2.000.000 - 3.000.000' ? 'selected' : '' }}>2.000.000 - 3.000.000</option>
+                                <option value="3.000.000 - 4.000.000" {{ $mahasiswa->penghasilan_ibu === '3.000.000 - 4.000.000' ? 'selected' : '' }}>3.000.000 - 4.000.000</option>
+                                <option value="> 5.000.000" {{ $mahasiswa->penghasilan_ibu === '5.000.000' ? 'selected' : '' }}>&gt; 5.000.000</option>
                             </select>
                             @error('penghasilan_ibu')
                                         <span class="invalid-feedback" role="alert">
@@ -966,8 +966,8 @@
                     </div>
                     
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-warning">Simpan</button>
                     </div>
                 </form>
             </div>

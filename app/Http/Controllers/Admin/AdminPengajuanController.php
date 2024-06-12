@@ -26,9 +26,10 @@ class AdminPengajuanController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'nim_id' => 'required|exists:mahasiswa,nim',
+            'nim_id' => 'required|exists:mahasiswa,nim|unique:pengajuan,nim_id',
             'status' => 'required',
         ],[
+            'nim_id.unique' => 'NIM sudah melakukan pengajuan!',
             'nim_id.required' => 'NIM wajib diisi!',
             'nim_id.exists' => 'NIM tidak ditemukan dalam tabel Mahasiswa!',
             'status.required' => 'Status wajib diisi!',

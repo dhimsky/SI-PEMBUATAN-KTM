@@ -329,7 +329,14 @@
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         <label class="faded-label" for="penghasilan_ayah" style="font-style: italic;">Penghasilan Ayah</label>
-                        <input type="number" name="penghasilan_ayah" class="form-control @error('penghasilan_ayah') is-invalid @enderror" value="{{ old('penghasilan_ayah') }}" wire:model="penghasilan_ayah">
+                        <select class="form-control @error('penghasilan_ayah') is-invalid @enderror" id="penghasilan_ayah" name="penghasilan_ayah" wire:model="penghasilan_ayah">
+                            <option selected value="" style="font-style: italic;">-- Pilih Penghasilan --</option>
+                            <option value="< 1.000.000" @if(old('penghasilan_ayah') == '< 1.000.000') selected @endif>&lt; 1.000.000</option>
+                            <option value="1.000.000 - 2.000.000" @if(old('penghasilan_ayah') == '1.000.000 - 2.000.000') selected @endif>1.000.000 - 2.000.000</option>
+                            <option value="2.000.000 - 3.000.000" @if(old('penghasilan_ayah') == '2.000.000 - 3.000.000') selected @endif>2.000.000 - 3.000.000</option>
+                            <option value="3.000.000 - 4.000.000" @if(old('penghasilan_ayah') == '3.000.000 - 4.000.000') selected @endif>3.000.000 - 4.000.000</option>
+                            <option value="5.000.000" @if(old('penghasilan_ayah') == '5.000.000') selected @endif>&gt; 5.000.000</option>
+                        </select>
                         @error('penghasilan_ayah')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -416,7 +423,14 @@
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         <label class="faded-label" for="penghasilan_ibu" style="font-style: italic;">Penghasilan Ibu</label>
-                        <input type="number" name="penghasilan_ibu" class="form-control @error('penghasilan_ibu') is-invalid @enderror" value="{{ old('penghasilan_ibu') }}" wire:model="penghasilan_ibu">
+                        <select class="form-control @error('penghasilan_ibu') is-invalid @enderror" id="penghasilan_ibu" name="penghasilan_ibu" wire:model="penghasilan_ibu">
+                            <option selected value="" style="font-style: italic;">-- Pilih Penghasilan --</option>
+                            <option value="< 1.000.000" @if(old('penghasilan_ibu') == '< 1.000.000') selected @endif>&lt; 1.000.000</option>
+                            <option value="1.000.000 - 2.000.000" @if(old('penghasilan_ibu') == '1.000.000 - 2.000.000') selected @endif>1.000.000 - 2.000.000</option>
+                            <option value="2.000.000 - 3.000.000" @if(old('penghasilan_ibu') == '2.000.000 - 3.000.000') selected @endif>2.000.000 - 3.000.000</option>
+                            <option value="3.000.000 - 4.000.000" @if(old('penghasilan_ibu') == '3.000.000 - 4.000.000') selected @endif>3.000.000 - 4.000.000</option>
+                            <option value="5.000.000" @if(old('penghasilan_ibu') == '5.000.000') selected @endif>&gt; 5.000.000</option>
+                        </select>
                         @error('penghasilan_ibu')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

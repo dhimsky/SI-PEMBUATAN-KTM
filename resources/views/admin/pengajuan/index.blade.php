@@ -38,10 +38,10 @@
                                 </span>
                             </td>
                             <td>
-                                @if (Auth::user()->role_id == '1')
                                 <a href="" class="btn btn-warning" data-toggle="modal" data-target=".editPengajuan{{ $p->id_pengajuan }}" title="Edit data">
                                     <i class="fa fa-pencil"></i>
                                 </a>
+                                @if (Auth::user()->role_id == '1')
                                 <a href="{{ route('pengajuan.destroy', $p->id_pengajuan) }}" class="fa fa-trash btn btn-danger" data-confirm-delete="true" title="Hapus data"></a>
                                 @endif
                             </td>

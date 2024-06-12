@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('desa_kelurahan', 15);
             $table->integer('rt');
             $table->integer('rw');
-            $table->string('nama_jalan', 15);
+            $table->string('nama_jalan', 35);
 
             // Orang Tua Kandung
             $table->string('nama_ayah', 50);
@@ -41,15 +41,15 @@ return new class extends Migration
             $table->string('tempat_lahir_ayah', 20)->nullable();
             $table->date('tanggal_lahir_ayah')->nullable();
             $table->string('pendidikan_ayah', 20)->nullable();
-            $table->string('pekerjaan_ayah', 25)->nullable();
-            $table->integer('penghasilan_ayah')->nullable();
+            $table->string('pekerjaan_ayah', 40)->nullable();
+            $table->string('penghasilan_ayah', 25)->nullable();
             $table->string('nama_ibu', 50);
             $table->string('nik_ibu', 16)->nullable();
             $table->string('tempat_lahir_ibu', 20)->nullable();
             $table->date('tanggal_lahir_ibu')->nullable();
             $table->string('pendidikan_ibu', 20)->nullable();
-            $table->string('pekerjaan_ibu', 25)->nullable();
-            $table->integer('penghasilan_ibu')->nullable();
+            $table->string('pekerjaan_ibu', 40)->nullable();
+            $table->string('penghasilan_ibu', 25)->nullable();
 
             // Wali
             $table->string('nama_wali', 50)->nullable();

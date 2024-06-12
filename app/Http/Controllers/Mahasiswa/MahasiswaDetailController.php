@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class MahasiswaDetailController extends Controller
 {
-    public function detail($nim)
+    public function detail($encryptedNim)
     {
+        try {
+            $nim = Crypt::decryptString($encryptedNim);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->route('dashboard')->with('error', 'Invalid identifier.');
+        }
         $prodi = Prodi::all();
         $agama = Agama::all();
         $angkatan = TahunAngkatan::all();
@@ -60,8 +66,13 @@ class MahasiswaDetailController extends Controller
                 ->get();
         return view('mahasiswa.isi_data.detail', compact('agama','angkatan','ds','kec','kab','prov','mahasiswa','prodi','provinsi'));
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, $encryptedNim)
     {
+        try {
+            $nim = Crypt::decryptString($encryptedNim);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->route('home')->with('error', 'Invalid identifier.');
+        }
         $request->validate([
             'nik' => 'required|string|max:16',
             'tempat_lahir' => 'required|string',
@@ -145,7 +156,7 @@ class MahasiswaDetailController extends Controller
         ]);
 
         // Cari data mahasiswa berdasarkan ID
-        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa = Mahasiswa::findOrFail($nim);
 
         // Simpan data yang diupdate ke dalam variabel
         $mahasiswa->nim = $request->input('nim');
@@ -213,6 +224,6 @@ class MahasiswaDetailController extends Controller
         $mahasiswa->save();
         activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' mengubah data');
         // Redirect ke halaman tampilan data mahasiswa
-        return redirect()->route('mahasiswa.detail',['nim' => Auth::user()->nim])->with('success', 'Data mahasiswa berhasil diupdate.');
+        return redirect()->route('mahasiswa.detail', ['nim' => Crypt::encryptString(Auth::user()->nim)])->with('success', 'Data mahasiswa berhasil diupdate.');
     }
 }

@@ -9,8 +9,10 @@
             </div>
             <div class="card-body">
                 <div class="col-md-12 text-right mb-3">
+                    @if (Auth::user()->role_id == '1')
                     <a href="" class="btn btn-whatsapp" data-toggle="modal" data-target=".modalStatus">
                     Ubah status <i class="fa fa-check-circle"></i></a>
+                    @endif
                     <a href="" class="btn btn-whatsapp" data-toggle="modal" data-target=".modalExport">
                     Export data <i class="fa fa-cloud-download"></i></a>
                 </div>
@@ -69,9 +71,11 @@
                                 <td>{{ $m->prodi->nama_prodi }}</td>
                                 <td>{{ $m->angkatan->tahun_angkatan }}</td>
                                 <td>
+                                    {{-- @if (Auth::user()->role_id == '1')
                                     <a href="{{route('print-id', $m->nim)}}" target="_blank"
                                         class="btn btn-info" title="Cetak kartu">
                                     <i class="fa fa-print"></i></a>
+                                    @endif --}}
                                     <a href="" class="btn btn-info" data-toggle="modal" data-target="#detailMahasiswa{{ $m->nim }}" title="Lihat detail">
                                         <i class="fa fa-info"></i>
                                     </a>
@@ -174,7 +178,7 @@
                                         <p class="text-muted" id="uploaded-foto-label" style="display: none;"></p>
                                         <p class="text-muted" id="upload-foto-label">Upload Foto</p>
                                 </label>
-                                <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="input_pas_foto" onchange="updateLabel(this)">
+                                <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" accept=".jpg, .jpeg, .png" id="input_pas_foto" onchange="updateLabel(this)">
                                 @error('pas_foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -778,10 +782,10 @@
                         <div class="col-md-3">
                             @if ($m->pas_foto)
                             <a href="{{ asset('storage/pas_foto/' . $m->pas_foto) }}" target="_blank">
-                                <img id="previewImg" src="{{ asset('storage/pas_foto/' . $m->pas_foto) }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded">
+                                <img id="previewImg{{$m->nim}}" src="{{ asset('storage/pas_foto/' . $m->pas_foto) }}" alt="Foto Mahasiswa" class="img-fluid img-3x4 rounded">
                             </a>
                             @else
-                            <img id="previewImg" src="{{ asset('/images/profile.jpeg') }}" alt="" class="img-fluid img-3x4 rounded">
+                            <img id="previewImg{{$m->nim}}" src="{{ asset('/images/profile.jpeg') }}" alt="" class="img-fluid img-3x4 rounded">
                             @endif
                         </div>
                         <div class="col-md-9">
@@ -851,7 +855,7 @@
                                         <p class="text-muted" id="upload-foto-label">Upload Foto</p>
                                     @endif
                                 </label>
-                                <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" id="input_pas_foto" onchange="updateLabel(this)">
+                                <input type="file" name="pas_foto" class="custom-file-input @error('pas_foto') is-invalid @enderror" accept=".jpg, .jpeg, .png" id="input_pas_foto{{$m->nim}}" onchange="updateLabel(this)">
                                 @error('pas_foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -1878,4 +1882,27 @@
         }
     });
 </script>
+
+@foreach ($mahasiswa as $m)
+<script>
+    document.addEventListener('change', function(event) {
+        const target = event.target;
+        if (target && target.id.startsWith('input_pas_foto{{$m->nim}}')) {
+            const fileName = target.files[0].name;
+            const labelFoto = target.closest('.custom-file').querySelector('.custom-file-label');
+            labelFoto.innerHTML = fileName;
+
+            const previewImgId = target.id.replace('input_pas_foto{{$m->nim}}', 'previewImg{{$m->nim}}');
+            const previewImg = document.getElementById(previewImgId);
+            if (previewImg) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                }
+                reader.readAsDataURL(target.files[0]);
+            }
+        }
+    });
+</script>
+@endforeach
 @endsection

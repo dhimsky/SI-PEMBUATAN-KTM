@@ -2742,14 +2742,14 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-    color: #454545;
-    background-color: #45454500;
-    border-color: #454545;
+    color: #ffffff;
+    background-color: #4123c0;
+    border-color: #45454500;
 }
 .btn-primary:hover {
-    color: #454545;
-    background-color: #d6d6d6;
-    border-color: #454545;
+    color: #ffffff;
+    background-color: #2e0ebe;
+    border-color: #45454500;
 }
 .btn-primary:focus,
 .btn-primary.focus {
@@ -2808,7 +2808,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-success {
-    color: #212529;
+    color: #fafafa;
     background-color: #7ed321;
     border-color: #7ed321;
 }
@@ -2842,7 +2842,7 @@ fieldset:disabled a.btn {
 
 .btn-info {
     color: #212529;
-    background-color: #50e3c300;
+    background-color: #2fdeb7;
 }
 .btn-info:hover {
     color: #212529;
@@ -2873,11 +2873,11 @@ fieldset:disabled a.btn {
 }
 
 .btn-warning {
-    color: #212529;
-    background-color: #ffaa1600;
+    color: #ffffff;
+    background-color: #ef9800;
 }
 .btn-warning:hover {
-    color: #212529;
+    color: #ffffff;
     background-color: #ef9800;
     border-color: #e29000;
 }
@@ -2905,11 +2905,11 @@ fieldset:disabled a.btn {
 }
 
 .btn-danger {
-    color: #212529;
-    background-color: #ff161600;
+    color: #ffffff;
+    background-color: #ef0000;
 }
 .btn-danger:hover {
-    color: #212529;
+    color: #ffffff;
     background-color: #ef0000;
     border-color: #e20000;
 }
@@ -2971,12 +2971,12 @@ fieldset:disabled a.btn {
 
 .btn-dark {
     color: #454545;
-    background-color: #45454500;
+    background-color: #5a5a5a;
     border-color: #454545;
 }
 .btn-dark:hover {
     color: #454545;
-    background-color: #d6d6d6;
+    background-color: #5a5a5a;
     border-color: #454545;
 }
 .btn-dark:focus,
@@ -21142,15 +21142,15 @@ button:focus {
 }
 
 .btn-dark {
-    background: #45454500;
+    background: #5a5a5a;
     border-color: #454545;
-    color: #454545;
+    color: white;
 }
 .btn-dark:active,
 .btn-dark:focus,
 .btn-dark:hover {
-    background: #d6d6d6;
-    color: #454545;
+    background: #5a5a5a;
+    color: white;
     border-color: #454545;
 }
 
@@ -26683,5 +26683,11 @@ html[dir="rtl"]
     bottom: 20px;
     right: 15px;
     background-color: #033461;
+    color: white;
+}
+.wa_btn.wa {
+    bottom: 20px;
+    right: 15px;
+    background-color: #25D366;
     color: white;
 }

@@ -4,10 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Agama;
 use App\Models\Mahasiswa;
+use App\Models\Pengajuan;
 use App\Models\Prodi;
 use App\Models\TahunAngkatan;
 use App\Models\Wilayah;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -118,7 +120,7 @@ class MultiStepForm extends Component
     public function validateData(){
         if ($this->currentStep == 1) {
                 $this->validate([
-                    'nik' => 'required|string|max:16|unique:mahasiswa,nik',
+                    'nik' => 'required|string|max:16|min:16|unique:mahasiswa,nik',
                     'tempat_lahir' => 'required|string',
                     'tanggal_lahir' => 'required|date',
                     'jenis_kelamin' => 'required|string',
@@ -127,7 +129,9 @@ class MultiStepForm extends Component
                     'nohp' => 'required|string',
                     'pas_foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 ], [
+                    'nik.required' => 'NIK wajib di isi!',
                     'nik.max' => 'NIK maksimal 16 karakter!',
+                    'nik.min' => 'NIK minimal 16 karakter!',
                     'nik.unique' => 'NIK sudah terdaftar!',
                     'tempat_lahir.required' => 'Tempat lahir wajib di isi!',
                     'tanggal_lahir.required' => 'Tanggal lahir wajib di isi!',
@@ -178,14 +182,14 @@ class MultiStepForm extends Component
         elseif($this->currentStep == 3){
             $this->validate([
                 'nama_ayah' => 'required|string',
-                'nik_ayah' => 'nullable|string|max:16',
+                'nik_ayah' => 'nullable|string|max:16|min:16',
                 'tempat_lahir_ayah' => 'nullable|string',
                 'tanggal_lahir_ayah' => 'nullable|date',
                 'pendidikan_ayah' => 'nullable|string',
                 'pekerjaan_ayah' => 'nullable|string',
                 'penghasilan_ayah' => 'nullable|string',
                 'nama_ibu' => 'required|string',
-                'nik_ibu' => 'nullable|string|max:16',
+                'nik_ibu' => 'nullable|string|max:16|min:16',
                 'tempat_lahir_ibu' => 'nullable|string',
                 'tanggal_lahir_ibu' => 'nullable|date',
                 'pendidikan_ibu' => 'nullable|string',
@@ -194,6 +198,10 @@ class MultiStepForm extends Component
                 'nama_wali' => 'nullable|string',
                 'alamat_wali' => 'nullable|string',
             ],[
+                'nik_ayah.max' => 'Nik maksimal 16 karakter!',
+                'nik_ibu.max' => 'Nik maksimal 16 karakter!',
+                'nik_ayah.min' => 'Nik minimal 16 karakter!',
+                'nik_ibu.min' => 'Nik minimal 16 karakter!',
                 'nama_ayah.required' => 'Nama ayah wajib di isi!',
                 'nama_ibu.required' => 'Nama ibu wajib di isi!',
             ]);
@@ -299,7 +307,58 @@ class MultiStepForm extends Component
         $mahasiswa->status_mhs = 'Aktif';
         
         $mahasiswa->save();
+
+        $pengajuan = new Pengajuan();
+        $pengajuan->nim_id = $this->nim;
+        $pengajuan->nama_lengkap = $this->nama_lengkap;
+        $pengajuan->nik = $this->nik;
+        $pengajuan->tempat_lahir = $this->tempat_lahir;
+        $pengajuan->tanggal_lahir = $this->tanggal_lahir;
+        $pengajuan->jenis_kelamin = $this->jenis_kelamin;
+        $pengajuan->agama_id = $this->agama_id;
+        $pengajuan->email = $this->email;
+        $pengajuan->nohp = $this->nohp;
+        $pengajuan->pas_foto = $this->filename;
+        $pengajuan->provinsi = $this->selectedProvinsi;
+        $pengajuan->kabupaten = $this->selectedKabupaten;
+        $pengajuan->kecamatan = $this->selectedKecamatan;
+        $pengajuan->desa_kelurahan = $this->selectedDesa;
+        $pengajuan->rt = $this->rt;
+        $pengajuan->rw = $this->rw;
+        $pengajuan->nama_jalan = $this->nama_jalan;
+        $pengajuan->nama_ayah = $this->nama_ayah;
+        $pengajuan->nik_ayah = $this->nik_ayah;
+        $pengajuan->tempat_lahir_ayah = $this->tempat_lahir_ayah;
+        $pengajuan->tanggal_lahir_ayah = $this->tanggal_lahir_ayah;
+        $pengajuan->pendidikan_ayah = $this->pendidikan_ayah;
+        $pengajuan->pekerjaan_ayah = $this->pekerjaan_ayah;
+        $pengajuan->penghasilan_ayah = $this->penghasilan_ayah;
+        $pengajuan->nama_ibu = $this->nama_ibu;
+        $pengajuan->nik_ibu = $this->nik_ibu;
+        $pengajuan->tempat_lahir_ibu = $this->tempat_lahir_ibu;
+        $pengajuan->tanggal_lahir_ibu = $this->tanggal_lahir_ibu;
+        $pengajuan->pendidikan_ibu = $this->pendidikan_ibu;
+        $pengajuan->pekerjaan_ibu = $this->pekerjaan_ibu;
+        $pengajuan->penghasilan_ibu = $this->penghasilan_ibu;
+        $pengajuan->nama_wali = $this->nama_wali;
+        $pengajuan->alamat_wali = $this->alamat_wali;
+        $pengajuan->asal_sekolah = $this->asal_sekolah;
+        $pengajuan->jurusan_asal_sekolah = $this->jurusan_asal_sekolah;
+        $pengajuan->pengalaman_organisasi = $this->pengalaman_organisasi;
+        $pengajuan->prodi_id = $this->prodi_id;
+        $pengajuan->ukt = $this->ukt;
+        $pengajuan->angkatan_id = $this->angkatan_id;
+        $pengajuan->jenis_tinggal_di_cilacap = $this->jenis_tinggal_di_cilacap;
+        $pengajuan->alat_transportasi_ke_kampus = $this->alat_transportasi_ke_kampus;
+        $pengajuan->sumber_biaya_kuliah = $this->sumber_biaya_kuliah;
+        $pengajuan->penerima_kartu_prasejahtera = $this->penerima_kartu_prasejahtera;
+        $pengajuan->jumlah_tanggungan_keluarga_yang_masih_sekolah = $this->jumlah_tanggungan_keluarga_yang_masih_sekolah;
+        $pengajuan->anak_ke = $this->anak_ke;
+        $pengajuan->status = 'proses';
+        $pengajuan->status_mhs = 'Aktif';
         
-        return redirect()->route('mahasiswa.detail',['nim' => Auth::user()->nim])->with('success','Terimakasih telah mengisi data anda.');
+        $pengajuan->save();
+        
+        return redirect()->route('mahasiswa.detail',['nim' => Crypt::encryptString(Auth::user()->nim)])->with('success','Terimakasih telah mengisi data anda.');
     }
 }

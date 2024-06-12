@@ -114,7 +114,7 @@
             </div>
             <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
               @csrf
-                <div class="custom-file">
+                <div class="custom-file mb-3">
                     <label class="custom-file-label" for="excel_file" id="file_label">Excel File</label>
                     <input type="file" class="form-control-file @error('excel_file') is-invalid @enderror" id="excel_file" name="excel_file" accept=".xls, .xlsx" onchange="updateLabel(this)">
                     @error('excel_file')

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class MahasiswaPengajuanController extends Controller
 {
@@ -84,10 +85,10 @@ class MahasiswaPengajuanController extends Controller
         $user = Auth::user();
         $mahasiswa = Mahasiswa::where('nim', $user->nim)->first();
 
-        $existingPengajuan = Pengajuan::where('nim_id', $mahasiswa->nim)->exists();
+        $existingPengajuan = Pengajuan::where('nim_id', $mahasiswa->nim)->count();
 
-        if ($existingPengajuan) {
-            return redirect()->route('pengajuanktm.index')->with('error', 'Anda sudah melakukan pengajuan KTM sebelumnya.');
+        if ($existingPengajuan >= 2) {
+            return redirect()->route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->nim)])->with('error', 'Anda sudah melakukan pengajuan KTM maksimal 2 kali.');
         }
 
         $pengajuan = new Pengajuan();
@@ -141,12 +142,12 @@ class MahasiswaPengajuanController extends Controller
         $pengajuan->status_mhs = $mahasiswa->status_mhs;
         $pengajuan->save();
         activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' melakukan pengajuan KTM');
-        return redirect()->route('pengajuanktm.index')->with('success', 'Berhasil ditambahkan dalam pengajuan.');
+        return redirect()->route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->nim)])->with('success', 'Berhasil ditambahkan dalam pengajuan.');
     }
-    public function destroy($id){
-        $pengajuan = Pengajuan::find($id);
+    public function destroy($nim){
+        $pengajuan = Pengajuan::find($nim);
         $pengajuan->delete();
         activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' menghapus pengajuan KTM');
-        return redirect()->route('pengajuanktm.index')->with('success', 'Pengajuan berhasil dihapus.');
+        return redirect()->route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->nim)])->with('success', 'Pengajuan berhasil dihapus.');
     }
 }

@@ -20,6 +20,33 @@
     <link href="{{ asset('/') }}assets/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
     </head>
 
+    <style>
+        #main-wrapper {
+            position: relative;
+            min-height: 100vh;
+            background: url('{{ asset('images/logoPNC.png') }}') no-repeat center center;
+            background-size: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header h3 {
+            margin: 0;
+        }
+
+        .mt-5 {
+            margin-top: 3rem !important;
+        }
+    </style>
+
     <body>
         <div id="preloader">
             <div class="sk-three-bounce">
@@ -31,7 +58,7 @@
         <div id="main-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 offset-md-2">
+                    <div class="col-md-12">
                         <div class="card mt-5">
                             <div class="row">
                                 <div class="col-md-6 col-8">
@@ -86,7 +113,15 @@
                                     <div class="form-group row mb-2">
                                         <label for="angkatan" class="col-sm-5 col-form-label faded-label" >Status Mahasiswa</label>
                                         <div class="col-sm-7 text-dark">
-                                            : {{ $mahasiswa->status_mhs }}
+                                            :
+                                            <span class="
+                                            @if($mahasiswa->status_mhs == 'Aktif')
+                                                badge bg-info
+                                            @elseif($mahasiswa->status_mhs == 'Tidak aktif')
+                                                badge bg-warning
+                                            @endif">
+                                                {{ $mahasiswa->status_mhs }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

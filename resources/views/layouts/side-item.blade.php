@@ -42,10 +42,10 @@
         <br>
         <li><a href="{{ route('home') }}" aria-expanded="false"><i class="icon icon-home"></i><span
           class="nav-text">Home</span></a></li>
-        <li><a href="{{ route('mahasiswa.detail', ['nim' => Auth::user()->nim]) }}" aria-expanded="false"><i class="icon icon-form">
+        <li><a href="{{ route('mahasiswa.detail', ['nim' => Crypt::encryptString(Auth::user()->nim)]) }}" aria-expanded="false"><i class="icon icon-form">
           </i><span class="nav-text">Data Anda</span></a>
         </li>
-        <li><a href="{{ route('pengajuanktm.index', ['nim' => Auth::user()->nim]) }}" aria-expanded="false"><i class="fa fa-id-card">
+        <li><a href="{{ route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->nim)]) }}" aria-expanded="false"><i class="fa fa-id-card">
         </i><span class="nav-text">Pengajuan KTM</span></a>
       </li>
         <li><a href="{{ route('kalender.index') }}" aria-expanded="false">
@@ -67,8 +67,17 @@
         <li><a href="{{ route('data-mahasiswa.index') }}" aria-expanded="false"><i
           class="icon icon-users-mm"></i><span class="nav-text">Data Mahasiswa</span></a>
         </li>
+        <li><a href="{{ route('pengajuan.index') }}" aria-expanded="false"><i class="fa fa-id-card">
+        </i><span class="nav-text">Pengajuan KTM</span></a>
+      </li>
         <li><a href="{{ route('kalender.index') }}" aria-expanded="false"><i class="fa fa-calendar"></i><span
           class="nav-text">Kalender</span></a></li>
+          <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-settings"></i><span class="nav-text">Kelola Akun</span></a>
+            <ul aria-expanded="false">
+              <li><a href="{{ route('kelolaakun.index') }}">Profile</a></li>
+              <li><a data-toggle="modal" data-target=".logoutmode">Keluar Akun</a></li>
+            </ul>
+          </li>
         @endif
       </ul>
   <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 537px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 389px;"></div></div></div>
@@ -84,10 +93,10 @@
           </div>
           <div class="modal-body">Yakin ingin keluar dari akun ini?</div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
               <form action="{{ url('logout') }}" method="POST">
                   @csrf
-                  <button type="submit" class="btn btn-primary">Keluar</button>
+                  <button type="submit" class="btn btn-danger">Keluar</button>
               </form>
           </div>
       </div>

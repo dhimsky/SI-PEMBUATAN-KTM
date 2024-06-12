@@ -14,7 +14,7 @@
                                 <th>Jam</th>
                                 <th>Kelas</th>
                                 <th>Keterangan</th>
-                                @if (Auth::user()->role_id == '1')
+                                @if (Auth::user()->role_id == '1' && '3')
                                 <th>Aksi</th>
                                 @endif
                             </tr>
@@ -35,7 +35,7 @@
                                 <td>
                                     {{ $k->detail }}
                                 </td>
-                                @if (Auth::user()->role_id == '1')
+                                @if (Auth::user()->role_id == '1' && '3')
                                 <td>
                                     <a href="" class="fa fa-pencil color-muted" data-toggle="modal" data-target=".editKalender{{ $k->id_kalender }}" title="Edit prodi">
                                     </a>
@@ -60,7 +60,7 @@
     </div>
 </div>
 </div>
-@if (Auth::user()->role_id == '1')
+@if (Auth::user()->role_id == '1' || '3')
 <button class="fa fa-plus wa_btn whatsapp" data-toggle="modal" data-target=".tambahKalender" title="Tambah prodi"></button>
 @endif
 
