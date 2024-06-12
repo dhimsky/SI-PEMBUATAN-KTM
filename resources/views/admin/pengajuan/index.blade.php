@@ -9,16 +9,43 @@
             </div>
             <div class="card-body">
                 <div class="col-md-12 text-right mb-3">
+                    <a href="" class="btn btn-whatsapp" data-toggle="modal" data-target=".modalStatus">
+                        Ubah status <i class="fa fa-check-circle"></i></a>
                     <a href="" data-toggle="modal" data-target=".modalExport" class="btn btn-whatsapp" title="Export Data">
                     Export data <i class="fa fa-cloud-download"></i></a>
                 </div>
+                <form action="{{ route('pengajuan.index') }}" method="GET">
+                    <div class="row mb-3">
+                            <div class="col-md-3 mb-2">
+                                <select id="angkatan_id" name="angkatan_id" class="form-control">
+                                    <option selected disabled value="" style="font-style: italic;">Semua Angkatan</option>
+                                    @foreach ($angkatan as $ta)
+                                    <option value="{{ $ta->id_angkatan }}">{{ $ta->tahun_angkatan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select id="prodi_id" name="prodi_id" class="form-control">
+                                    <option selected disabled value="" style="font-style: italic;">Semua Prodi</option>
+                                    @foreach ($prodi as $pr)
+                                    <option value="{{ $pr->id_prodi }}">{{ $pr->nama_prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <button id="btnFilter" class="btn btn-whatsapp"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
                 <div class="table-responsive">
                 <table id="example" class="display text-dark" style="min-width: 845px">
                     <thead>
                         <tr class="text-center">
                             <th>ID PENGAJUAN</th>
                             <th>NIM</th>
-                            <th>STATUS</th>
+                            <th>PRODI</th>
+                            <th>ANGKATAN</th>
+                            <th>STATUS <br>PEMBUATAN</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -27,6 +54,8 @@
                         <tr class="text-center">                           
                             <td>{{ $p->id_pengajuan }}</td>
                             <td>{{ $p->nim_id }}</td>
+                            <td>{{ $p->prodi->nama_prodi }}</td>
+                            <td>{{ $p->angkatan->tahun_angkatan }}</td>
                             <td>
                                 <span class="
                                 @if($p->status == 'proses')
@@ -82,8 +111,8 @@
                     <label class="faded-label" for="status" style="font-style: italic;">Status</label>
                         <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
                             <option selected disabled value="" style="font-style: italic;">Pilih Status</option>
-                            <option value="proses" @if(old('status') == 'proses') selected @endif>proses</option>
-                            <option value="selesai" @if(old('status') == 'selesai') selected @endif>selesai</option>
+                            <option value="proses" @if(old('status') == 'proses') selected @endif>Proses</option>
+                            <option value="selesai" @if(old('status') == 'selesai') selected @endif>Selesai</option>
                         </select>
                     @error('status')
                     <span class="invalid-feedback" role="alert">
@@ -126,8 +155,8 @@
                 <div class="form-group mb-3">
                     <label class="faded-label" for="status" style="font-style: italic;">Status</label>
                     <select class="form-control @error('status') is-invalid @enderror" id="status" name="status">
-                        <option value="proses" {{ $p->status === 'proses' ? 'selected' : '' }}>proses</option>
-                        <option value="selesai" {{ $p->status === 'selesai' ? 'selected' : '' }}>selesai</option>
+                        <option value="proses" {{ $p->status === 'proses' ? 'selected' : '' }}>Proses</option>
+                        <option value="selesai" {{ $p->status === 'selesai' ? 'selected' : '' }}>Selesai</option>
                     </select>
                     @error('status')
                     <span class="invalid-feedback" role="alert">
@@ -178,6 +207,52 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-dark" onclick="submitForm('{{ route('exportdata.exportpengajuan') }}')">Export Excel</button>
                         <button type="button" class="btn btn-primary" onclick="submitForm('{{ route('exportdata.exportimgpengajuan') }}')">Export Foto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modalStatus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Ubah Status Pengajuan</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('pengajuan.update-status') }}" method="post">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="prodi_id" >Pilih Prodi</label>
+                        <select class="form-control" name="prodi_id" id="prodi_id">
+                            <option value="">-- Pilih Prodi --</option>
+                            @foreach ($prodi as $programStudi)
+                                <option value="{{ $programStudi->id_prodi }}">{{ $programStudi->nama_prodi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="angkatan_id" >Pilih Angkatan</label>
+                        <select class="form-control" name="angkatan_id" id="angkatan_id">
+                            <option value="">-- Pilih Angkatan --</option>
+                            @foreach ($angkatan as $a)
+                                <option value="{{ $a->id_angkatan }}">{{ $a->tahun_angkatan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required-label faded-label" for="status" >Pilih Status Mahasiswa</label>
+                        <select class="form-control" name="status" id="status">
+                            <option selected value="">-- Pilih Status --</option>
+                            <option value="proses">Proses</option>
+                            <option value="selesai">Selesai</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">Ubah status</button>
                     </div>
                 </form>
             </div>

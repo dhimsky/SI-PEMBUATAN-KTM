@@ -144,6 +144,23 @@ class MahasiswaPengajuanController extends Controller
         activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' melakukan pengajuan KTM');
         return redirect()->route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->nim)])->with('success', 'Berhasil ditambahkan dalam pengajuan.');
     }
+
+    public function terimaKTM(Request $request){
+        // Validasi input
+        $request->validate([
+            'id_pengajuan' => 'exists:pengajuan,id_pengajuan',
+        ]);
+
+        // Temukan pengajuan berdasarkan ID
+        $pengajuan = Pengajuan::findOrFail($request->id_pengajuan);
+
+        // Update field status menjadi 'selesai'
+        $pengajuan->status = 'selesai';
+        $pengajuan->save();
+
+        return redirect()->route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->nim)])->with('success', 'Berhasil diperbarui.');
+    }
+
     public function destroy($nim){
         $pengajuan = Pengajuan::find($nim);
         $pengajuan->delete();

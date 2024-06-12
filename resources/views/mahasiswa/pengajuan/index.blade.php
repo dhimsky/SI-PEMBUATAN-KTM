@@ -12,13 +12,15 @@
                     <div class="text-md-right mb-3">
                         <form action="{{ route('pengajuanktm.store') }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-secondary"><i class="fa fa-cloud-upload"></i> Ajukan KTM</button>
+                            <button type="submit" class="btn btn-whatsapp"><i class="fa fa-cloud-upload"></i> Ajukan KTM</button>
                         </form>
                     </div>
                 <table id="example" class="display text-dark" style="min-width: 845px">
                     <thead>
                         <tr class="text-center">
                             <th>NIM</th>
+                            <th>NAMA LENGKAP</th>
+                            <th>NIK</th>
                             <th>STATUS</th>
                             <th>AKSI</th>
                         </tr>
@@ -27,6 +29,8 @@
                         @foreach ($pengajuan as $p)
                         <tr class="text-center">                           
                             <td>{{ $p->nim_id }}</td>
+                            <td>{{ $p->nama_lengkap }}</td>
+                            <td>{{ $p->nik }}</td>
                             <td>
                                 <span class="
                                 @if($p->status == 'proses')
@@ -38,10 +42,15 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="" class="btn btn-info" data-toggle="modal" data-target="#detailMahasiswa{{ $p->nim }}" title="Lihat detail">
+                                <a href="" class="btn btn-info" data-toggle="modal" data-target="#detailPengajuan{{ $p->id_pengajuan }}" title="Lihat detail">
                                     <i class="fa fa-info"></i>
                                 </a>
-                                <a href="{{ route('pengajuanktm.destroy', $p->id_pengajuan) }}" class="fa fa-trash btn btn-danger" data-confirm-delete="true" title="Hapus data"></a>
+                                @if ($p->status == 'proses')
+                                <a href="" class="btn btn-whatsapp" data-toggle="modal" data-target=".terima{{ $p->id_pengajuan }}" title="Sudah menerima">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                                @endif
+                                
                             </td>
                         </tr>
                         @endforeach
@@ -54,7 +63,7 @@
 </div>
 
 @foreach ($pengajuan as $p)
-<div class="modal fade" id="detailMahasiswa{{ $p->nim }}">
+<div class="modal fade" id="detailPengajuan{{ $p->id_pengajuan }}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -346,6 +355,30 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+@foreach ($pengajuan as $p)
+<div class="modal fade terima{{ $p->id_pengajuan }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi Terima KTM</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-dark">Yakin anda sudah menerima KTM?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Batal</button>
+                <form action="{{ route('pengajuanktm.selesai') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id_pengajuan" value="{{ $p->id_pengajuan }}">
+                    <button type="submit" class="btn btn-primary">Ya, sudah</button>
+                </form>
             </div>
         </div>
     </div>

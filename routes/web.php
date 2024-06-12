@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/data-mahasiswa', AdminDataMahasiswaController::class);
         Route::post('/data-mahasiswa/update-status', [AdminDataMahasiswaController::class, 'updateStatusMhs'])->name('mahasiswa.update-status');
         Route::resource('/pengajuan', AdminPengajuanController::class);
+        Route::post('/pengajuan/update-status', [AdminPengajuanController::class, 'updateStatusPengajuan'])->name('pengajuan.update-status');
     });
     Route::prefix('mahasiswa')->middleware('CekUserLogin:2')->group(function () {
         Route::view('/isi-data', 'mahasiswa.data-diri.isi_data')->name('isi-data');
@@ -64,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengajuanktm/{nim}', [MahasiswaPengajuanController::class, 'index'])->name('pengajuanktm.index');
         Route::post('/pengajuanktm/tambah', [MahasiswaPengajuanController::class, 'store'])->name('pengajuanktm.store');
         Route::delete('/pengajuanktm/hapus/{nim}', [MahasiswaPengajuanController::class, 'destroy'])->name('pengajuanktm.destroy');
+        Route::put('/pengajuanktm/selesai', [MahasiswaPengajuanController::class, 'terimaKTM'])->name('pengajuanktm.selesai');
         Route::post('/akun/gantiPassword', [MahasiswaAkunController::class, 'changePassword'])->name('akun.gantiPassword');
     });
 

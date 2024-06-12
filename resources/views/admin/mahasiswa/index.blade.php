@@ -45,12 +45,13 @@
                         <thead>
                             <tr class="text-center">
                                 <th>#</th>
-                                <th>Foto</th>
+                                <th>FOTO</th>
                                 <th>NIM</th>
-                                <th>Nama Lengkap</th>
-                                <th>Prodi</th>
-                                <th>Angkatan</th>
-                                <th>Aksi</th>
+                                <th>NAMA LENGKAP</th>
+                                <th>PRODI</th>
+                                <th>ANGKATAN</th>
+                                <th>STATUS</th>
+                                <th>AKSI</th>
                             </tr>
                         </thead>
                         <tbody class="table-bordered">
@@ -70,6 +71,15 @@
                                 <td>{{ mb_convert_case($m->nama_lengkap, MB_CASE_TITLE) }}</td>
                                 <td>{{ $m->prodi->nama_prodi }}</td>
                                 <td>{{ $m->angkatan->tahun_angkatan }}</td>
+                                <td><span class="
+                                    @if($m->status_mhs == 'Aktif')
+                                        badge bg-success
+                                    @elseif($m->status_mhs == 'Tidak aktif')
+                                        badge bg-dark text-light
+                                    @endif">
+                                        {{ $m->status_mhs }}
+                                    </span>
+                                </td>
                                 <td>
                                     {{-- @if (Auth::user()->role_id == '1')
                                     <a href="{{route('print-id', $m->nim)}}" target="_blank"
@@ -1749,6 +1759,19 @@
                     <label for="anak_ke" class="col-sm-5 col-form-label faded-label" >Anak Ke</label>
                     <div class="col-sm-7 text-dark">
                         : {{ $m->anak_ke }}
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="anak_ke" class="col-sm-5 col-form-label faded-label" >Status Mahasiswa</label>
+                    <div class="col-sm-7 text-dark">
+                        : <span class="
+                        @if($m->status_mhs == 'Aktif')
+                            badge bg-success
+                        @elseif($m->status_mhs == 'Tidak aktif')
+                            badge bg-dark text-light
+                        @endif">
+                            {{ $m->status_mhs }}
+                        </span>
                     </div>
                 </div>
             </div>

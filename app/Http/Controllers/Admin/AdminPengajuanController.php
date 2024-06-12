@@ -12,10 +12,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminPengajuanController extends Controller
 {
-    public function index(){
-        $pengajuan = Pengajuan::all();
+    public function index(Request $request){
+        $pengajuan = Pengajuan::query()->latest();
         $prodi = Prodi::all();
         $angkatan = TahunAngkatan::all();
+
+        if ($request->filled('angkatan_id')) {
+            $angkatan_id = $request->input('angkatan_id');
+            $pengajuan->where('angkatan_id', $request->angkatan_id);
+        }
+        if ($request->filled('prodi_id')) {
+            $prodi_id = $request->input('prodi_id');
+            $pengajuan->where('prodi_id', $request->prodi_id);
+        }
+        $pengajuan = $pengajuan->get();
 
         $title = 'Hapus Pengajuan!';
         $text = "Yakin ingin menghapus data ini?";
@@ -104,6 +114,44 @@ class AdminPengajuanController extends Controller
 
         activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel pengajuan');
         return redirect()->route('pengajuan.index')->with('success', 'Pengajuan berhasil di update.');
+    }
+
+    public function updateStatusPengajuan(Request $request)
+    {
+        $request->validate([
+            'angkatan_id' => 'required',
+            'prodi_id' => 'required',
+            'status' => 'required',
+        ], [
+            'angkatan_id.required' => 'Pilih angkatan terlebih dahulu.',
+            'prodi_id.required' => 'Pilih program studi terlebih dahulu.',
+            'status.required' => 'Pilih status pengajuan yang ingin diubah.',
+        ]);
+        
+        // Periksa jika angkatan_id dan prodi_id tidak kosong
+        if ($request->filled('angkatan_id') && $request->filled('prodi_id')) {
+            $angkatan_id = $request->input('angkatan_id');
+            $prodi_id = $request->input('prodi_id');
+    
+            // Periksa jika status dipilih
+            if ($request->filled('status')) {
+                $status = $request->input('status');
+    
+                // Ambil data pengajuan berdasarkan angkatan_id dan prodi_id yang dipilih
+                $pengajuan = Pengajuan::where('angkatan_id', $angkatan_id)
+                                    ->where('prodi_id', $prodi_id)
+                                    ->get();
+    
+                // Lakukan perubahan status
+                foreach ($pengajuan as $mhs) {
+                    $mhs->update(['status' => $status]);
+                }
+                activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah status pengajuan');
+                return redirect()->route('pengajuan.index')->with('success', 'Status pengajuan berhasil diubah.');
+            } else {
+                return redirect()->route('pengajuan.index')->with('error', 'Pilih status pengajuan yang ingin diubah.');
+            }
+        }
     }
 
     public function destroy($id){

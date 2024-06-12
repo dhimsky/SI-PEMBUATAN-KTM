@@ -111,6 +111,7 @@
                                     Upload Foto
                                 @endif
                             </label>
+                            <small class="text-danger">*gunakan background merah</small>
                             @error('pas_foto')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
