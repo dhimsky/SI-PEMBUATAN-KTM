@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id('id_kalender');
             $table->date('tanggal');
             $table->time('jam');
-            $table->string('prodi', 5);
+            $table->string('prodi_id', 5);
             $table->string('kelas', 15);
             $table->string('detail', 50)->nullable();
 
             // Foreign key to prodi table
-            $table->foreign('prodi')->references('id_prodi')->on('prodi')->onDelete('cascade');
+            $table->foreign('prodi_id')->references('id_prodi')->on('prodi')->onDelete('cascade');
 
             $table->timestamps();
         });

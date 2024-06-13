@@ -64,9 +64,6 @@
         <li><a href="{{ route('dashboard') }}" aria-expanded="false"><i
           class="icon icon-home"></i><span class="nav-text">Dashboard</span></a>
         </li>
-        <li><a href="{{ route('data-mahasiswa.index') }}" aria-expanded="false"><i
-          class="icon icon-users-mm"></i><span class="nav-text">Data Mahasiswa</span></a>
-        </li>
         <li><a href="{{ route('pengajuan.index') }}" aria-expanded="false"><i class="fa fa-id-card">
         </i><span class="nav-text">Pengajuan KTM</span></a>
       </li>

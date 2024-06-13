@@ -114,48 +114,18 @@
                             : {{ $mahasiswa->nohp }}
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group row mb-2">
-                        <label for="provinsi" class="col-sm-5 col-form-label faded-label" >Provinsi</label>
+                        <label for="alamat_lengkap" class="col-sm-5 col-form-label faded-label" >Alamat Lengkap</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ mb_convert_case($prov, MB_CASE_TITLE) }}
+                            : Jalan {{ $mahasiswa->nama_jalan }}, RT.{{ $mahasiswa->rt }}/RW.{{ $mahasiswa->rw }},
+                            Desa {{ DB::table('wilayah')->where('kode', $mahasiswa->desa_kelurahan)->value('nama') }},
+                            Kec. {{ DB::table('wilayah')->where('kode', $mahasiswa->kecamatan)->value('nama') }},
+                            {{ mb_convert_case(DB::table('wilayah')->where('kode', $mahasiswa->kabupaten)->value('nama'), MB_CASE_TITLE) }},
+                            Prov. {{ mb_convert_case(DB::table('wilayah')->where('kode', $mahasiswa->provinsi)->value('nama'), MB_CASE_TITLE) }}, {{ $mahasiswa->kode_pos }}
                         </div>
                     </div>
-                    <div class="form-group row mb-2">
-                        <label for="kabupaten" class="col-sm-5 col-form-label faded-label" >Kabupaten</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ mb_convert_case($kab, MB_CASE_TITLE) }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="kecamatan" class="col-sm-5 col-form-label faded-label" >Kecamatan</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $kec }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="desa_kelurahan" class="col-sm-5 col-form-label faded-label" >Desa/Kelurahan</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $ds }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="rt" class="col-sm-5 col-form-label faded-label" >RT</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->rt }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="rw" class="col-sm-5 col-form-label faded-label" >RW</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->rw }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="nama_jalan" class="col-sm-5 col-form-label faded-label" >Nama Jalan</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->nama_jalan }}
-                        </div>
-                    </div>
+                    <hr>
                     <div class="form-group row mb-2">
                         <label for="nama_ayah" class="col-sm-5 col-form-label faded-label" >Nama Ayah</label>
                         <div class="col-sm-7 text-dark">
@@ -296,6 +266,7 @@
                             : {{ $mahasiswa->alamat_wali }}
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group row mb-2">
                         <label for="asal_sekolah" class="col-sm-5 col-form-label faded-label" >Asal Sekolah</label>
                         <div class="col-sm-7 text-dark">
@@ -314,6 +285,7 @@
                             : {{ $mahasiswa->pengalaman_organisasi }}
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group row mb-2">
                         <label for="prodi_id" class="col-sm-5 col-form-label faded-label" >Program Studi</label>
                         <div class="col-sm-7 text-dark">
@@ -528,6 +500,7 @@
                                     @enderror
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group row mb-2">
                         <label for="provinsi" class="col-sm-5 col-form-label faded-label required-label" >Provinsi</label>
                         <div class="col-sm-7">
@@ -616,6 +589,18 @@
                                     @enderror
                         </div>
                     </div>
+                    <div class="form-group row mb-2">
+                        <label for="kode_pos" class="col-sm-5 col-form-label faded-label required-label" >Kode Pos</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" id="kode_pos" name="kode_pos" value="{{ $mahasiswa->kode_pos }}" placeholder="Contoh: Jl. Melati No.003">
+                            @error('kode_pos')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                        </div>
+                    </div>
+                    <hr>
                     <div class="form-group row mb-2">
                         <label for="nama_ayah" class="col-sm-5 col-form-label faded-label required-label" >Nama Ayah</label>
                         <div class="col-sm-7">
@@ -804,6 +789,7 @@
                                     @enderror
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group row mb-2">
                         <label for="asal_sekolah" class="col-sm-5 col-form-label faded-label required-label" >Asal Sekolah</label>
                         <div class="col-sm-7">
@@ -837,6 +823,7 @@
                         @enderror
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group row mb-2">
                         <label for="prodi_id" class="col-sm-5 col-form-label faded-label required-label" >Program Studi</label>
                         <div class="col-sm-7">

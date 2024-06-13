@@ -34,6 +34,7 @@ return new class extends Migration
             $table->integer('rt');
             $table->integer('rw');
             $table->string('nama_jalan', 35);
+            $table->integer('kode_pos');
 
             // Orang Tua Kandung
             $table->string('nama_ayah', 50);

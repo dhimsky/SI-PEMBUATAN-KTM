@@ -92,7 +92,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="required-label faded-label" for="nohp" style="font-style: italic;">Nomor Hp</label>
+                        <label class="required-label faded-label" for="nohp" style="font-style: italic;">No. Hp/ WA</label>
                         <input type="number" name="nohp" class="form-control @error('nohp') is-invalid @enderror" value="{{ old('nohp') }}" wire:model="nohp">
                         @error('nohp')
                             <span class="invalid-feedback" role="alert">
@@ -112,6 +112,8 @@
                                 @endif
                             </label>
                             <small class="text-danger">*gunakan background merah</small>
+                            <br>
+                            <small class="text-danger">*Foto 3x3</small>
                             @error('pas_foto')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -235,6 +237,16 @@
                         <label class="required-label faded-label" for="nama_jalan" style="font-style: italic;">Nama Jalan</label>
                         <input type="text" name="nama_jalan" class="form-control @error('nama_jalan') is-invalid @enderror" value="{{ old('nama_jalan') }}" wire:model="nama_jalan" placeholder="Contoh: Melati No.3">
                         @error('nama_jalan')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-3 mb-3">
+                        <label class="required-label faded-label" for="kode_pos" style="font-style: italic;">Kode Pos</label>
+                        <input type="number" name="kode_pos" class="form-control @error('kode_pos') is-invalid @enderror" value="{{ old('kode_pos') }}" wire:model="kode_pos" placeholder="Masukan kode pos">
+                        @error('kode_pos')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -94,7 +94,7 @@ class MahasiswaPengajuanController extends Controller
         $pengajuan = new Pengajuan();
 
         $pengajuan->nim_id = $mahasiswa->nim;
-        $pengajuan->status = 'proses';
+        $pengajuan->status = 'pembuatan ulang';
         $pengajuan->nama_lengkap = $mahasiswa->nama_lengkap;
         $pengajuan->nik = $mahasiswa->nik;
         $pengajuan->tempat_lahir = $mahasiswa->tempat_lahir;
@@ -104,6 +104,7 @@ class MahasiswaPengajuanController extends Controller
         $pengajuan->email = $mahasiswa->email;
         $pengajuan->nohp = $mahasiswa->nohp;
         $pengajuan->pas_foto = $mahasiswa->pas_foto;
+
         $pengajuan->provinsi = $mahasiswa->provinsi;
         $pengajuan->kabupaten = $mahasiswa->kabupaten;
         $pengajuan->kecamatan = $mahasiswa->kecamatan;
@@ -111,35 +112,17 @@ class MahasiswaPengajuanController extends Controller
         $pengajuan->rw = $mahasiswa->rw;
         $pengajuan->nama_jalan = $mahasiswa->nama_jalan;
         $pengajuan->desa_kelurahan = $mahasiswa->desa_kelurahan;
+        $pengajuan->kode_pos = $mahasiswa->kode_pos;
+
         $pengajuan->nama_ayah = $mahasiswa->nama_ayah;
         $pengajuan->nik_ayah = $mahasiswa->nik_ayah;
-        $pengajuan->tempat_lahir_ayah = $mahasiswa->tempat_lahir_ayah;
-        $pengajuan->tanggal_lahir_ayah = $mahasiswa->tanggal_lahir_ayah;
-        $pengajuan->pendidikan_ayah = $mahasiswa->pendidikan_ayah;
-        $pengajuan->pekerjaan_ayah = $mahasiswa->pekerjaan_ayah;
-        $pengajuan->penghasilan_ayah = $mahasiswa->penghasilan_ayah;
         $pengajuan->nama_ibu = $mahasiswa->nama_ibu;
         $pengajuan->nik_ibu = $mahasiswa->nik_ibu;
-        $pengajuan->tempat_lahir_ibu = $mahasiswa->tempat_lahir_ibu;
-        $pengajuan->tanggal_lahir_ibu = $mahasiswa->tanggal_lahir_ibu;
-        $pengajuan->pendidikan_ibu = $mahasiswa->pendidikan_ibu;
-        $pengajuan->pekerjaan_ibu = $mahasiswa->pekerjaan_ibu;
-        $pengajuan->penghasilan_ibu = $mahasiswa->penghasilan_ibu;
-        $pengajuan->nama_wali = $mahasiswa->nama_wali;
-        $pengajuan->alamat_wali = $mahasiswa->alamat_wali;
-        $pengajuan->asal_sekolah = $mahasiswa->asal_sekolah;
-        $pengajuan->jurusan_asal_sekolah = $mahasiswa->jurusan_asal_sekolah;
-        $pengajuan->pengalaman_organisasi = $mahasiswa->pengalaman_organisasi;
+
         $pengajuan->prodi_id = $mahasiswa->prodi_id;
         $pengajuan->ukt = $mahasiswa->ukt;
         $pengajuan->angkatan_id = $mahasiswa->angkatan_id;
-        $pengajuan->jenis_tinggal_di_cilacap = $mahasiswa->jenis_tinggal_di_cilacap;
-        $pengajuan->alat_transportasi_ke_kampus = $mahasiswa->alat_transportasi_ke_kampus;
-        $pengajuan->sumber_biaya_kuliah = $mahasiswa->sumber_biaya_kuliah;
-        $pengajuan->penerima_kartu_prasejahtera = $mahasiswa->penerima_kartu_prasejahtera;
-        $pengajuan->jumlah_tanggungan_keluarga_yang_masih_sekolah = $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah;
-        $pengajuan->anak_ke = $mahasiswa->anak_ke;
-        $pengajuan->status_mhs = $mahasiswa->status_mhs;
+
         $pengajuan->save();
         activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' melakukan pengajuan KTM');
         return redirect()->route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->nim)])->with('success', 'Berhasil ditambahkan dalam pengajuan.');

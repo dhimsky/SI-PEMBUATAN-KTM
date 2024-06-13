@@ -61,13 +61,9 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 $mhs->email,
                 $mhs->nohp,
                 empty($mhs->pas_foto) ? 'Foto tidak tersedia' : $mhs->pas_foto,
-                mb_convert_case($prov, MB_CASE_TITLE),
-                mb_convert_case($kab, MB_CASE_TITLE),
-                mb_convert_case($kec, MB_CASE_TITLE),
-                mb_convert_case($ds, MB_CASE_TITLE),
-                $mhs->rt,
-                $mhs->rw,
-                $mhs->nama_jalan,
+                
+                'Jalan ' . $mhs->nama_jalan . ', ' . 'RT.' . $mhs->rt . '/RW.' . $mhs->rw . ', ' . 'Desa ' . mb_convert_case($ds, MB_CASE_TITLE) . ', ' . 'Kecamatan ' . mb_convert_case($kec, MB_CASE_TITLE) . ', ' . mb_convert_case($kab, MB_CASE_TITLE) . ', ' . mb_convert_case($prov, MB_CASE_TITLE) . ', ' . $mhs->kode_pos,
+                
                 $mhs->nama_ayah,
                 $mhs->nik_ayah,
                 $mhs->tempat_lahir_ayah,
@@ -125,13 +121,7 @@ private function getWilayahNama($kode)
             'EMAIL',
             'NO. HP',
             'PAS FOTO',
-            'PROVINSI',
-            'KABUPATEN',
-            'KECAMATAN',
-            'DESA/KELURAHAN',
-            'RT',
-            'RW',
-            'NAMA JALAN',
+            'ALAMAT LENGKAP',
             'NAMA AYAH',
             'NIK AYAH',
             'TEMPAT LAHIR AYAH',
@@ -201,14 +191,16 @@ private function getWilayahNama($kode)
     {
         return [
             'E' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'O' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'U' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'AB' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'C' => NumberFormat::FORMAT_NUMBER,
             'I' => NumberFormat::FORMAT_NUMBER,
-            'O' => NumberFormat::FORMAT_NUMBER,
-            'P' => NumberFormat::FORMAT_NUMBER,
-            'S' => NumberFormat::FORMAT_NUMBER,
-            'Z' => NumberFormat::FORMAT_NUMBER,
+            'M' => NumberFormat::FORMAT_NUMBER,
+            'T' => NumberFormat::FORMAT_NUMBER,
+            'AF' => NumberFormat::FORMAT_NUMBER,
+            'AG' => NumberFormat::FORMAT_NUMBER,
+            'AM' => NumberFormat::FORMAT_NUMBER,
+            'AN' => NumberFormat::FORMAT_NUMBER,
         ];
     }
 }

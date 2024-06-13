@@ -9,6 +9,7 @@
             </div>
         </div>
     </div>
+    @if (Auth::user()->role_id == '1')
     <div class="row">
         <div class="col-lg-4 col-sm-6">
             <div class="card">
@@ -77,7 +78,57 @@
             </div>
         </div>
     </div>
+    @endif
 
+    <div class="row">
+        <div class="col-lg-4 col-sm-6">
+            <div class="card">
+                <div class="stat-widget-two card-body">
+                    <div class="stat-content mb-4">
+                        <div class="stat-text">Total Pengajuan</div>
+                        <div class="stat-digit">{{ $pengajuan }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="card">
+                <div class="stat-widget-two card-body">
+                    <div class="stat-content">
+                        <div class="stat-text">Selesai</div>
+                        <div class="stat-digit">{{ $selesai }}</div>
+                    </div>
+                    <div class="progress">
+                        @if ($pengajuan)
+                        <div class="progress-bar progress-bar-success" style="width: {{ $selesai / $pengajuan * 100 }}%;" role="progressbar" aria-valuenow="{{ $pengajuan }}" aria-valuemin="0" aria-valuemax="{{ $selesai }}"></div>
+                        @endif
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="card">
+                <div class="stat-widget-two card-body">
+                    <div class="stat-content">
+                        <div class="stat-text">Proses</div>
+                        <div class="stat-digit">{{ $proses }}</div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="card">
+                <div class="stat-widget-two card-body">
+                    <div class="stat-content">
+                        <div class="stat-text">Mengajukan Ulang</div>
+                        <div class="stat-digit">{{ $buatulang }}</div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Auth::user()->role_id == '1')
     <div class="row">
         <div class="col-lg-6 col-sm-6">
             <div class="card">
@@ -7401,6 +7452,7 @@
                 </svg>
             </div>
         </div>
+        
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
@@ -7425,6 +7477,7 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 {{-- Kedungreja --}}
 <div class="modal fade Kedungreja" tabindex="-1" role="dialog" aria-hidden="true">
@@ -7786,4 +7839,5 @@
         </div>
     </div>
 </div>
+
 @endsection

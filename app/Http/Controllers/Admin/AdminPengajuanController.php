@@ -57,6 +57,9 @@ class AdminPengajuanController extends Controller
             'agama_id' => $mahasiswa->agama_id,
             'email' => $mahasiswa->email,
             'nohp' => $mahasiswa->nohp,
+            'pas_foto' => $mahasiswa->pas_foto,
+            
+            'kode_pos' => $mahasiswa->kode_pos,
             'nama_jalan' => $mahasiswa->nama_jalan,
             'rt' => $mahasiswa->rt,
             'rw' => $mahasiswa->rw,
@@ -64,34 +67,15 @@ class AdminPengajuanController extends Controller
             'kecamatan' => $mahasiswa->kecamatan,
             'kabupaten' => $mahasiswa->kabupaten,
             'provinsi' => $mahasiswa->provinsi,
+
             'nama_ayah' => $mahasiswa->nama_ayah,
             'nik_ayah' => $mahasiswa->nik_ayah,
-            'tempat_lahir_ayah' => $mahasiswa->tempat_lahir_ayah,
-            'tanggal_lahir_ayah' => $mahasiswa->tanggal_lahir_ayah,
-            'pendidikan_ayah' => $mahasiswa->pendidikan_ayah,
-            'pekerjaan_ayah' => $mahasiswa->pekerjaan_ayah,
-            'penghasilan_ayah' => $mahasiswa->penghasilan_ayah,
             'nama_ibu' => $mahasiswa->nama_ibu,
             'nik_ibu' => $mahasiswa->nik_ibu,
-            'tempat_lahir_ibu' => $mahasiswa->tempat_lahir_ibu,
-            'tanggal_lahir_ibu' => $mahasiswa->tanggal_lahir_ibu,
-            'pendidikan_ibu' => $mahasiswa->pendidikan_ibu,
-            'pekerjaan_ibu' => $mahasiswa->pekerjaan_ibu,
-            'penghasilan_ibu' => $mahasiswa->penghasilan_ibu,
-            'nama_wali' => $mahasiswa->nama_wali,
-            'alamat_wali' => $mahasiswa->alamat_wali,
-            'asal_sekolah' => $mahasiswa->asal_sekolah,
-            'jurusan_asal_sekolah' => $mahasiswa->jurusan_asal_sekolah,
-            'pengalaman_organisasi' => $mahasiswa->pengalaman_organisasi,
+
             'prodi_id' => $mahasiswa->prodi_id,
             'ukt' => $mahasiswa->ukt,
             'angkatan_id' => $mahasiswa->angkatan_id,
-            'jenis_tinggal_di_cilacap' => $mahasiswa->jenis_tinggal_di_cilacap,
-            'alat_transportasi_ke_kampus' => $mahasiswa->alat_transportasi_ke_kampus,
-            'sumber_biaya_kuliah' => $mahasiswa->sumber_biaya_kuliah,
-            'penerima_kartu_prasejahtera' => $mahasiswa->penerima_kartu_prasejahtera,
-            'jumlah_tanggungan_keluarga_yang_masih_sekolah' => $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah,
-            'anak_ke' => $mahasiswa->anak_ke
         ]);
         activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah pengajuan');
         return redirect()->route('pengajuan.index')->with('success', 'Berhasil ditambahkan dalam pengajuan.');

@@ -6,10 +6,46 @@
     <title>Login</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+
     <!-- Template Main CSS File -->
     <link href="{{ asset('/') }}css/style.css" rel="stylesheet" />
+    <style>
+        .wa_btn {
+    position: fixed;
+    right: 60px;
+    overflow: hidden;
+    width: 57px;
+    height: 57px;
+    border-radius: 100px;
+    border: 0;
+    z-index: 9999;
+    transition: 0.2s;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    box-shadow: 0 0 7px rgba(253, 253, 253, 0.2);
+}
+
+.wa_btn.whatsapp {
+    bottom: 20px;
+    right: 15px;
+    background-color: #f8f8f8;
+    color: white;
+}
+.wa_btn.wa {
+    bottom: 20px;
+    right: 15px;
+    background-color: #25D366;
+    color: white;
+}
+    </style>
 </head>
 <body>
+        <a href="https://wa.me/6285747928777?text=Halo%20admin,%20izin%20bertanya%20tentang%20KTM" target="_blank">
+            <button class="bi bi-whatsapp wa_btn wa"></button>
+        </a>
         @include('sweetalert::alert')
         <section class="login-block">
             <!-- Container-fluid starts -->

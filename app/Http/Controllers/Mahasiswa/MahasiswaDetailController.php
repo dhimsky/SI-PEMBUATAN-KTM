@@ -89,6 +89,7 @@ class MahasiswaDetailController extends Controller
             'rt' => 'required|string|max:3',
             'rw' => 'required|string|max:3',
             'nama_jalan' => 'required|string',
+            'kode_pos' => 'required',
             'nama_ayah' => 'required|string',
             'nik_ayah' => 'nullable|string|max:16',
             'tempat_lahir_ayah' => 'nullable|string',
@@ -139,6 +140,7 @@ class MahasiswaDetailController extends Controller
             'rw.required' => 'RW wajib di isi!',
             'rw.max' => 'RW maksimal 3  karakter!',
             'nama_jalan.required' => 'Jalan wajib di isi!',
+            'kode_pos.required' => 'Kode pos wajib di isi!',
             'nama_ayah.required' => 'Nama ayah wajib di isi!',
             'nik_ayah.max' => 'NIK ayah maksimal 16 karakter!',
             'nama_ibu.required' => 'Nama ibu wajib di isi!',
@@ -175,6 +177,7 @@ class MahasiswaDetailController extends Controller
         $mahasiswa->rt = $request->input('rt');
         $mahasiswa->rw = $request->input('rw');
         $mahasiswa->nama_jalan = $request->input('nama_jalan');
+        $mahasiswa->kode_pos = $request->input('kode_pos');
         $mahasiswa->nama_ayah = $request->input('nama_ayah');
         $mahasiswa->nik_ayah = $request->input('nik_ayah');
         $mahasiswa->tempat_lahir_ayah = $request->input('tempat_lahir_ayah');

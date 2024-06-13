@@ -34,6 +34,7 @@ class MultiStepForm extends Component
     public $rt;
     public $rw;
     public $nama_jalan;
+    public $kode_pos;
     public $nama_ayah;
     public $nik_ayah;
     public $tempat_lahir_ayah;
@@ -168,6 +169,7 @@ class MultiStepForm extends Component
                 'rt' => 'required|max:3',
                 'rw' => 'required|max:3',
                 'nama_jalan' => 'required',
+                'kode_pos' => 'required',
             ],[
                 'provinsi.required' => 'Provinsi wajib di isi!',
                 'kabupaten.required' => 'Kabupaten wajib di isi!',
@@ -176,7 +178,8 @@ class MultiStepForm extends Component
                 'rt.max' => 'RT maksimal 3 karakter!',
                 'rw.required' => 'RW wajib di isi!',
                 'rw.max' => 'RW maksimal 3 karakter!',
-                'nama_jalan' => 'Jalan wajib di isi!',
+                'nama_jalan.required' => 'Jalan wajib di isi!',
+                'kode_pos.required' => 'Kode pos wajib di isi!',
             ]);
         }
         elseif($this->currentStep == 3){
@@ -276,6 +279,7 @@ class MultiStepForm extends Component
         $mahasiswa->rt = $this->rt;
         $mahasiswa->rw = $this->rw;
         $mahasiswa->nama_jalan = $this->nama_jalan;
+        $mahasiswa->kode_pos = $this->kode_pos;
         $mahasiswa->nama_ayah = $this->nama_ayah;
         $mahasiswa->nik_ayah = $this->nik_ayah;
         $mahasiswa->tempat_lahir_ayah = $this->tempat_lahir_ayah;
@@ -319,6 +323,7 @@ class MultiStepForm extends Component
         $pengajuan->email = $this->email;
         $pengajuan->nohp = $this->nohp;
         $pengajuan->pas_foto = $this->filename;
+
         $pengajuan->provinsi = $this->selectedProvinsi;
         $pengajuan->kabupaten = $this->selectedKabupaten;
         $pengajuan->kecamatan = $this->selectedKecamatan;
@@ -326,36 +331,17 @@ class MultiStepForm extends Component
         $pengajuan->rt = $this->rt;
         $pengajuan->rw = $this->rw;
         $pengajuan->nama_jalan = $this->nama_jalan;
+        $pengajuan->kode_pos = $this->kode_pos;
+        
         $pengajuan->nama_ayah = $this->nama_ayah;
         $pengajuan->nik_ayah = $this->nik_ayah;
-        $pengajuan->tempat_lahir_ayah = $this->tempat_lahir_ayah;
-        $pengajuan->tanggal_lahir_ayah = $this->tanggal_lahir_ayah;
-        $pengajuan->pendidikan_ayah = $this->pendidikan_ayah;
-        $pengajuan->pekerjaan_ayah = $this->pekerjaan_ayah;
-        $pengajuan->penghasilan_ayah = $this->penghasilan_ayah;
         $pengajuan->nama_ibu = $this->nama_ibu;
         $pengajuan->nik_ibu = $this->nik_ibu;
-        $pengajuan->tempat_lahir_ibu = $this->tempat_lahir_ibu;
-        $pengajuan->tanggal_lahir_ibu = $this->tanggal_lahir_ibu;
-        $pengajuan->pendidikan_ibu = $this->pendidikan_ibu;
-        $pengajuan->pekerjaan_ibu = $this->pekerjaan_ibu;
-        $pengajuan->penghasilan_ibu = $this->penghasilan_ibu;
-        $pengajuan->nama_wali = $this->nama_wali;
-        $pengajuan->alamat_wali = $this->alamat_wali;
-        $pengajuan->asal_sekolah = $this->asal_sekolah;
-        $pengajuan->jurusan_asal_sekolah = $this->jurusan_asal_sekolah;
-        $pengajuan->pengalaman_organisasi = $this->pengalaman_organisasi;
+
         $pengajuan->prodi_id = $this->prodi_id;
         $pengajuan->ukt = $this->ukt;
         $pengajuan->angkatan_id = $this->angkatan_id;
-        $pengajuan->jenis_tinggal_di_cilacap = $this->jenis_tinggal_di_cilacap;
-        $pengajuan->alat_transportasi_ke_kampus = $this->alat_transportasi_ke_kampus;
-        $pengajuan->sumber_biaya_kuliah = $this->sumber_biaya_kuliah;
-        $pengajuan->penerima_kartu_prasejahtera = $this->penerima_kartu_prasejahtera;
-        $pengajuan->jumlah_tanggungan_keluarga_yang_masih_sekolah = $this->jumlah_tanggungan_keluarga_yang_masih_sekolah;
-        $pengajuan->anak_ke = $this->anak_ke;
         $pengajuan->status = 'proses';
-        $pengajuan->status_mhs = 'Aktif';
         
         $pengajuan->save();
         

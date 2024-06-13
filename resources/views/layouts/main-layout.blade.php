@@ -70,7 +70,7 @@
                     @yield('content')
                     @if (Auth::user()->role_id == '2')
                     <a href="https://wa.me/6282137031188?text=Halo%20admin,%20izin%20bertanya%20tentang%20KTM" target="_blank">
-                    <button class="fa fa-whatsapp wa_btn wa"></button>
+                        <button class="fa fa-whatsapp wa_btn wa"></button>
                     </a>
                     @endif
                 </div>

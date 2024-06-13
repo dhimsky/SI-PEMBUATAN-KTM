@@ -49,7 +49,7 @@
             width: 100%;
             height: 212px;
             padding-left: 18px;
-            padding-top: 78px
+            padding-top: 85px
         }
 
         .right-div {
@@ -108,7 +108,8 @@
         }
 
         .img{
-            height: 80px;
+            height: 60px;
+            width: 60px;
             margin-right:15px;
             margin-top:4px;
             border-radius: 2px;
@@ -134,7 +135,7 @@
     @foreach ($mahasiswas as $mahasiswa)
     <div>
         <div class="main">
-            <img class="background-image" src="{{public_path('images/FrameCard2.png')}}" alt="">
+            <img class="background-image" src="{{public_path('images/FrameCard.png')}}" alt="">
             <div class="main-data">
                 <div class="angkatan">
                     TA. {{$mahasiswa->angkatan->tahun_angkatan}}
@@ -142,9 +143,9 @@
                 <div class="left-div">
                     @if ($mahasiswa->pas_foto)
                     <img class="img"
-                    src="{{ public_path('storage/pas_foto/' . $mahasiswa->pas_foto) }}" alt="" width="60">
+                    src="{{ public_path('storage/pas_foto/' . $mahasiswa->pas_foto) }}" alt="" width="60" height="60">
                     @else
-                    <img class="img" src="{{ public_path('/images/profile.jpeg') }}" alt="" width="60">
+                    <img class="img" src="{{ public_path('/images/profile.jpeg') }}" alt="" width="60" height="60">
                     @endif
                 </div>
                 <div class="right-div" style="font-size:10.3px; line-height: 1; padding-left:90px; padding-top:0px">

@@ -28,6 +28,7 @@ class Mahasiswa extends Model
         'rt',
         'rw',
         'nama_jalan',
+        'kode_pos',
         'nama_ayah',
         'nik_ayah',
         'tempat_lahir_ayah',
