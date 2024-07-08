@@ -247,7 +247,7 @@
                 @csrf
                 <div class="form-group mb-3">
                     <label class="required-label faded-label" for="nim_id" style="font-style: italic;">Nim</label>
-                    <input type="text" name="nim_id" class="form-control @error('nim_id') is-invalid @enderror" value="{{ Session::get('nim_id') }}" >
+                    <input type="text" name="nim_id" class="form-control @error('nim_id') is-invalid @enderror" value="{{ Session::get('nim_id') }}" placeholder="Masukan NIM">
                     @error('nim_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

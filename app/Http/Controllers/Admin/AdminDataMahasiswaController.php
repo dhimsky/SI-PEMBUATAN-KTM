@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Agama;
+use App\Models\AlamatMhs;
+use App\Models\KeluargaMhs;
+use App\Models\KuliahMhs;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Storage;
@@ -18,18 +21,20 @@ class AdminDataMahasiswaController extends Controller
 {
     public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::query()->latest();
+        $mahasiswa = Mahasiswa::with(['alamat', 'keluarga', 'kuliah'])->latest();
         $agama = Agama::all();
         $prodi = Prodi::all();
         $angkatan = TahunAngkatan::all();
 
         if ($request->filled('angkatan_id')) {
-            $angkatan_id = $request->input('angkatan_id');
-            $mahasiswa->where('angkatan_id', $request->angkatan_id);
+            $mahasiswa->whereHas('kuliah', function ($query) use ($request) {
+                $query->where('angkatan_id', $request->angkatan_id);
+            });
         }
         if ($request->filled('prodi_id')) {
-            $prodi_id = $request->input('prodi_id');
-            $mahasiswa->where('prodi_id', $request->prodi_id);
+            $mahasiswa->whereHas('kuliah', function ($query) use ($request) {
+                $query->where('prodi_id', $request->prodi_id);
+            });
         }
         $mahasiswa = $mahasiswa->get();
 
@@ -49,14 +54,14 @@ class AdminDataMahasiswaController extends Controller
         $kecamatan = null;
         
         foreach ($mahasiswa as $m) {
-            $kodeprovinsi = $m->provinsi;
+            $kodeprovinsi = $m->alamat->provinsi;
             $provinsi = DB::table('wilayah')
                 ->select('nama')
                 ->where('kode', $kodeprovinsi)
                 ->first(); // Menggunakan first() karena hanya ingin mengambil satu baris
             $prov = $provinsi->nama; // Mengambil nama provinsi dari objek $provinsi
             // dd($prov);
-            $kodekabupaten = $m->kabupaten;
+            $kodekabupaten = $m->alamat->kabupaten;
             $kabupaten = DB::table('wilayah')
                 ->select('nama')
                 ->where('kode', $kodekabupaten)
@@ -64,14 +69,14 @@ class AdminDataMahasiswaController extends Controller
             // dd($kabupaten);
             $kab = $kabupaten->nama; // Mengambil nama kabupaten dari objek $kabupaten
 
-            $kodekecamatan = $m->kecamatan;
+            $kodekecamatan = $m->alamat->kecamatan;
             $kecamatan = DB::table('wilayah')
                 ->select('nama')
                 ->where('kode', $kodekecamatan)
                 ->first(); // Menggunakan first() karena hanya ingin mengambil satu baris
             $kec = $kecamatan->nama; // Mengambil nama kecamatan dari objek $kecamatan
 
-            $kodedesa_kelurahan = $m->desa_kelurahan;
+            $kodedesa_kelurahan = $m->alamat->desa_kelurahan;
             $desa_kelurahan = DB::table('wilayah')
                 ->select('nama')
                 ->where('kode', $kodedesa_kelurahan)
@@ -182,73 +187,76 @@ class AdminDataMahasiswaController extends Controller
             'anak_ke.required' => 'Anak ke berapa tidak boleh kosong!',
         ]);
 
-        $user = new User;
-        $user->nim = $request->input('nim');
-        $user->username = $request->input('nama_lengkap');
+        $user = new User();
+        $user->no_identitas = $request->nim;
+        $user->nama_lengkap = $request->nama_lengkap;
         $user->password = Hash::make('abcd1234');
         $user->role_id = 2;
         $user->save();
 
-        $mahasiswa = new Mahasiswa;
-        $mahasiswa->nim = $request->input('nim');
-        $mahasiswa->nama_lengkap = $request->input('nama_lengkap');
-        $mahasiswa->nik = $request->input('nik');
-        $mahasiswa->tempat_lahir = $request->input('tempat_lahir');
-        $mahasiswa->tanggal_lahir = $request->input('tanggal_lahir');
-        $mahasiswa->jenis_kelamin = $request->input('jenis_kelamin');
-        $mahasiswa->agama_id = $request->input('agama_id');
-        $mahasiswa->email = $request->input('email');
-        $mahasiswa->nohp = $request->input('nohp');
-        $mahasiswa->provinsi = $request->input('provinsi');
-        $mahasiswa->kabupaten = $request->input('kabupaten');
-        $mahasiswa->kecamatan = $request->input('kecamatan');
-        $mahasiswa->rt = $request->input('rt');
-        $mahasiswa->rw = $request->input('rw');
-        $mahasiswa->nama_jalan = $request->input('nama_jalan');
-        $mahasiswa->kode_pos = $request->input('kode_pos');
-        $mahasiswa->desa_kelurahan = $request->input('desa_kelurahan');
-        $mahasiswa->nama_ayah = $request->input('nama_ayah');
-        $mahasiswa->nik_ayah = $request->input('nik_ayah');
-        $mahasiswa->tempat_lahir_ayah = $request->input('tempat_lahir_ayah');
-        $mahasiswa->tanggal_lahir_ayah = $request->input('tanggal_lahir_ayah');
-        $mahasiswa->pendidikan_ayah = $request->input('pendidikan_ayah');
-        $mahasiswa->pekerjaan_ayah = $request->input('pekerjaan_ayah');
-        $mahasiswa->penghasilan_ayah = $request->input('penghasilan_ayah');
-        $mahasiswa->nama_ibu = $request->input('nama_ibu');
-        $mahasiswa->nik_ibu = $request->input('nik_ibu');
-        $mahasiswa->tempat_lahir_ibu = $request->input('tempat_lahir_ibu');
-        $mahasiswa->tanggal_lahir_ibu = $request->input('tanggal_lahir_ibu');
-        $mahasiswa->pendidikan_ibu = $request->input('pendidikan_ibu');
-        $mahasiswa->pekerjaan_ibu = $request->input('pekerjaan_ibu');
-        $mahasiswa->penghasilan_ibu = $request->input('penghasilan_ibu');
-        $mahasiswa->nama_wali = $request->input('nama_wali');
-        $mahasiswa->alamat_wali = $request->input('alamat_wali');
-        $mahasiswa->asal_sekolah = $request->input('asal_sekolah');
-        $mahasiswa->jurusan_asal_sekolah = $request->input('jurusan_asal_sekolah');
-        $mahasiswa->pengalaman_organisasi = $request->input('pengalaman_organisasi');
-        $mahasiswa->prodi_id = $request->input('prodi_id');
-        $mahasiswa->ukt = $request->input('ukt');
-        $mahasiswa->angkatan_id = $request->input('angkatan_id');
-        $mahasiswa->jenis_tinggal_di_cilacap = $request->input('jenis_tinggal_di_cilacap');
-        $mahasiswa->alat_transportasi_ke_kampus = $request->input('alat_transportasi_ke_kampus');
-        $mahasiswa->sumber_biaya_kuliah = $request->input('sumber_biaya_kuliah');
-        $mahasiswa->penerima_kartu_prasejahtera = $request->input('penerima_kartu_prasejahtera');
-        $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah = $request->input('jumlah_tanggungan_keluarga_yang_masih_sekolah');
-        $mahasiswa->anak_ke = $request->input('anak_ke');
-        $mahasiswa->status_mhs = 'Aktif';
-        
-        if ($request->hasFile('pas_foto')) {
-            // if ($mahasiswa->pas_foto) {
-            //     Storage::delete('public/pas_foto/' . $mahasiswa->pas_foto);
-            // }
-            $file = $request->file('pas_foto');
-            $fileName = $mahasiswa->nim  . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/pas_foto', $fileName);
-            $mahasiswa->pas_foto = $fileName;
-        }
+        $mahasiswa = new Mahasiswa();
+        $mahasiswa->nim = $request->nim;
+        $mahasiswa->nama_lengkap = $request->nama_lengkap;
+        $mahasiswa->nik = $request->nik;
+        $mahasiswa->tempat_lahir = $request->tempat_lahir;
+        $mahasiswa->tanggal_lahir = $request->tanggal_lahir;
+        $mahasiswa->jenis_kelamin = $request->jenis_kelamin;
+        $mahasiswa->agama_id = $request->agama_id;
+        $mahasiswa->email = $request->email;
+        $mahasiswa->nohp = $request->nohp;
+        $mahasiswa->pas_foto = $request->filename;
         $mahasiswa->save();
-        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah mahasiswa');
 
+        $alamat = new AlamatMhs();
+        $alamat->nim_id = $request->nim;
+        $alamat->provinsi = $request->provinsi;
+        $alamat->kabupaten = $request->kabupaten;
+        $alamat->kecamatan = $request->kecamatan;
+        $alamat->desa_kelurahan = $request->desa_kelurahan;
+        $alamat->rt = $request->rt;
+        $alamat->rw = $request->rw;
+        $alamat->nama_jalan = $request->nama_jalan;
+        $alamat->kode_pos = $request->kode_pos;
+        $alamat->save();
+
+        $keluarga = new KeluargaMhs();
+        $keluarga->nim_id = $request->nim;
+        $keluarga->nama_ayah = $request->nama_ayah;
+        $keluarga->nik_ayah = $request->nik_ayah;
+        $keluarga->tempat_lahir_ayah = $request->tempat_lahir_ayah;
+        $keluarga->tanggal_lahir_ayah = $request->tanggal_lahir_ayah;
+        $keluarga->pendidikan_ayah = $request->pendidikan_ayah;
+        $keluarga->pekerjaan_ayah = $request->pekerjaan_ayah;
+        $keluarga->penghasilan_ayah = $request->penghasilan_ayah;
+        $keluarga->nama_ibu = $request->nama_ibu;
+        $keluarga->nik_ibu = $request->nik_ibu;
+        $keluarga->tempat_lahir_ibu = $request->tempat_lahir_ibu;
+        $keluarga->tanggal_lahir_ibu = $request->tanggal_lahir_ibu;
+        $keluarga->pendidikan_ibu = $request->pendidikan_ibu;
+        $keluarga->pekerjaan_ibu = $request->pekerjaan_ibu;
+        $keluarga->penghasilan_ibu = $request->penghasilan_ibu;
+        $keluarga->nama_wali = $request->nama_wali;
+        $keluarga->alamat_wali = $request->alamat_wali;
+        $keluarga->jumlah_tanggungan_keluarga_yang_masih_sekolah = $request->jumlah_tanggungan_keluarga_yang_masih_sekolah;
+        $keluarga->anak_ke = $request->anak_ke;
+        $keluarga->save();
+
+        $kuliah = new KuliahMhs();
+        $kuliah->nim_id = $request->nim;
+        $kuliah->asal_sekolah = $request->asal_sekolah;
+        $kuliah->jurusan_asal_sekolah = $request->jurusan_asal_sekolah;
+        $kuliah->pengalaman_organisasi = $request->pengalaman_organisasi;
+        $kuliah->prodi_id = $request->prodi_id;
+        $kuliah->ukt = $request->ukt;
+        $kuliah->angkatan_id = $request->angkatan_id;
+        $kuliah->jenis_tinggal_di_cilacap = $request->jenis_tinggal_di_cilacap;
+        $kuliah->alat_transportasi_ke_kampus = $request->alat_transportasi_ke_kampus;
+        $kuliah->sumber_biaya_kuliah = $request->sumber_biaya_kuliah;
+        $kuliah->penerima_kartu_prasejahtera = $request->penerima_kartu_prasejahtera;
+        $kuliah->status_mhs = 'Aktif';
+        $kuliah->save();
+        
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' menambah mahasiswa');
         return redirect()->route('data-mahasiswa.index')->with('success', 'Data mahasiswa berhasil ditambahkan.');
     }
     public function update(Request $request, $id)
@@ -344,10 +352,7 @@ class AdminDataMahasiswaController extends Controller
             'anak_ke.required' => 'Anak ke berapa tidak boleh kosong!',
         ]);
 
-        // Cari data mahasiswa berdasarkan ID
         $mahasiswa = Mahasiswa::findOrFail($id);
-
-        // Simpan data yang diupdate ke dalam variabel
         $mahasiswa->nim = $request->input('nim');
         $mahasiswa->nama_lengkap = $request->input('nama_lengkap');
         $mahasiswa->nik = $request->input('nik');
@@ -357,61 +362,68 @@ class AdminDataMahasiswaController extends Controller
         $mahasiswa->agama_id = $request->input('agama_id');
         $mahasiswa->email = $request->input('email');
         $mahasiswa->nohp = $request->input('nohp');
-        $mahasiswa->provinsi = $request->input('provinsi');
-        $mahasiswa->kabupaten = $request->input('kabupaten');
-        $mahasiswa->kecamatan = $request->input('kecamatan');
-        $mahasiswa->rt = $request->input('rt');
-        $mahasiswa->rw = $request->input('rw');
-        $mahasiswa->nama_jalan = $request->input('nama_jalan');
-        $mahasiswa->kode_pos = $request->input('kode_pos');
-        $mahasiswa->desa_kelurahan = $request->input('desa_kelurahan');
-        $mahasiswa->nama_ayah = $request->input('nama_ayah');
-        $mahasiswa->nik_ayah = $request->input('nik_ayah');
-        $mahasiswa->tempat_lahir_ayah = $request->input('tempat_lahir_ayah');
-        $mahasiswa->tanggal_lahir_ayah = $request->input('tanggal_lahir_ayah');
-        $mahasiswa->pendidikan_ayah = $request->input('pendidikan_ayah');
-        $mahasiswa->pekerjaan_ayah = $request->input('pekerjaan_ayah');
-        $mahasiswa->penghasilan_ayah = $request->input('penghasilan_ayah');
-        $mahasiswa->nama_ibu = $request->input('nama_ibu');
-        $mahasiswa->nik_ibu = $request->input('nik_ibu');
-        $mahasiswa->tempat_lahir_ibu = $request->input('tempat_lahir_ibu');
-        $mahasiswa->tanggal_lahir_ibu = $request->input('tanggal_lahir_ibu');
-        $mahasiswa->pendidikan_ibu = $request->input('pendidikan_ibu');
-        $mahasiswa->pekerjaan_ibu = $request->input('pekerjaan_ibu');
-        $mahasiswa->penghasilan_ibu = $request->input('penghasilan_ibu');
-        $mahasiswa->nama_wali = $request->input('nama_wali');
-        $mahasiswa->alamat_wali = $request->input('alamat_wali');
-        $mahasiswa->asal_sekolah = $request->input('asal_sekolah');
-        $mahasiswa->jurusan_asal_sekolah = $request->input('jurusan_asal_sekolah');
-        $mahasiswa->pengalaman_organisasi = $request->input('pengalaman_organisasi');
-        $mahasiswa->prodi_id = $request->input('prodi_id');
-        $mahasiswa->ukt = $request->input('ukt');
-        $mahasiswa->angkatan_id = $request->input('angkatan_id');
-        $mahasiswa->jenis_tinggal_di_cilacap = $request->input('jenis_tinggal_di_cilacap');
-        $mahasiswa->alat_transportasi_ke_kampus = $request->input('alat_transportasi_ke_kampus');
-        $mahasiswa->sumber_biaya_kuliah = $request->input('sumber_biaya_kuliah');
-        $mahasiswa->penerima_kartu_prasejahtera = $request->input('penerima_kartu_prasejahtera');
-        $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah = $request->input('jumlah_tanggungan_keluarga_yang_masih_sekolah');
-        $mahasiswa->anak_ke = $request->input('anak_ke');
-        $mahasiswa->status_mhs = $request->input('status_mhs');
-
-        // Cek apakah ada foto baru yang diunggah
         if ($request->hasFile('pas_foto')) {
-            // Hapus foto lama jika ada
             if ($mahasiswa->pas_foto) {
                 Storage::delete('public/pas_foto/' . $mahasiswa->pas_foto);
             }
-
-            // Upload foto baru dengan nama file sesuai NIM
             $file = $request->file('pas_foto');
             $fileName = $mahasiswa->nim  . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/pas_foto', $fileName);
-            // Simpan nama foto ke dalam database
             $mahasiswa->pas_foto = $fileName;
         }
         $mahasiswa->save();
-        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel mahasiswa');
 
+        $alamat = $mahasiswa->alamat;
+        $alamat->nim_id = $request->input('nim');
+        $alamat->provinsi = $request->input('provinsi');
+        $alamat->kabupaten = $request->input('kabupaten');
+        $alamat->kecamatan = $request->input('kecamatan');
+        $alamat->rt = $request->input('rt');
+        $alamat->rw = $request->input('rw');
+        $alamat->nama_jalan = $request->input('nama_jalan');
+        $alamat->kode_pos = $request->input('kode_pos');
+        $alamat->desa_kelurahan = $request->input('desa_kelurahan');
+        $alamat->save();
+
+        $keluarga = $mahasiswa->keluarga;
+        $keluarga->nim_id = $request->input('nim');
+        $keluarga->nama_ayah = $request->input('nama_ayah');
+        $keluarga->nik_ayah = $request->input('nik_ayah');
+        $keluarga->tempat_lahir_ayah = $request->input('tempat_lahir_ayah');
+        $keluarga->tanggal_lahir_ayah = $request->input('tanggal_lahir_ayah');
+        $keluarga->pendidikan_ayah = $request->input('pendidikan_ayah');
+        $keluarga->pekerjaan_ayah = $request->input('pekerjaan_ayah');
+        $keluarga->penghasilan_ayah = $request->input('penghasilan_ayah');
+        $keluarga->nama_ibu = $request->input('nama_ibu');
+        $keluarga->nik_ibu = $request->input('nik_ibu');
+        $keluarga->tempat_lahir_ibu = $request->input('tempat_lahir_ibu');
+        $keluarga->tanggal_lahir_ibu = $request->input('tanggal_lahir_ibu');
+        $keluarga->pendidikan_ibu = $request->input('pendidikan_ibu');
+        $keluarga->pekerjaan_ibu = $request->input('pekerjaan_ibu');
+        $keluarga->penghasilan_ibu = $request->input('penghasilan_ibu');
+        $keluarga->nama_wali = $request->input('nama_wali');
+        $keluarga->alamat_wali = $request->input('alamat_wali');
+        $keluarga->jumlah_tanggungan_keluarga_yang_masih_sekolah = $request->input('jumlah_tanggungan_keluarga_yang_masih_sekolah');
+        $keluarga->anak_ke = $request->input('anak_ke');
+        $keluarga->save();
+
+        $kuliah = $mahasiswa->kuliah;
+        $kuliah->nim_id = $request->input('nim');
+        $kuliah->asal_sekolah = $request->input('asal_sekolah');
+        $kuliah->jurusan_asal_sekolah = $request->input('jurusan_asal_sekolah');
+        $kuliah->pengalaman_organisasi = $request->input('pengalaman_organisasi');
+        $kuliah->prodi_id = $request->input('prodi_id');
+        $kuliah->ukt = $request->input('ukt');
+        $kuliah->angkatan_id = $request->input('angkatan_id');
+        $kuliah->jenis_tinggal_di_cilacap = $request->input('jenis_tinggal_di_cilacap');
+        $kuliah->alat_transportasi_ke_kampus = $request->input('alat_transportasi_ke_kampus');
+        $kuliah->sumber_biaya_kuliah = $request->input('sumber_biaya_kuliah');
+        $kuliah->penerima_kartu_prasejahtera = $request->input('penerima_kartu_prasejahtera');
+        $kuliah->status_mhs = $request->input('status_mhs');
+        $kuliah->save();
+
+
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' mengubah tabel mahasiswa');
         return redirect()->route('data-mahasiswa.index')->with('success', 'Data mahasiswa berhasil diupdate.');
     }
 
@@ -427,32 +439,28 @@ class AdminDataMahasiswaController extends Controller
             'status_mhs.required' => 'Pilih status mahasiswa yang ingin diubah.',
         ]);
         
-        // Periksa jika angkatan_id dan prodi_id tidak kosong
         if ($request->filled('angkatan_id') && $request->filled('prodi_id')) {
             $angkatan_id = $request->input('angkatan_id');
             $prodi_id = $request->input('prodi_id');
     
-            // Periksa jika status_mhs dipilih
             if ($request->filled('status_mhs')) {
                 $status_mhs = $request->input('status_mhs');
     
-                // Ambil data mahasiswa berdasarkan angkatan_id dan prodi_id yang dipilih
-                $mahasiswa = Mahasiswa::where('angkatan_id', $angkatan_id)
-                                    ->where('prodi_id', $prodi_id)
-                                    ->get();
+                $mahasiswa = Mahasiswa::whereHas('kuliah', function ($query) use ($angkatan_id, $prodi_id) {
+                    $query->where('angkatan_id', $angkatan_id)
+                            ->where('prodi_id', $prodi_id);
+                            })->get();
     
-                // Lakukan perubahan status_mhs
                 foreach ($mahasiswa as $mhs) {
-                    $mhs->update(['status_mhs' => $status_mhs]);
+                    $mhs->kuliah->update(['status_mhs' => $status_mhs]);
                 }
-                activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah status mahasiswa');
+                activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' mengubah status mahasiswa');
                 return redirect()->route('data-mahasiswa.index')->with('success', 'Status mahasiswa berhasil diubah.');
             } else {
                 return redirect()->route('data-mahasiswa.index')->with('error', 'Pilih status mahasiswa yang ingin diubah.');
             }
         }
     }
-    
     
     public function destroy($id)
     {
@@ -463,7 +471,7 @@ class AdminDataMahasiswaController extends Controller
                 unlink($pathFoto);
             }
             $mahasiswa->delete();
-            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus mahasiswa');
+            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' menghapus mahasiswa');
             return redirect()->route('data-mahasiswa.index')->with('success', 'Mahasiswa berhasil dihapus');
         }
             return redirect()->route('data-mahasiswa.index')->with('error', 'Gagal menghapus mahasiswa');

@@ -3,6 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Agama;
+use App\Models\AlamatMhs;
+use App\Models\KeluargaMhs;
+use App\Models\KuliahMhs;
 use App\Models\Mahasiswa;
 use App\Models\Pengajuan;
 use App\Models\Prodi;
@@ -79,8 +82,8 @@ class MultiStepForm extends Component
     
     public function render()
     {
-        $this->nim = Auth::user()->nim;
-        $this->nama_lengkap = Auth::user()->username;
+        $this->nim = Auth::user()->no_identitas;
+        $this->nama_lengkap = Auth::user()->nama_lengkap;
         $this->provinsi = Wilayah::where('kode', 'like', '__')->get();
         $this->kabupaten = $this->selectedProvinsi ?
             Wilayah::where('kode', 'like', $this->selectedProvinsi . '___')->get() : [];
@@ -272,45 +275,56 @@ class MultiStepForm extends Component
         $mahasiswa->email = $this->email;
         $mahasiswa->nohp = $this->nohp;
         $mahasiswa->pas_foto = $this->filename;
-        $mahasiswa->provinsi = $this->selectedProvinsi;
-        $mahasiswa->kabupaten = $this->selectedKabupaten;
-        $mahasiswa->kecamatan = $this->selectedKecamatan;
-        $mahasiswa->desa_kelurahan = $this->selectedDesa;
-        $mahasiswa->rt = $this->rt;
-        $mahasiswa->rw = $this->rw;
-        $mahasiswa->nama_jalan = $this->nama_jalan;
-        $mahasiswa->kode_pos = $this->kode_pos;
-        $mahasiswa->nama_ayah = $this->nama_ayah;
-        $mahasiswa->nik_ayah = $this->nik_ayah;
-        $mahasiswa->tempat_lahir_ayah = $this->tempat_lahir_ayah;
-        $mahasiswa->tanggal_lahir_ayah = $this->tanggal_lahir_ayah;
-        $mahasiswa->pendidikan_ayah = $this->pendidikan_ayah;
-        $mahasiswa->pekerjaan_ayah = $this->pekerjaan_ayah;
-        $mahasiswa->penghasilan_ayah = $this->penghasilan_ayah;
-        $mahasiswa->nama_ibu = $this->nama_ibu;
-        $mahasiswa->nik_ibu = $this->nik_ibu;
-        $mahasiswa->tempat_lahir_ibu = $this->tempat_lahir_ibu;
-        $mahasiswa->tanggal_lahir_ibu = $this->tanggal_lahir_ibu;
-        $mahasiswa->pendidikan_ibu = $this->pendidikan_ibu;
-        $mahasiswa->pekerjaan_ibu = $this->pekerjaan_ibu;
-        $mahasiswa->penghasilan_ibu = $this->penghasilan_ibu;
-        $mahasiswa->nama_wali = $this->nama_wali;
-        $mahasiswa->alamat_wali = $this->alamat_wali;
-        $mahasiswa->asal_sekolah = $this->asal_sekolah;
-        $mahasiswa->jurusan_asal_sekolah = $this->jurusan_asal_sekolah;
-        $mahasiswa->pengalaman_organisasi = $this->pengalaman_organisasi;
-        $mahasiswa->prodi_id = $this->prodi_id;
-        $mahasiswa->ukt = $this->ukt;
-        $mahasiswa->angkatan_id = $this->angkatan_id;
-        $mahasiswa->jenis_tinggal_di_cilacap = $this->jenis_tinggal_di_cilacap;
-        $mahasiswa->alat_transportasi_ke_kampus = $this->alat_transportasi_ke_kampus;
-        $mahasiswa->sumber_biaya_kuliah = $this->sumber_biaya_kuliah;
-        $mahasiswa->penerima_kartu_prasejahtera = $this->penerima_kartu_prasejahtera;
-        $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah = $this->jumlah_tanggungan_keluarga_yang_masih_sekolah;
-        $mahasiswa->anak_ke = $this->anak_ke;
-        $mahasiswa->status_mhs = 'Aktif';
-        
         $mahasiswa->save();
+
+        $alamat = new AlamatMhs();
+        $alamat->nim_id = $this->nim;
+        $alamat->provinsi = $this->selectedProvinsi;
+        $alamat->kabupaten = $this->selectedKabupaten;
+        $alamat->kecamatan = $this->selectedKecamatan;
+        $alamat->desa_kelurahan = $this->selectedDesa;
+        $alamat->rt = $this->rt;
+        $alamat->rw = $this->rw;
+        $alamat->nama_jalan = $this->nama_jalan;
+        $alamat->kode_pos = $this->kode_pos;
+        $alamat->save();
+
+        $keluarga = new KeluargaMhs();
+        $keluarga->nim_id = $this->nim;
+        $keluarga->nama_ayah = $this->nama_ayah;
+        $keluarga->nik_ayah = $this->nik_ayah;
+        $keluarga->tempat_lahir_ayah = $this->tempat_lahir_ayah;
+        $keluarga->tanggal_lahir_ayah = $this->tanggal_lahir_ayah;
+        $keluarga->pendidikan_ayah = $this->pendidikan_ayah;
+        $keluarga->pekerjaan_ayah = $this->pekerjaan_ayah;
+        $keluarga->penghasilan_ayah = $this->penghasilan_ayah;
+        $keluarga->nama_ibu = $this->nama_ibu;
+        $keluarga->nik_ibu = $this->nik_ibu;
+        $keluarga->tempat_lahir_ibu = $this->tempat_lahir_ibu;
+        $keluarga->tanggal_lahir_ibu = $this->tanggal_lahir_ibu;
+        $keluarga->pendidikan_ibu = $this->pendidikan_ibu;
+        $keluarga->pekerjaan_ibu = $this->pekerjaan_ibu;
+        $keluarga->penghasilan_ibu = $this->penghasilan_ibu;
+        $keluarga->nama_wali = $this->nama_wali;
+        $keluarga->alamat_wali = $this->alamat_wali;
+        $keluarga->jumlah_tanggungan_keluarga_yang_masih_sekolah = $this->jumlah_tanggungan_keluarga_yang_masih_sekolah;
+        $keluarga->anak_ke = $this->anak_ke;
+        $keluarga->save();
+
+        $kuliah = new KuliahMhs();
+        $kuliah->nim_id = $this->nim;
+        $kuliah->asal_sekolah = $this->asal_sekolah;
+        $kuliah->jurusan_asal_sekolah = $this->jurusan_asal_sekolah;
+        $kuliah->pengalaman_organisasi = $this->pengalaman_organisasi;
+        $kuliah->prodi_id = $this->prodi_id;
+        $kuliah->ukt = $this->ukt;
+        $kuliah->angkatan_id = $this->angkatan_id;
+        $kuliah->jenis_tinggal_di_cilacap = $this->jenis_tinggal_di_cilacap;
+        $kuliah->alat_transportasi_ke_kampus = $this->alat_transportasi_ke_kampus;
+        $kuliah->sumber_biaya_kuliah = $this->sumber_biaya_kuliah;
+        $kuliah->penerima_kartu_prasejahtera = $this->penerima_kartu_prasejahtera;
+        $kuliah->status_mhs = 'Aktif';
+        $kuliah->save();
 
         $pengajuan = new Pengajuan();
         $pengajuan->nim_id = $this->nim;
@@ -323,7 +337,6 @@ class MultiStepForm extends Component
         $pengajuan->email = $this->email;
         $pengajuan->nohp = $this->nohp;
         $pengajuan->pas_foto = $this->filename;
-
         $pengajuan->provinsi = $this->selectedProvinsi;
         $pengajuan->kabupaten = $this->selectedKabupaten;
         $pengajuan->kecamatan = $this->selectedKecamatan;
@@ -332,19 +345,14 @@ class MultiStepForm extends Component
         $pengajuan->rw = $this->rw;
         $pengajuan->nama_jalan = $this->nama_jalan;
         $pengajuan->kode_pos = $this->kode_pos;
-        
         $pengajuan->nama_ayah = $this->nama_ayah;
-        $pengajuan->nik_ayah = $this->nik_ayah;
         $pengajuan->nama_ibu = $this->nama_ibu;
-        $pengajuan->nik_ibu = $this->nik_ibu;
-
         $pengajuan->prodi_id = $this->prodi_id;
         $pengajuan->ukt = $this->ukt;
         $pengajuan->angkatan_id = $this->angkatan_id;
         $pengajuan->status = 'proses';
-        
         $pengajuan->save();
         
-        return redirect()->route('mahasiswa.detail',['nim' => Crypt::encryptString(Auth::user()->nim)])->with('success','Terimakasih telah mengisi data anda.');
+        return redirect()->route('mahasiswa.detail',['nim' => Crypt::encryptString(Auth::user()->no_identitas)])->with('success','Terimakasih telah mengisi data anda.');
     }
 }

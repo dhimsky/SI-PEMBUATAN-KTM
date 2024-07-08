@@ -34,22 +34,22 @@ class DatabaseSeeder extends Seeder
 
         $user = [
             [
-                'nim' => '123',
+                'no_identitas' => '123',
                 'role_id' => 1,
-                'username' => 'Tanti Oki',
-                'password' => bcrypt(123)
+                'nama_lengkap' => 'Staff BAAK',
+                'password' => bcrypt('abcd1234')
             ],
             [
-                'nim' => '321',
+                'no_identitas' => '321',
                 'role_id' => 3,
-                'username' => 'Insan Ahmad',
-                'password' => bcrypt(123)
+                'nama_lengkap' => 'Insan Ahmad',
+                'password' => bcrypt('abcd1234')
             ],
             [
-                'nim' => '210202031',
+                'no_identitas' => '111',
                 'role_id' => 2,
-                'username' => 'Dhimas Afrisetiawan',
-                'password' => bcrypt(123)
+                'nama_lengkap' => 'Dhimas Afrisetiawan',
+                'password' => bcrypt('abcd1234')
             ],
         ];
         foreach($user as $key => $value){

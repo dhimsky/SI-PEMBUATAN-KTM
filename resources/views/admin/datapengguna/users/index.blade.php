@@ -16,7 +16,7 @@
           <table id="example" class="display text-dark" style="min-width: 845px">
               <thead>
                   <tr class="text-center">
-                    <th>NIM</th>
+                    <th>NO. IDENTITAS/ NIM</th>
                     <th>Role</th>
                     <th>Nama Lengkap</th>
                     <th>Aksi</th>
@@ -25,13 +25,13 @@
               <tbody class="table-bordered">
                   @foreach ($users as $u)
                   <tr class="text-center">
-                      <td>{{ $u->nim }}</td>
+                      <td>{{ $u->no_identitas }}</td>
                       <td>{{ $u->role->level }}</td>
-                      <td>{{ mb_convert_case($u->username, MB_CASE_TITLE) }}</td>
+                      <td>{{ mb_convert_case($u->nama_lengkap, MB_CASE_TITLE) }}</td>
                       <td>
-                          <a href="" class="fa fa-pencil btn btn-warning" data-toggle="modal" data-target=".editUser{{ $u->nim }}" title="Edit pengguna">
+                          <a href="" class="fa fa-pencil btn btn-warning" data-toggle="modal" data-target=".editUser{{ $u->no_identitas }}" title="Edit pengguna">
                           </a>
-                          <a href="{{ route('account.destroy', $u->nim) }}" class="fa fa-trash btn btn-danger" data-confirm-delete="true" title="Hapus pengguna">
+                          <a href="{{ route('account.destroy', $u->no_identitas) }}" class="fa fa-trash btn btn-danger" data-confirm-delete="true" title="Hapus pengguna">
                         </a>
                       </td>
                   </tr>
@@ -58,10 +58,10 @@
             <form action="{{ route('account.store') }}" method="POST">
               @csrf
               <div class="form-group mb-3">
-                <label class="required-label faded-label" for="nim" >NIM</label>
+                <label class="required-label faded-label" for="no_identitas" >NIM</label>
                 <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Nomor Induk Mahasiswa"></i></span>
-                <input type="number" name="nim" class="form-control @error('nim') is-invalid @enderror" placeholder="Masukan NIM">
-                @error('nim')
+                <input type="number" name="no_identitas" class="form-control @error('no_identitas') is-invalid @enderror" placeholder="Masukan NIM">
+                @error('no_identitas')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -82,9 +82,9 @@
                 @enderror
               </div>
               <div class="form-group mb-3">
-                <label class="required-label faded-label" for="username" >Nama Lengkap</label>
-                <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Masukan nama lengkap">
-                @error('username')
+                <label class="required-label faded-label" for="nama_lengkap" >Nama Lengkap</label>
+                <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" placeholder="Masukan nama lengkap">
+                @error('nama_lengkap')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
@@ -133,7 +133,7 @@
 </div>
 
 @foreach ($users as $u)
-<div class="modal fade editUser{{ $u->nim }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade editUser{{ $u->no_identitas }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -142,14 +142,14 @@
                 </button>
             </div>
             <div class="modal-body">
-              <form action="{{ route('account.update', $u->nim) }}" method="POST">
+              <form action="{{ route('account.update', $u->no_identitas) }}" method="POST">
                 @csrf
                 @method('PUT')
                     <div class="form-group mb-3">
-                      <label class="required-label faded-label" for="nim" >NIM</label>
+                      <label class="required-label faded-label" for="no_identitas" >NIM</label>
                       <span><i class="fa fa-question-circle" tabindex="0" data-toggle="popover" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Nomor Induk Mahasiswa"></i></span>
-                      <input type="number" name="nim" class="form-control @error('nim') is-invalid @enderror" value="{{$u->nim}}" placeholder="Masukan NIM" readonly>
-                      @error('nim')
+                      <input type="number" name="no_identitas" class="form-control @error('no_identitas') is-invalid @enderror" value="{{$u->no_identitas}}" placeholder="Masukan NIM" readonly>
+                      @error('no_identitas')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                       </span>
@@ -169,9 +169,9 @@
                       @enderror
                     </div>
                     <div class="form-group mb-3">
-                      <label class="required-label faded-label" for="username" >Nama Lengkap</label>
-                      <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{$u->username}}" placeholder="Masukan nama lengkap">
-                      @error('username')
+                      <label class="required-label faded-label" for="nama_lengkap" >Nama Lengkap</label>
+                      <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" value="{{$u->nama_lengkap}}" placeholder="Masukan nama lengkap">
+                      @error('nama_lengkap')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                       </span>

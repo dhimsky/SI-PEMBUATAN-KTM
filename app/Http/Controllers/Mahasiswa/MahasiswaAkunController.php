@@ -15,8 +15,8 @@ class MahasiswaAkunController extends Controller
 {
     public function index()
     {
-        $nim = auth()->user()->nim; // Mendapatkan email pengguna yang sedang login
-        $user = User::where('nim', $nim)->get(); // Mengambil data user berdasarkan email
+        $nim = auth()->user()->no_identitas; // Mendapatkan email pengguna yang sedang login
+        $user = User::where('no_identitas', $nim)->get(); // Mengambil data user berdasarkan email
         $role = Roles::all();
         $mahasiswa = Mahasiswa::all();
 
@@ -32,7 +32,7 @@ class MahasiswaAkunController extends Controller
         $user->update([
             'password' => Hash::make($request->new_password)
         ]);
-        activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->nim . ' mengganti password');
+        activity()->causedBy(Auth::user())->log('Mahasiswa ' . auth()->user()->no_identitas . ' mengganti password');
         return redirect()->route('akun.index')->with('toast_success', 'Kata sandi berhasil di ubah');
     }
 }

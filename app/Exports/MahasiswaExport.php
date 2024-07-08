@@ -28,14 +28,12 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
 
     public function collection()
     {
-        $query = Mahasiswa::query();
+        $query = Mahasiswa::query()->with('alamat', 'kuliah', 'keluarga');
 
-        // Filter data berdasarkan prodi_id jika diberikan
         if ($this->prodiId) {
             $query->where('prodi_id', $this->prodiId);
         }
 
-        // Filter data berdasarkan tahun_angkatan jika diberikan
         if ($this->tahunAngkatan) {
             $query->where('angkatan_id', $this->tahunAngkatan);
         }
@@ -45,10 +43,10 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
         $data = [];
 
         foreach ($mahasiswa as $mhs) {
-            $prov = $this->getWilayahNama($mhs->provinsi);
-            $kab = $this->getWilayahNama($mhs->kabupaten);
-            $kec = $this->getWilayahNama($mhs->kecamatan);
-            $ds = $this->getWilayahNama($mhs->desa_kelurahan);
+            $prov = $this->getWilayahNama($mhs->alamat->provinsi);
+            $kab = $this->getWilayahNama($mhs->alamat->kabupaten);
+            $kec = $this->getWilayahNama($mhs->alamat->kecamatan);
+            $ds = $this->getWilayahNama($mhs->alamat->desa_kelurahan);
 
             $data[] = [
                 $mhs->nim,
@@ -62,37 +60,37 @@ class MahasiswaExport implements FromCollection, WithHeadings, ShouldAutoSize, W
                 $mhs->nohp,
                 empty($mhs->pas_foto) ? 'Foto tidak tersedia' : $mhs->pas_foto,
                 
-                'Jalan ' . $mhs->nama_jalan . ', ' . 'RT.' . $mhs->rt . '/RW.' . $mhs->rw . ', ' . 'Desa ' . mb_convert_case($ds, MB_CASE_TITLE) . ', ' . 'Kecamatan ' . mb_convert_case($kec, MB_CASE_TITLE) . ', ' . mb_convert_case($kab, MB_CASE_TITLE) . ', ' . mb_convert_case($prov, MB_CASE_TITLE) . ', ' . $mhs->kode_pos,
+                'Jalan ' . $mhs->alamat->nama_jalan . ', ' . 'RT.' . $mhs->alamat->rt . '/RW.' . $mhs->alamat->rw . ', ' . 'Desa ' . mb_convert_case($ds, MB_CASE_TITLE) . ', ' . 'Kecamatan ' . mb_convert_case($kec, MB_CASE_TITLE) . ', ' . mb_convert_case($kab, MB_CASE_TITLE) . ', ' . mb_convert_case($prov, MB_CASE_TITLE) . ', ' . $mhs->alamat->kode_pos,
                 
-                $mhs->nama_ayah,
-                $mhs->nik_ayah,
-                $mhs->tempat_lahir_ayah,
-                $mhs->tanggal_lahir_ayah,
-                $mhs->pendidikan_ayah,
-                $mhs->pekerjaan_ayah,
-                $mhs->penghasilan_ayah,
-                $mhs->nama_ibu,
-                $mhs->nik_ibu,
-                $mhs->tempat_lahir_ibu,
-                $mhs->tanggal_lahir_ibu,
-                $mhs->pendidikan_ibu,
-                $mhs->pekerjaan_ibu,
-                $mhs->penghasilan_ibu,
-                $mhs->nama_wali,
-                $mhs->alamat_wali,
-                $mhs->asal_sekolah,
-                $mhs->jurusan_asal_sekolah,
-                $mhs->pengalaman_organisasi,
-                $mhs->prodi->nama_prodi,
-                $mhs->ukt,
-                $mhs->angkatan->tahun_angkatan,
-                $mhs->status_mhs,
-                $mhs->jenis_tinggal_di_cilacap,
-                $mhs->alat_transportasi_ke_kampus,
-                $mhs->sumber_biaya_kuliah,
-                $mhs->penerima_kartu_prasejahtera,
-                $mhs->jumlah_tanggungan_keluarga_yang_masih_sekolah,
-                $mhs->anak_ke,
+                $mhs->keluarga->nama_ayah,
+                $mhs->keluarga->nik_ayah,
+                $mhs->keluarga->tempat_lahir_ayah,
+                $mhs->keluarga->tanggal_lahir_ayah,
+                $mhs->keluarga->pendidikan_ayah,
+                $mhs->keluarga->pekerjaan_ayah,
+                $mhs->keluarga->penghasilan_ayah,
+                $mhs->keluarga->nama_ibu,
+                $mhs->keluarga->nik_ibu,
+                $mhs->keluarga->tempat_lahir_ibu,
+                $mhs->keluarga->tanggal_lahir_ibu,
+                $mhs->keluarga->pendidikan_ibu,
+                $mhs->keluarga->pekerjaan_ibu,
+                $mhs->keluarga->penghasilan_ibu,
+                $mhs->keluarga->nama_wali,
+                $mhs->keluarga->alamat_wali,
+                $mhs->keluarga->jumlah_tanggungan_keluarga_yang_masih_sekolah,
+                $mhs->keluarga->anak_ke,
+                $mhs->kuliah->asal_sekolah,
+                $mhs->kuliah->jurusan_asal_sekolah,
+                $mhs->kuliah->pengalaman_organisasi,
+                $mhs->kuliah->prodi->nama_prodi,
+                $mhs->kuliah->ukt,
+                $mhs->kuliah->angkatan->tahun_angkatan,
+                $mhs->kuliah->status_mhs,
+                $mhs->kuliah->jenis_tinggal_di_cilacap,
+                $mhs->kuliah->alat_transportasi_ke_kampus,
+                $mhs->kuliah->sumber_biaya_kuliah,
+                $mhs->kuliah->penerima_kartu_prasejahtera,
             ];
         }
         return collect($data);
@@ -138,6 +136,8 @@ private function getWilayahNama($kode)
             'PENGHASILAN IBU',
             'NAMA WALI',
             'ALAMAT WALI',
+            'JUMLAH TANGGUNGAN KELUARGA (MASIH SEKOLAH)',
+            'ANAK KE',
             'ASAL SEKOLAH',
             'JURUSAN ASAL SEKOLAH',
             'PENGALAMAN ORGANISASI',
@@ -149,8 +149,6 @@ private function getWilayahNama($kode)
             'ALAT TRANSPORTASI KE KAMPUS',
             'SUMBER BIAYA KULIAH',
             'PENERIMA KARTU PRASEJAHTERA',
-            'JUMLAH TANGGUNGAN KELUARGA (MASIH SEKOLAH)',
-            'ANAK KE',
         ];
     }
     public function styles(Worksheet $sheet)
@@ -192,15 +190,15 @@ private function getWilayahNama($kode)
         return [
             'E' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'O' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'U' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'V' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'C' => NumberFormat::FORMAT_NUMBER,
             'I' => NumberFormat::FORMAT_NUMBER,
             'M' => NumberFormat::FORMAT_NUMBER,
             'T' => NumberFormat::FORMAT_NUMBER,
-            'AF' => NumberFormat::FORMAT_NUMBER,
-            'AG' => NumberFormat::FORMAT_NUMBER,
-            'AM' => NumberFormat::FORMAT_NUMBER,
-            'AN' => NumberFormat::FORMAT_NUMBER,
+            'AH' => NumberFormat::FORMAT_NUMBER,
+            'AI' => NumberFormat::FORMAT_NUMBER,
+            'AB' => NumberFormat::FORMAT_NUMBER,
+            'AC' => NumberFormat::FORMAT_NUMBER,
         ];
     }
 }

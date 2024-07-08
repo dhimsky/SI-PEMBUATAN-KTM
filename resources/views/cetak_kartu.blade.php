@@ -138,7 +138,7 @@
             <img class="background-image" src="{{public_path('images/FrameCard.png')}}" alt="">
             <div class="main-data">
                 <div class="angkatan">
-                    TA. {{$mahasiswa->angkatan->tahun_angkatan}}
+                    TA. {{$mahasiswa->kuliah->angkatan->tahun_angkatan}}
                 </div>
                 <div class="left-div">
                     @if ($mahasiswa->pas_foto)
@@ -202,7 +202,7 @@
                             <tr class="vertical-top">
                                 <td>Program Studi</td>
                                 <td> : </td>
-                                <td>{{$mahasiswa->prodi->nama_prodi}}</td>
+                                <td>{{$mahasiswa->kuliah->prodi->nama_prodi}}</td>
                             </tr>
                         </table>
                     </div>

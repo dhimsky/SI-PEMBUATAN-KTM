@@ -36,7 +36,7 @@ class AdminJurusanController extends Controller
         $jurusan->id_jurusan =  $request->input('id_jurusan');
         $jurusan->nama_jurusan =  $request->input('nama_jurusan');
         $jurusan->save();
-        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambah jurusan');
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' menambah jurusan');
         return redirect()->route('jurusan.index')->with('success', 'jurusan berhasil ditambahkan');
     }
     public function update(Request $request, $id)
@@ -56,7 +56,7 @@ class AdminJurusanController extends Controller
         $jurusan->id_jurusan =  $request->input('id_jurusan');
         $jurusan->nama_jurusan =  $request->input('nama_jurusan');
         $jurusan->save();
-        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah data jurusan');
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' mengubah data jurusan');
         return redirect()->route('jurusan.index')->with('success', 'jurusan berhasil diupdate');
     }
     public function destroy($id)
@@ -65,7 +65,7 @@ class AdminJurusanController extends Controller
         if (!$prodi){
             $jurusan = Jurusan::find($id);
             $jurusan->delete();
-            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus jurusan');
+            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' menghapus jurusan');
             return redirect()->route('jurusan.index')->with('success', 'Jurusan berhasil dihapus.');
         }else{
             return redirect()->route('jurusan.index')->with('error','Tidak dapat menghapus!, Jurusan sedang digunakan pada tabel Prodi.');        }

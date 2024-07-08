@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigInteger('nim')->unsigned()->primary();
+            $table->bigInteger('no_identitas')->unsigned()->primary();
             $table->unsignedBigInteger('role_id'); // Foreign key to roles table
-            $table->string('username', 50);
+            $table->string('nama_lengkap', 50);
             $table->string('password');
             $table->timestamps();
 

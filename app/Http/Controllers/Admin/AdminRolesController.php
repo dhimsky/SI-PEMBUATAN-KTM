@@ -24,7 +24,7 @@ class AdminRolesController extends Controller
         $role = Roles::find($id);
         $role->level =  $request->input('level');
         $role->save();
-        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' melakukan update roles');
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' melakukan update roles');
         return redirect()->route('role.index')->with('toast_success', 'Tabel Role berhasil diupdate');
     }
     // public function destroy($id)

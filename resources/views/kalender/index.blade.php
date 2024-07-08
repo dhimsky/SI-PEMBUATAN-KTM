@@ -30,7 +30,7 @@
                                     {{ \Carbon\Carbon::parse($k->jam)->format('H:i') }} 
                                 </td>
                                 <td>
-                                    {{ $k->prodi }} - {{ $k->kelas }}
+                                    {{ $k->prodi->nama_prodi }} - {{ $k->kelas }}
                                 </td>
                                 <td>
                                     {{ $k->detail }}
@@ -94,14 +94,14 @@
                     @enderror
                 </div>
                 <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="prodi" style="font-style: italic;">Prodi</label>
-                    <select class="form-control" name="prodi" id="prodi">
+                    <label class="required-label faded-label" for="prodi_id" style="font-style: italic;">Prodi</label>
+                    <select class="form-control" name="prodi_id" id="prodi_id">
                         <option value="">Pilih Prodi</option>
                         @foreach ($prodi as $prodi)
                         <option value="{{ $prodi->id_prodi }}">{{ $prodi->nama_prodi }}</option>
                         @endforeach
                     </select>
-                    @error('prodi')
+                    @error('prodi_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -167,13 +167,13 @@
                     @enderror
                 </div>
                 <div class="form-group mb-3">
-                    <label class="required-label faded-label" for="prodi" style="font-style: italic;">Prodi</label>
-                    <select class="form-control" name="prodi" id="prodi">
+                    <label class="required-label faded-label" for="prodi_id" style="font-style: italic;">Prodi</label>
+                    <select class="form-control" name="prodi_id" id="prodi_id">
                         @foreach ($prodi2 as $d)
-                            <option value="{{ $d->id_prodi }}" @if ($d->id_prodi === $k->prodi) selected @endif>{{ $d->nama_prodi }}</option>
+                            <option value="{{ $d->id_prodi }}" @if ($d->id_prodi === $k->prodi_id) selected @endif>{{ $d->nama_prodi }}</option>
                         @endforeach
                     </select>
-                    @error('prodi')
+                    @error('prodi_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

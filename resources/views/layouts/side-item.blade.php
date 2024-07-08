@@ -42,10 +42,10 @@
         <br>
         <li><a href="{{ route('home') }}" aria-expanded="false"><i class="icon icon-home"></i><span
           class="nav-text">Home</span></a></li>
-        <li><a href="{{ route('mahasiswa.detail', ['nim' => Crypt::encryptString(Auth::user()->nim)]) }}" aria-expanded="false"><i class="icon icon-form">
-          </i><span class="nav-text">Data Anda</span></a>
+        <li><a href="{{ route('mahasiswa.detail', ['nim' => Crypt::encryptString(Auth::user()->no_identitas)]) }}" aria-expanded="false"><i class="icon icon-form">
+          </i><span class="nav-text">Data Saya</span></a>
         </li>
-        <li><a href="{{ route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->nim)]) }}" aria-expanded="false"><i class="fa fa-id-card">
+        <li><a href="{{ route('pengajuanktm.index', ['nim' => Crypt::encryptString(Auth::user()->no_identitas)]) }}" aria-expanded="false"><i class="fa fa-id-card">
         </i><span class="nav-text">Pengajuan KTM</span></a>
       </li>
         <li><a href="{{ route('kalender.index') }}" aria-expanded="false">

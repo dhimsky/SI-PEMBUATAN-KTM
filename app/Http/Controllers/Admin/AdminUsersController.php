@@ -33,29 +33,29 @@ class AdminUsersController extends Controller
     }
     public function store(Request $request)
     {
-        Session::flash('nim', $request->input('nim'));
+        Session::flash('no_identitas', $request->input('no_identitas'));
         Session::flash('role_id', $request->input('role_id'));
-        Session::flash('username', $request->input('username'));
+        Session::flash('nama_lengkap', $request->input('nama_lengkap'));
 
         $request->validate([
-            'nim' => 'required|unique:mahasiswa,nim',
-            'username' => 'required',
+            'no_identitas' => 'required|unique:mahasiswa,no_identitas',
+            'nama_lengkap' => 'required',
             'role_id' => 'required'
         ], [
-            'nim.required' => 'Nama wajib diisi!',
-            'nim.unique' =>'NIM sudah terdaftar!',
+            'no_identitas.required' => 'Nama wajib diisi!',
+            'no_identitas.unique' =>'NIM sudah terdaftar!',
             'role_id.required' => 'Level wajib diisi!',
-            'username.required' => 'Username wajib diisi!',
+            'nama_lengkap.required' => 'Username wajib diisi!',
         ]);
         
         $data = [
-            'nim' => $request->nim,
+            'no_identitas' => $request->no_identitas,
             'role_id' => $request->role_id,
-            'username' => $request->username,
+            'nama_lengkap' => $request->nama_lengkap,
             'password' => Hash::make('abcd1234'),
         ];
         User::create($data);
-        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menambahkan akun');
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' menambahkan akun');
         return redirect()->route('account.index')->with('success', 'User berhasil ditambahkan');
     }
 
@@ -69,12 +69,12 @@ class AdminUsersController extends Controller
 public function update(Request $request, $id)
 {
     $request->validate([
-        'nim' => 'required',
-        'username' => 'required',
+        'no_identitas' => 'required',
+        'nama_lengkap' => 'required',
         'role_id' => 'required',
     ], [
-        'nim.required' => 'NIM wajib diisi!',
-        'username.required' => 'Username wajib diisi!',
+        'no_identitas.required' => 'NIM wajib diisi!',
+        'nama_lengkap.required' => 'Username wajib diisi!',
         'role_id.required' => 'Role wajib diisi!',
     ]);
 
@@ -84,14 +84,14 @@ public function update(Request $request, $id)
         return redirect()->route('account.index')->with('error', 'User tidak ditemukan');
     }
 
-    $user->nim = $request->input('nim');
-    $user->username = $request->input('username');
+    $user->no_identitas = $request->input('no_identitas');
+    $user->nama_lengkap = $request->input('nama_lengkap');
     $user->role_id = $request->input('role_id');
     if ($request->filled('password')) {
         $user->password = Hash::make($request->input('password'));
     }
     $user->save();
-    activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengubah tabel akun');
+    activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' mengubah tabel akun');
     return redirect()->route('account.index')->with('success', 'Account berhasil diupdate');
 }
 
@@ -103,7 +103,7 @@ public function update(Request $request, $id)
         if ($idUsers == NULL){
             $users = User::find($id);
             $users->delete();
-            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' menghapus akun');
+            activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' menghapus akun');
             return redirect()->route('account.index')->with('success', 'Account berhasil di Hapus.');
         }else{
             return redirect()->route('account.index')->with('error', 'Tidak dapat menghapus!, Account sedang digunakan pada tabel Mahasiswa.');

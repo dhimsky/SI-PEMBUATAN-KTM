@@ -118,30 +118,30 @@
                     <div class="form-group row mb-2">
                         <label for="alamat_lengkap" class="col-sm-5 col-form-label faded-label" >Alamat Lengkap</label>
                         <div class="col-sm-7 text-dark">
-                            : Jalan {{ $mahasiswa->nama_jalan }}, RT.{{ $mahasiswa->rt }}/RW.{{ $mahasiswa->rw }},
-                            Desa {{ DB::table('wilayah')->where('kode', $mahasiswa->desa_kelurahan)->value('nama') }},
-                            Kec. {{ DB::table('wilayah')->where('kode', $mahasiswa->kecamatan)->value('nama') }},
-                            {{ mb_convert_case(DB::table('wilayah')->where('kode', $mahasiswa->kabupaten)->value('nama'), MB_CASE_TITLE) }},
-                            Prov. {{ mb_convert_case(DB::table('wilayah')->where('kode', $mahasiswa->provinsi)->value('nama'), MB_CASE_TITLE) }}, {{ $mahasiswa->kode_pos }}
+                            : Jalan {{ $mahasiswa->alamat->nama_jalan }}, RT.{{ $mahasiswa->alamat->rt }}/RW.{{ $mahasiswa->alamat->rw }},
+                            Desa {{ DB::table('wilayah')->where('kode', $mahasiswa->alamat->desa_kelurahan)->value('nama') }},
+                            Kec. {{ DB::table('wilayah')->where('kode', $mahasiswa->alamat->kecamatan)->value('nama') }},
+                            {{ mb_convert_case(DB::table('wilayah')->where('kode', $mahasiswa->alamat->kabupaten)->value('nama'), MB_CASE_TITLE) }},
+                            Prov. {{ mb_convert_case(DB::table('wilayah')->where('kode', $mahasiswa->alamat->provinsi)->value('nama'), MB_CASE_TITLE) }}, {{ $mahasiswa->alamat->kode_pos }}
                         </div>
                     </div>
                     <hr>
                     <div class="form-group row mb-2">
                         <label for="nama_ayah" class="col-sm-5 col-form-label faded-label" >Nama Ayah</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->nama_ayah }}
+                            : {{ $mahasiswa->keluarga->nama_ayah }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="nik_ayah" class="col-sm-5 col-form-label faded-label" >NIK Ayah</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->nik_ayah }}
+                            : {{ $mahasiswa->keluarga->nik_ayah }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="tempat_lahir_ayah" class="col-sm-5 col-form-label faded-label" >Tempat Lahir Ayah</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->tempat_lahir_ayah }}
+                            : {{ $mahasiswa->keluarga->tempat_lahir_ayah }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
@@ -166,7 +166,7 @@
                                 ];
                                 
                                 // Ubah format tanggal dari "YYYY-MM-DD" menjadi "DD NamaBulan YYYY" dalam bahasa Indonesia
-                                $tanggal_lahir_ayah = date('d', strtotime($mahasiswa->tanggal_lahir_ayah)) . ' ' . $bulan[date('F', strtotime($mahasiswa->tanggal_lahir_ayah))] . ' ' . date('Y', strtotime($mahasiswa->tanggal_lahir_ayah));
+                                $tanggal_lahir_ayah = date('d', strtotime($mahasiswa->keluarga->tanggal_lahir_ayah)) . ' ' . $bulan[date('F', strtotime($mahasiswa->keluarga->tanggal_lahir_ayah))] . ' ' . date('Y', strtotime($mahasiswa->keluarga->tanggal_lahir_ayah));
                                 
                                 echo $tanggal_lahir_ayah;
                             ?>
@@ -175,37 +175,37 @@
                     <div class="form-group row mb-2">
                         <label for="pendidikan_ayah" class="col-sm-5 col-form-label faded-label" >Pendidikan Ayah</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->pendidikan_ayah }}
+                            : {{ $mahasiswa->keluarga->pendidikan_ayah }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="pekerjaan_ayah" class="col-sm-5 col-form-label faded-label" >Pekerjaan Ayah</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->pekerjaan_ayah }}
+                            : {{ $mahasiswa->keluarga->pekerjaan_ayah }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="penghasilan_ayah" class="col-sm-5 col-form-label faded-label" >Penghasilan Ayah</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->penghasilan_ayah }}
+                            : {{ $mahasiswa->keluarga->penghasilan_ayah }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="nama_ibu" class="col-sm-5 col-form-label faded-label" >Nama Ibu</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->nama_ibu }}
+                            : {{ $mahasiswa->keluarga->nama_ibu }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="nik_ibu" class="col-sm-5 col-form-label faded-label" >NIK Ibu</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->nik_ibu }}
+                            : {{ $mahasiswa->keluarga->nik_ibu }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="tempat_lahir_ibu" class="col-sm-5 col-form-label faded-label" >Tempat Lahir Ibu</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->tempat_lahir_ibu }}
+                            : {{ $mahasiswa->keluarga->tempat_lahir_ibu }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
@@ -230,7 +230,7 @@
                                 ];
                                 
                                 // Ubah format tanggal dari "YYYY-MM-DD" menjadi "DD NamaBulan YYYY" dalam bahasa Indonesia
-                                $tanggal_lahir_ibu = date('d', strtotime($mahasiswa->tanggal_lahir_ibu)) . ' ' . $bulan[date('F', strtotime($mahasiswa->tanggal_lahir_ibu))] . ' ' . date('Y', strtotime($mahasiswa->tanggal_lahir_ibu));
+                                $tanggal_lahir_ibu = date('d', strtotime($mahasiswa->keluarga->tanggal_lahir_ibu)) . ' ' . $bulan[date('F', strtotime($mahasiswa->keluarga->tanggal_lahir_ibu))] . ' ' . date('Y', strtotime($mahasiswa->keluarga->tanggal_lahir_ibu));
                                 
                                 echo $tanggal_lahir_ibu;
                             ?>
@@ -239,113 +239,112 @@
                     <div class="form-group row mb-2">
                         <label for="pendidikan_ibu" class="col-sm-5 col-form-label faded-label" >Pendidikan Ibu</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->pendidikan_ibu }}
+                            : {{ $mahasiswa->keluarga->pendidikan_ibu }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="pekerjaan_ibu" class="col-sm-5 col-form-label faded-label" >Pekerjaan Ibu</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->pekerjaan_ibu }}
+                            : {{ $mahasiswa->keluarga->pekerjaan_ibu }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="penghasilan_ibu" class="col-sm-5 col-form-label faded-label" >Penghasilan Ibu</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->penghasilan_ibu }}
+                            : {{ $mahasiswa->keluarga->penghasilan_ibu }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="nama_wali" class="col-sm-5 col-form-label faded-label" >Nama Wali</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->nama_wali }}
+                            : {{ $mahasiswa->keluarga->nama_wali }}
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="alamat_wali" class="col-sm-5 col-form-label faded-label" >Alamat Wali</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->alamat_wali }}
+                            : {{ $mahasiswa->keluarga->alamat_wali }}
                         </div>
                     </div>
-                    <hr>
-                    <div class="form-group row mb-2">
-                        <label for="asal_sekolah" class="col-sm-5 col-form-label faded-label" >Asal Sekolah</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->asal_sekolah }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="jurusan_asal_sekolah" class="col-sm-5 col-form-label faded-label" >Jurusan Asal Sekolah</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->jurusan_asal_sekolah }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="pengalaman_organisasi" class="col-sm-5 col-form-label faded-label" >Pengalaman Organisasi</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->pengalaman_organisasi }}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="form-group row mb-2">
-                        <label for="prodi_id" class="col-sm-5 col-form-label faded-label" >Program Studi</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->prodi->nama_prodi }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="ukt" class="col-sm-5 col-form-label faded-label" >UKT</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->ukt }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="angkatan_id" class="col-sm-5 col-form-label faded-label" >Tahun Angkatan</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->angkatan->tahun_angkatan }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="angkatan_id" class="col-sm-5 col-form-label faded-label" >Status Mahasiswa</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->status_mhs }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="jenis_tinggal_di_cilacap" class="col-sm-5 col-form-label faded-label" >Jenis Tinggal di Cilacap</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->jenis_tinggal_di_cilacap }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="alat_transportasi_ke_kampus" class="col-sm-5 col-form-label faded-label" >Alat Transportasi ke Kampus</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->alat_transportasi_ke_kampus }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="sumber_biaya_kuliah" class="col-sm-5 col-form-label faded-label" >Sumber Biaya Kuliah</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->sumber_biaya_kuliah }}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-2">
-                        <label for="penerima_kartu_prasejahtera" class="col-sm-5 col-form-label faded-label" >Penerima Kartu Prasejahtera</label>
-                        <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->penerima_kartu_prasejahtera }}
-                        </div>
-                    </div>
-                
                     <div class="form-group row mb-2">
                         <label for="jumlah_tanggungan_keluarga_yang_masih_sekolah" class="col-sm-5 col-form-label faded-label" >Jumlah Tanggungan Keluarga yang Masih Sekolah</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah }}
+                            : {{ $mahasiswa->keluarga->jumlah_tanggungan_keluarga_yang_masih_sekolah }}
                         </div>
                     </div>
                 
                     <div class="form-group row mb-2">
                         <label for="anak_ke" class="col-sm-5 col-form-label faded-label" >Anak Ke</label>
                         <div class="col-sm-7 text-dark">
-                            : {{ $mahasiswa->anak_ke }}
+                            : {{ $mahasiswa->keluarga->anak_ke }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row mb-2">
+                        <label for="asal_sekolah" class="col-sm-5 col-form-label faded-label" >Asal Sekolah</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->asal_sekolah }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="jurusan_asal_sekolah" class="col-sm-5 col-form-label faded-label" >Jurusan Asal Sekolah</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->jurusan_asal_sekolah }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="pengalaman_organisasi" class="col-sm-5 col-form-label faded-label" >Pengalaman Organisasi</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->pengalaman_organisasi }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row mb-2">
+                        <label for="prodi_id" class="col-sm-5 col-form-label faded-label" >Program Studi</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->prodi->nama_prodi }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="ukt" class="col-sm-5 col-form-label faded-label" >UKT</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->ukt }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="angkatan_id" class="col-sm-5 col-form-label faded-label" >Tahun Angkatan</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->angkatan->tahun_angkatan }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="angkatan_id" class="col-sm-5 col-form-label faded-label" >Status Mahasiswa</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->status_mhs }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="jenis_tinggal_di_cilacap" class="col-sm-5 col-form-label faded-label" >Jenis Tinggal di Cilacap</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->jenis_tinggal_di_cilacap }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="alat_transportasi_ke_kampus" class="col-sm-5 col-form-label faded-label" >Alat Transportasi ke Kampus</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->alat_transportasi_ke_kampus }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="sumber_biaya_kuliah" class="col-sm-5 col-form-label faded-label" >Sumber Biaya Kuliah</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->sumber_biaya_kuliah }}
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="penerima_kartu_prasejahtera" class="col-sm-5 col-form-label faded-label" >Penerima Kartu Prasejahtera</label>
+                        <div class="col-sm-7 text-dark">
+                            : {{ $mahasiswa->kuliah->penerima_kartu_prasejahtera }}
                         </div>
                     </div>
                 </div>
@@ -505,7 +504,7 @@
                         <label for="provinsi" class="col-sm-5 col-form-label faded-label required-label" >Provinsi</label>
                         <div class="col-sm-7">
                             <select class="form-control" aria-label="Default select example" name="provinsi" id="provinsi">
-                                <option value="{{ $mahasiswa->provinsi }}">{{ mb_convert_case($prov, MB_CASE_TITLE) }}</option>
+                                <option value="{{ $mahasiswa->alamat->provinsi }}">{{ mb_convert_case($prov, MB_CASE_TITLE) }}</option>
                                 @foreach ($provinsi as $p)
                                     <option value="{{ $p->kode }}">{{ mb_convert_case($p->nama, MB_CASE_TITLE) }}</option>
                                 @endforeach
@@ -521,7 +520,7 @@
                         <label for="kabupaten" class="col-sm-5 col-form-label faded-label required-label" >Kabupaten</label>
                         <div class="col-sm-7">
                             <select class="form-control" aria-label="Default select example" name="kabupaten" id="kabupaten">
-                                <option value="{{ $mahasiswa->kabupaten }}">{{ mb_convert_case($kab, MB_CASE_TITLE) }}</option>   
+                                <option value="{{ $mahasiswa->alamat->kabupaten }}">{{ mb_convert_case($kab, MB_CASE_TITLE) }}</option>   
                             </select>                
                             @error('kabupaten')
                                         <span class="invalid-feedback" role="alert">
@@ -534,7 +533,7 @@
                         <label for="kecamatan" class="col-sm-5 col-form-label faded-label required-label" >Kecamatan</label>
                         <div class="col-sm-7">
                             <select class="form-control" aria-label="Default select example" name="kecamatan" id="kecamatan">
-                                <option value="{{ $mahasiswa->kecamatan }}">{{ $kec }}</option>
+                                <option value="{{ $mahasiswa->alamat->kecamatan }}">{{ $kec }}</option>
                             </select>                               
                             @error('kecamatan')
                                         <span class="invalid-feedback" role="alert">
@@ -547,7 +546,7 @@
                         <label for="desa_kelurahan" class="col-sm-5 col-form-label faded-label required-label" >Desa/Kelurahan</label>
                         <div class="col-sm-7">
                             <select class="form-control" aria-label="Default select example" name="desa_kelurahan" id="desa_kelurahan">
-                                <option value="{{ $mahasiswa->desa_kelurahan }}">{{ $ds }}</option>
+                                <option value="{{ $mahasiswa->alamat->desa_kelurahan }}">{{ $ds }}</option>
                             </select>   
                             @error('desa_kelurahan')
                                         <span class="invalid-feedback" role="alert">
@@ -559,7 +558,7 @@
                     <div class="form-group row mb-2">
                         <label for="rt" class="col-sm-5 col-form-label faded-label required-label" >RT</label>
                         <div class="col-sm-7">
-                            <input type="number" class="form-control @error('rt') is-invalid @enderror" id="rt" name="rt" value="{{ $mahasiswa->rt }}" placeholder="Contoh: 003">
+                            <input type="number" class="form-control @error('rt') is-invalid @enderror" id="rt" name="rt" value="{{ $mahasiswa->alamat->rt }}" placeholder="Contoh: 003">
                             @error('rt')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -570,7 +569,7 @@
                     <div class="form-group row mb-2">
                         <label for="rw" class="col-sm-5 col-form-label faded-label required-label" >RW</label>
                         <div class="col-sm-7">
-                            <input type="number" class="form-control @error('rw') is-invalid @enderror" id="rw" name="rw" value="{{ $mahasiswa->rw }}" placeholder="Contoh: 004">
+                            <input type="number" class="form-control @error('rw') is-invalid @enderror" id="rw" name="rw" value="{{ $mahasiswa->alamat->rw }}" placeholder="Contoh: 004">
                             @error('rw')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -581,7 +580,7 @@
                     <div class="form-group row mb-2">
                         <label for="nama_jalan" class="col-sm-5 col-form-label faded-label required-label" >Nama Jalan</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('nama_jalan') is-invalid @enderror" id="nama_jalan" name="nama_jalan" value="{{ $mahasiswa->nama_jalan }}" placeholder="Contoh: Jl. Melati No.003">
+                            <input type="text" class="form-control @error('nama_jalan') is-invalid @enderror" id="nama_jalan" name="nama_jalan" value="{{ $mahasiswa->alamat->nama_jalan }}" placeholder="Contoh: Jl. Melati No.003">
                             @error('nama_jalan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -592,7 +591,7 @@
                     <div class="form-group row mb-2">
                         <label for="kode_pos" class="col-sm-5 col-form-label faded-label required-label" >Kode Pos</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" id="kode_pos" name="kode_pos" value="{{ $mahasiswa->kode_pos }}" placeholder="Contoh: Jl. Melati No.003">
+                            <input type="text" class="form-control @error('kode_pos') is-invalid @enderror" id="kode_pos" name="kode_pos" value="{{ $mahasiswa->alamat->kode_pos }}" placeholder="Contoh: Jl. Melati No.003">
                             @error('kode_pos')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -604,7 +603,7 @@
                     <div class="form-group row mb-2">
                         <label for="nama_ayah" class="col-sm-5 col-form-label faded-label required-label" >Nama Ayah</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('nama_ayah') is-invalid @enderror" id="nama_ayah" name="nama_ayah" value="{{ $mahasiswa->nama_ayah }}" placeholder="Masukan nama ayah kandung">
+                            <input type="text" class="form-control @error('nama_ayah') is-invalid @enderror" id="nama_ayah" name="nama_ayah" value="{{ $mahasiswa->keluarga->nama_ayah }}" placeholder="Masukan nama ayah kandung">
                             @error('nama_ayah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -615,7 +614,7 @@
                     <div class="form-group row mb-2">
                         <label for="nik_ayah" class="col-sm-5 col-form-label faded-label " >NIK Ayah</label>
                         <div class="col-sm-7">
-                            <input type="number" class="form-control @error('nik_ayah') is-invalid @enderror" id="nik_ayah" name="nik_ayah" value="{{ $mahasiswa->nik_ayah }}" placeholder="Masukan NIK ayah">
+                            <input type="number" class="form-control @error('nik_ayah') is-invalid @enderror" id="nik_ayah" name="nik_ayah" value="{{ $mahasiswa->keluarga->nik_ayah }}" placeholder="Masukan NIK ayah">
                             @error('nik_ayah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -626,7 +625,7 @@
                     <div class="form-group row mb-2">
                         <label for="tempat_lahir_ayah" class="col-sm-5 col-form-label faded-label " >Tempat Lahir Ayah</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('tempat_lahir_ayah') is-invalid @enderror" id="tempat_lahir_ayah" name="tempat_lahir_ayah" value="{{ $mahasiswa->tempat_lahir_ayah }}" placeholder="Contoh: Cilacap">
+                            <input type="text" class="form-control @error('tempat_lahir_ayah') is-invalid @enderror" id="tempat_lahir_ayah" name="tempat_lahir_ayah" value="{{ $mahasiswa->keluarga->tempat_lahir_ayah }}" placeholder="Contoh: Cilacap">
                             @error('tempat_lahir_ayah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -637,7 +636,7 @@
                     <div class="form-group row mb-2">
                         <label for="tanggal_lahir_ayah" class="col-sm-5 col-form-label faded-label " >Tanggal Lahir Ayah</label>
                         <div class="col-sm-7">
-                            <input type="date" class="form-control @error('tanggal_lahir_ayah') is-invalid @enderror" id="tanggal_lahir_ayah" name="tanggal_lahir_ayah" value="{{ $mahasiswa->tanggal_lahir_ayah }}">
+                            <input type="date" class="form-control @error('tanggal_lahir_ayah') is-invalid @enderror" id="tanggal_lahir_ayah" name="tanggal_lahir_ayah" value="{{ $mahasiswa->keluarga->tanggal_lahir_ayah }}">
                             @error('tanggal_lahir_ayah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -648,7 +647,7 @@
                     <div class="form-group row mb-2">
                         <label for="pendidikan_ayah" class="col-sm-5 col-form-label faded-label " >Pendidikan Ayah</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('pendidikan_ayah') is-invalid @enderror" id="pendidikan_ayah" name="pendidikan_ayah" value="{{ $mahasiswa->pendidikan_ayah }}" placeholder="Contoh: SMA, SLTA, S1, dsb.">
+                            <input type="text" class="form-control @error('pendidikan_ayah') is-invalid @enderror" id="pendidikan_ayah" name="pendidikan_ayah" value="{{ $mahasiswa->keluarga->pendidikan_ayah }}" placeholder="Contoh: SMA, SLTA, S1, dsb.">
                             @error('pendidikan_ayah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -659,7 +658,7 @@
                     <div class="form-group row mb-2">
                         <label for="pekerjaan_ayah" class="col-sm-5 col-form-label faded-label " >Pekerjaan Ayah</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('pekerjaan_ayah') is-invalid @enderror" id="pekerjaan_ayah" name="pekerjaan_ayah" value="{{ $mahasiswa->pekerjaan_ayah }}" placeholder="Contoh: Guru, Petani, dsb.">
+                            <input type="text" class="form-control @error('pekerjaan_ayah') is-invalid @enderror" id="pekerjaan_ayah" name="pekerjaan_ayah" value="{{ $mahasiswa->keluarga->pekerjaan_ayah }}" placeholder="Contoh: Guru, Petani, dsb.">
                             @error('pekerjaan_ayah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -671,11 +670,11 @@
                         <label for="penghasilan_ayah" class="col-sm-5 col-form-label faded-label " >Penghasilan Ayah</label>
                         <div class="col-sm-7">
                             <select class="form-control @error('penghasilan_ayah') is-invalid @enderror" id="penghasilan_ayah" name="penghasilan_ayah">
-                                <option value="< 1.000.000" {{ $mahasiswa->penghasilan_ayah === '< 1.000.000' ? 'selected' : '' }}>&lt; 1.000.000</option>
-                                <option value="1.000.000 - 2.000.000" {{ $mahasiswa->penghasilan_ayah === '1.000.000 - 2.000.000' ? 'selected' : '' }}>1.000.000 - 2.000.000</option>
-                                <option value="2.000.000 - 3.000.000" {{ $mahasiswa->penghasilan_ayah === '2.000.000 - 3.000.000' ? 'selected' : '' }}>2.000.000 - 3.000.000</option>
-                                <option value="3.000.000 - 4.000.000" {{ $mahasiswa->penghasilan_ayah === '3.000.000 - 4.000.000' ? 'selected' : '' }}>3.000.000 - 4.000.000</option>
-                                <option value="> 5.000.000" {{ $mahasiswa->penghasilan_ayah === '5.000.000' ? 'selected' : '' }}>&gt; 5.000.000</option>
+                                <option value="< 1.000.000" {{ $mahasiswa->keluarga->penghasilan_ayah === '< 1.000.000' ? 'selected' : '' }}>&lt; 1.000.000</option>
+                                <option value="1.000.000 - 2.000.000" {{ $mahasiswa->keluarga->penghasilan_ayah === '1.000.000 - 2.000.000' ? 'selected' : '' }}>1.000.000 - 2.000.000</option>
+                                <option value="2.000.000 - 3.000.000" {{ $mahasiswa->keluarga->penghasilan_ayah === '2.000.000 - 3.000.000' ? 'selected' : '' }}>2.000.000 - 3.000.000</option>
+                                <option value="3.000.000 - 4.000.000" {{ $mahasiswa->keluarga->penghasilan_ayah === '3.000.000 - 4.000.000' ? 'selected' : '' }}>3.000.000 - 4.000.000</option>
+                                <option value="> 5.000.000" {{ $mahasiswa->keluarga->penghasilan_ayah === '5.000.000' ? 'selected' : '' }}>&gt; 5.000.000</option>
                             </select>
                             @error('penghasilan_ayah')
                                         <span class="invalid-feedback" role="alert">
@@ -687,7 +686,7 @@
                     <div class="form-group row mb-2">
                         <label for="nama_ibu" class="col-sm-5 col-form-label faded-label required-label" >Nama Ibu</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('nama_ibu') is-invalid @enderror" id="nama_ibu" name="nama_ibu" value="{{ $mahasiswa->nama_ibu }}" placeholder="Masukan nama ibu kandung">
+                            <input type="text" class="form-control @error('nama_ibu') is-invalid @enderror" id="nama_ibu" name="nama_ibu" value="{{ $mahasiswa->keluarga->nama_ibu }}" placeholder="Masukan nama ibu kandung">
                             @error('nama_ibu')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -698,7 +697,7 @@
                     <div class="form-group row mb-2">
                         <label for="nik_ibu" class="col-sm-5 col-form-label faded-label" >NIK Ibu</label>
                         <div class="col-sm-7">
-                            <input type="number" class="form-control @error('nik_ibu') is-invalid @enderror" id="nik_ibu" name="nik_ibu" value="{{ $mahasiswa->nik_ibu }}" placeholder="Masukan NIK ibu">
+                            <input type="number" class="form-control @error('nik_ibu') is-invalid @enderror" id="nik_ibu" name="nik_ibu" value="{{ $mahasiswa->keluarga->nik_ibu }}" placeholder="Masukan NIK ibu">
                             @error('nik_ibu')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -709,7 +708,7 @@
                     <div class="form-group row mb-2">
                         <label for="tempat_lahir_ibu" class="col-sm-5 col-form-label faded-label" >Tempat Lahir Ibu</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('tempat_lahir_ibu') is-invalid @enderror" id="tempat_lahir_ibu" name="tempat_lahir_ibu" value="{{ $mahasiswa->tempat_lahir_ibu }}" placeholder="Contoh: Cilacap">
+                            <input type="text" class="form-control @error('tempat_lahir_ibu') is-invalid @enderror" id="tempat_lahir_ibu" name="tempat_lahir_ibu" value="{{ $mahasiswa->keluarga->tempat_lahir_ibu }}" placeholder="Contoh: Cilacap">
                             @error('tempat_lahir_ibu')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -720,7 +719,7 @@
                     <div class="form-group row mb-2">
                         <label for="tanggal_lahir_ibu" class="col-sm-5 col-form-label faded-label" >Tanggal Lahir Ibu</label>
                         <div class="col-sm-7">
-                            <input type="date" class="form-control @error('tanggal_lahir_ibu') is-invalid @enderror" id="tanggal_lahir_ibu" name="tanggal_lahir_ibu" value="{{ $mahasiswa->tanggal_lahir_ibu }}">
+                            <input type="date" class="form-control @error('tanggal_lahir_ibu') is-invalid @enderror" id="tanggal_lahir_ibu" name="tanggal_lahir_ibu" value="{{ $mahasiswa->keluarga->tanggal_lahir_ibu }}">
                             @error('tanggal_lahir_ibu')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -731,7 +730,7 @@
                     <div class="form-group row mb-2">
                         <label for="pendidikan_ibu" class="col-sm-5 col-form-label faded-label" >Pendidikan Ibu</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('pendidikan_ibu') is-invalid @enderror" id="pendidikan_ibu" name="pendidikan_ibu" value="{{ $mahasiswa->pendidikan_ibu }}" placeholder="Contoh: SMA, SLTA, S1, dsb.">
+                            <input type="text" class="form-control @error('pendidikan_ibu') is-invalid @enderror" id="pendidikan_ibu" name="pendidikan_ibu" value="{{ $mahasiswa->keluarga->pendidikan_ibu }}" placeholder="Contoh: SMA, SLTA, S1, dsb.">
                             @error('pendidikan_ibu')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -742,7 +741,7 @@
                     <div class="form-group row mb-2">
                         <label for="pekerjaan_ibu" class="col-sm-5 col-form-label faded-label" >Pekerjaan Ibu</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('pekerjaan_ibu') is-invalid @enderror" id="pekerjaan_ibu" name="pekerjaan_ibu" value="{{ $mahasiswa->pekerjaan_ibu }}" placeholder="Contoh: Guru, Ibu rumah tangga, dsb.">
+                            <input type="text" class="form-control @error('pekerjaan_ibu') is-invalid @enderror" id="pekerjaan_ibu" name="pekerjaan_ibu" value="{{ $mahasiswa->keluarga->pekerjaan_ibu }}" placeholder="Contoh: Guru, Ibu rumah tangga, dsb.">
                             @error('pekerjaan_ibu')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -754,11 +753,11 @@
                         <label for="penghasilan_ibu" class="col-sm-5 col-form-label faded-label" >Penghasilan Ibu</label>
                         <div class="col-sm-7">
                             <select class="form-control @error('penghasilan_ibu') is-invalid @enderror" id="penghasilan_ibu" name="penghasilan_ibu">
-                                <option value="< 1.000.000" {{ $mahasiswa->penghasilan_ibu === '< 1.000.000' ? 'selected' : '' }}>&lt; 1.000.000</option>
-                                <option value="1.000.000 - 2.000.000" {{ $mahasiswa->penghasilan_ibu === '1.000.000 - 2.000.000' ? 'selected' : '' }}>1.000.000 - 2.000.000</option>
-                                <option value="2.000.000 - 3.000.000" {{ $mahasiswa->penghasilan_ibu === '2.000.000 - 3.000.000' ? 'selected' : '' }}>2.000.000 - 3.000.000</option>
-                                <option value="3.000.000 - 4.000.000" {{ $mahasiswa->penghasilan_ibu === '3.000.000 - 4.000.000' ? 'selected' : '' }}>3.000.000 - 4.000.000</option>
-                                <option value="> 5.000.000" {{ $mahasiswa->penghasilan_ibu === '5.000.000' ? 'selected' : '' }}>&gt; 5.000.000</option>
+                                <option value="< 1.000.000" {{ $mahasiswa->keluarga->penghasilan_ibu === '< 1.000.000' ? 'selected' : '' }}>&lt; 1.000.000</option>
+                                <option value="1.000.000 - 2.000.000" {{ $mahasiswa->keluarga->penghasilan_ibu === '1.000.000 - 2.000.000' ? 'selected' : '' }}>1.000.000 - 2.000.000</option>
+                                <option value="2.000.000 - 3.000.000" {{ $mahasiswa->keluarga->penghasilan_ibu === '2.000.000 - 3.000.000' ? 'selected' : '' }}>2.000.000 - 3.000.000</option>
+                                <option value="3.000.000 - 4.000.000" {{ $mahasiswa->keluarga->penghasilan_ibu === '3.000.000 - 4.000.000' ? 'selected' : '' }}>3.000.000 - 4.000.000</option>
+                                <option value="> 5.000.000" {{ $mahasiswa->keluarga->penghasilan_ibu === '5.000.000' ? 'selected' : '' }}>&gt; 5.000.000</option>
                             </select>
                             @error('penghasilan_ibu')
                                         <span class="invalid-feedback" role="alert">
@@ -770,7 +769,7 @@
                     <div class="form-group row mb-2">
                         <label for="nama_wali" class="col-sm-5 col-form-label faded-label" >Nama Wali</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('nama_wali') is-invalid @enderror" id="nama_wali" name="nama_wali" value="{{ $mahasiswa->nama_wali }}" placeholder="Masukan nama wali">
+                            <input type="text" class="form-control @error('nama_wali') is-invalid @enderror" id="nama_wali" name="nama_wali" value="{{ $mahasiswa->keluarga->nama_wali }}" placeholder="Masukan nama wali">
                             @error('nama_wali')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -781,8 +780,30 @@
                     <div class="form-group row mb-2">
                         <label for="alamat_wali" class="col-sm-5 col-form-label faded-label" >Alamat Wali</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('alamat_wali') is-invalid @enderror" id="alamat_wali" name="alamat_wali" value="{{ $mahasiswa->alamat_wali }}" placeholder="Contoh: Jl. Melati, RT.003/RW.004 Ds. Wlahar, Kec. Adipala, Kab. Cilacap">
+                            <input type="text" class="form-control @error('alamat_wali') is-invalid @enderror" id="alamat_wali" name="alamat_wali" value="{{ $mahasiswa->keluarga->alamat_wali }}" placeholder="Contoh: Jl. Melati, RT.003/RW.004 Ds. Wlahar, Kec. Adipala, Kab. Cilacap">
                             @error('alamat_wali')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="jumlah_tanggungan_keluarga_yang_masih_sekolah" class="col-sm-5 col-form-label faded-label required-label" >Jumlah Tanggungan Keluarga yang Masih Sekolah</label>
+                        <div class="col-sm-7">
+                            <input type="number" class="form-control @error('jumlah_tanggungan_keluarga_yang_masih_sekolah') is-invalid @enderror" id="jumlah_tanggungan_keluarga_yang_masih_sekolah" name="jumlah_tanggungan_keluarga_yang_masih_sekolah" value="{{ $mahasiswa->keluarga->jumlah_tanggungan_keluarga_yang_masih_sekolah }}" placeholder="Contoh: 3">
+                            @error('jumlah_tanggungan_keluarga_yang_masih_sekolah')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="anak_ke" class="col-sm-5 col-form-label faded-label required-label" >Anak Ke</label>
+                        <div class="col-sm-7">
+                            <input type="number" class="form-control @error('anak_ke') is-invalid @enderror" id="anak_ke" name="anak_ke" value="{{ $mahasiswa->keluarga->anak_ke }}" placeholder="Contoh: 2">
+                            @error('anak_ke')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -793,7 +814,7 @@
                     <div class="form-group row mb-2">
                         <label for="asal_sekolah" class="col-sm-5 col-form-label faded-label required-label" >Asal Sekolah</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('asal_sekolah') is-invalid @enderror" id="asal_sekolah" name="asal_sekolah" value="{{ $mahasiswa->asal_sekolah }}" placeholder="Contoh: SMA Negeri 01 Kroya">
+                            <input type="text" class="form-control @error('asal_sekolah') is-invalid @enderror" id="asal_sekolah" name="asal_sekolah" value="{{ $mahasiswa->kuliah->asal_sekolah }}" placeholder="Contoh: SMA Negeri 01 Kroya">
                             @error('asal_sekolah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -804,7 +825,7 @@
                     <div class="form-group row mb-2">
                         <label for="jurusan_asal_sekolah" class="col-sm-5 col-form-label faded-label required-label" >Jurusan Asal Sekolah</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('jurusan_asal_sekolah') is-invalid @enderror" id="jurusan_asal_sekolah" name="jurusan_asal_sekolah" value="{{ $mahasiswa->jurusan_asal_sekolah }}" placeholder="Contoh: MIPA, IPS, TKJ, dsb.">
+                            <input type="text" class="form-control @error('jurusan_asal_sekolah') is-invalid @enderror" id="jurusan_asal_sekolah" name="jurusan_asal_sekolah" value="{{ $mahasiswa->kuliah->jurusan_asal_sekolah }}" placeholder="Contoh: MIPA, IPS, TKJ, dsb.">
                             @error('jurusan_asal_sekolah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -815,7 +836,7 @@
                     <div class="form-group row mb-2">
                         <label for="pengalaman_organisasi" class="col-sm-5 col-form-label faded-label" >Pengalaman Organisasi</label>
                         <div class="col-sm-7">
-                            <textarea class="form-control @error('pengalaman_organisasi') is-invalid @enderror" id="pengalaman_organisasi" name="pengalaman_organisasi" rows="3" placeholder="Contoh: Osis, Pramuka, dsb.">{{ $mahasiswa->pengalaman_organisasi }}</textarea>
+                            <textarea class="form-control @error('pengalaman_organisasi') is-invalid @enderror" id="pengalaman_organisasi" name="pengalaman_organisasi" rows="3" placeholder="Contoh: Osis, Pramuka, dsb.">{{ $mahasiswa->kuliah->pengalaman_organisasi }}</textarea>
                             @error('pengalaman_organisasi')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -842,7 +863,7 @@
                     <div class="form-group row mb-2">
                         <label for="ukt" class="col-sm-5 col-form-label faded-label required-label" >Uang Kuliah Tunggal</label>
                         <div class="col-sm-7">
-                            <input type="number" step="0.01" class="form-control @error('ukt') is-invalid @enderror" id="ukt" name="ukt" value="{{ $mahasiswa->ukt }}" placeholder="Masukan nominal UKT anda">
+                            <input type="number" step="0.01" class="form-control @error('ukt') is-invalid @enderror" id="ukt" name="ukt" value="{{ $mahasiswa->kuliah->ukt }}" placeholder="Masukan nominal UKT anda">
                             @error('ukt')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -869,12 +890,12 @@
                         <label for="jenis_tinggal_di_cilacap" class="col-sm-5 col-form-label faded-label required-label" >Jenis Tinggal Di Cilacap</label>
                         <div class="col-sm-7">
                             <select class="form-control @error('jenis_tinggal_di_cilacap') is-invalid @enderror" id="jenis_tinggal_di_cilacap" name="jenis_tinggal_di_cilacap">
-                                <option value="Rumah Orang Tua" {{ $mahasiswa->jenis_tinggal_di_cilacap === 'Rumah Orang tua' ? 'selected' : '' }}>Rumah Orang tua</option>
-                                <option value="Wali" {{ $mahasiswa->jenis_tinggal_di_cilacap === 'Wali' ? 'selected' : '' }}>Wali</option>
-                                <option value="Kost" {{ $mahasiswa->jenis_tinggal_di_cilacap === 'Kost' ? 'selected' : '' }}>Kost</option>
-                                <option value="Panti Asuhan" {{ $mahasiswa->jenis_tinggal_di_cilacap === 'Panti Asuhan' ? 'selected' : '' }}>Panti Asuhan</option>
-                                <option value="Asrama" {{ $mahasiswa->jenis_tinggal_di_cilacap === 'Asrama' ? 'selected' : '' }}>Asrama</option>
-                                <option value="Lainnya" {{ $mahasiswa->jenis_tinggal_di_cilacap === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                <option value="Rumah Orang Tua" {{ $mahasiswa->kuliah->jenis_tinggal_di_cilacap === 'Rumah Orang tua' ? 'selected' : '' }}>Rumah Orang tua</option>
+                                <option value="Wali" {{ $mahasiswa->kuliah->jenis_tinggal_di_cilacap === 'Wali' ? 'selected' : '' }}>Wali</option>
+                                <option value="Kost" {{ $mahasiswa->kuliah->jenis_tinggal_di_cilacap === 'Kost' ? 'selected' : '' }}>Kost</option>
+                                <option value="Panti Asuhan" {{ $mahasiswa->kuliah->jenis_tinggal_di_cilacap === 'Panti Asuhan' ? 'selected' : '' }}>Panti Asuhan</option>
+                                <option value="Asrama" {{ $mahasiswa->kuliah->jenis_tinggal_di_cilacap === 'Asrama' ? 'selected' : '' }}>Asrama</option>
+                                <option value="Lainnya" {{ $mahasiswa->kuliah->jenis_tinggal_di_cilacap === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                             </select>
                             @error('jenis_tinggal_di_cilacap')
                                         <span class="invalid-feedback" role="alert">
@@ -887,13 +908,13 @@
                         <label for="alat_transportasi_ke_kampus" class="col-sm-5 col-form-label faded-label required-label" >Alat Transportasi ke Kampus</label>
                         <div class="col-sm-7">
                             <select class="form-control @error('alat_transportasi_ke_kampus') is-invalid @enderror" id="alat_transportasi_ke_kampus" name="alat_transportasi_ke_kampus">
-                                <option value="Motor" {{ $mahasiswa->alat_transportasi_ke_kampus === 'Motor' ? 'selected' : '' }}>Motor</option>
-                                <option value="Angkutan Umum" {{ $mahasiswa->alat_transportasi_ke_kampus === 'Angkutan Umum' ? 'selected' : '' }}>Angkutan Umum</option>
-                                <option value="Jalan Kaki" {{ $mahasiswa->alat_transportasi_ke_kampus === 'Jalan Kaki' ? 'selected' : '' }}>Jalan Kaki</option>
-                                <option value="Numpang Teman" {{ $mahasiswa->alat_transportasi_ke_kampus === 'Numpang Teman' ? 'selected' : '' }}>Numpang Teman</option>
-                                <option value="Antar Jemput" {{ $mahasiswa->alat_transportasi_ke_kampus === 'Antar Jemput' ? 'selected' : '' }}>Antar Jemput</option>
-                                <option value="Ojek" {{ $mahasiswa->alat_transportasi_ke_kampus === 'Ojek' ? 'selected' : '' }}>Ojek</option>
-                                <option value="Lainnya" {{ $mahasiswa->alat_transportasi_ke_kampus === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                <option value="Motor" {{ $mahasiswa->kuliah->alat_transportasi_ke_kampus === 'Motor' ? 'selected' : '' }}>Motor</option>
+                                <option value="Angkutan Umum" {{ $mahasiswa->kuliah->alat_transportasi_ke_kampus === 'Angkutan Umum' ? 'selected' : '' }}>Angkutan Umum</option>
+                                <option value="Jalan Kaki" {{ $mahasiswa->kuliah->alat_transportasi_ke_kampus === 'Jalan Kaki' ? 'selected' : '' }}>Jalan Kaki</option>
+                                <option value="Numpang Teman" {{ $mahasiswa->kuliah->alat_transportasi_ke_kampus === 'Numpang Teman' ? 'selected' : '' }}>Numpang Teman</option>
+                                <option value="Antar Jemput" {{ $mahasiswa->kuliah->alat_transportasi_ke_kampus === 'Antar Jemput' ? 'selected' : '' }}>Antar Jemput</option>
+                                <option value="Ojek" {{ $mahasiswa->kuliah->alat_transportasi_ke_kampus === 'Ojek' ? 'selected' : '' }}>Ojek</option>
+                                <option value="Lainnya" {{ $mahasiswa->kuliah->alat_transportasi_ke_kampus === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                             </select>
                             @error('alat_transportasi_ke_kampus')
                                         <span class="invalid-feedback" role="alert">
@@ -905,7 +926,7 @@
                     <div class="form-group row mb-2">
                         <label for="sumber_biaya_kuliah" class="col-sm-5 col-form-label faded-label" >Sumber Biaya Kuliah</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control @error('sumber_biaya_kuliah') is-invalid @enderror" id="sumber_biaya_kuliah" name="sumber_biaya_kuliah" value="{{ $mahasiswa->sumber_biaya_kuliah }}" placeholder="Contoh: Orang tua">
+                            <input type="text" class="form-control @error('sumber_biaya_kuliah') is-invalid @enderror" id="sumber_biaya_kuliah" name="sumber_biaya_kuliah" value="{{ $mahasiswa->kuliah->sumber_biaya_kuliah }}" placeholder="Contoh: Orang tua">
                             @error('sumber_biaya_kuliah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -917,8 +938,8 @@
                         <label for="penerima_kartu_prasejahtera" class="col-sm-5 col-form-label faded-label required-label" >Penerima Kartu Prasejahtera</label>
                         <div class="col-sm-7">
                             <select class="form-control @error('penerima_kartu_prasejahtera') is-invalid @enderror" id="penerima_kartu_prasejahtera" name="penerima_kartu_prasejahtera">
-                                <option value="Ya" {{ $mahasiswa->penerima_kartu_prasejahtera === 'Ya' ? 'selected' : '' }}>Ya</option>
-                                <option value="Tidak" {{ $mahasiswa->penerima_kartu_prasejahtera === 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                                <option value="Ya" {{ $mahasiswa->kuliah->penerima_kartu_prasejahtera === 'Ya' ? 'selected' : '' }}>Ya</option>
+                                <option value="Tidak" {{ $mahasiswa->kuliah->penerima_kartu_prasejahtera === 'Tidak' ? 'selected' : '' }}>Tidak</option>
                             </select>
                             @error('penerima_kartu_prasejahtera')
                                         <span class="invalid-feedback" role="alert">
@@ -927,31 +948,7 @@
                                     @enderror
                         </div>
                     </div>
-                    
-                    <div class="form-group row mb-2">
-                        <label for="jumlah_tanggungan_keluarga_yang_masih_sekolah" class="col-sm-5 col-form-label faded-label required-label" >Jumlah Tanggungan Keluarga yang Masih Sekolah</label>
-                        <div class="col-sm-7">
-                            <input type="number" class="form-control @error('jumlah_tanggungan_keluarga_yang_masih_sekolah') is-invalid @enderror" id="jumlah_tanggungan_keluarga_yang_masih_sekolah" name="jumlah_tanggungan_keluarga_yang_masih_sekolah" value="{{ $mahasiswa->jumlah_tanggungan_keluarga_yang_masih_sekolah }}" placeholder="Contoh: 3">
-                            @error('jumlah_tanggungan_keluarga_yang_masih_sekolah')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row mb-2">
-                        <label for="anak_ke" class="col-sm-5 col-form-label faded-label required-label" >Anak Ke</label>
-                        <div class="col-sm-7">
-                            <input type="number" class="form-control @error('anak_ke') is-invalid @enderror" id="anak_ke" name="anak_ke" value="{{ $mahasiswa->anak_ke }}" placeholder="Contoh: 2">
-                            @error('anak_ke')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                        </div>
-                    </div>
-                    
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-warning">Simpan</button>

@@ -19,8 +19,7 @@ class MahasiswaImagesExport
 
     public function export()
     {
-        // Mengambil data mahasiswa berdasarkan filter prodi dan tahun angkatan
-        $query = Mahasiswa::query();
+        $query = Mahasiswa::query()->with('alamat', 'kuliah', 'keluarga');
         if ($this->prodiId) {
             $query->where('prodi_id', $this->prodiId);
         }

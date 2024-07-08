@@ -13,13 +13,13 @@ class Kalender extends Model
     protected $fillable = [
         'tanggal',
         'jam',
-        'prodi',
+        'prodi_id',
         'kelas',
         'detail',
     ];
 
     public function prodi()
     {
-        return $this->belongsTo(Prodi::class, 'prodi', 'id_prodi');
+        return $this->belongsTo(Prodi::class, 'prodi_id', 'id_prodi');
     }
 }

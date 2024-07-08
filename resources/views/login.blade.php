@@ -66,11 +66,11 @@
                                 </div>
                                 <div class="card-block">
                                     <div class="form-group form-primary">
-                                        <input type="text" name="nim" class="form-control @error('nim') is-invalid @enderror" required value="{{ Session::get('nim') }}">
+                                        <input type="text" name="no_identitas" class="form-control @error('no_identitas') is-invalid @enderror" required value="{{ Session::get('no_identitas') }}">
                                         <span class="form-bar"></span>
-                                        <label class="float-label">NIM</label>
+                                        <label class="float-label">NO. IDENTITAS/ NIM</label>
                                     </div>
-                                    @error('nim')
+                                    @error('no_identitas')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -78,7 +78,7 @@
                                     <div class="form-group form-primary">
                                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
                                         <span class="form-bar"></span>
-                                        <label class="float-label">Password</label>
+                                        <label class="float-label">PASSWORD</label>
                                     </div>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">

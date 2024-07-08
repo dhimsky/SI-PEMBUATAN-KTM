@@ -13,20 +13,20 @@ use App\Http\Controllers\Controller;
 class AdminKelolaAkunController extends Controller
 {
     public function index(){
-        $nim = auth()->user()->nim;
-        $user = User::where('nim', $nim)->get();
+        $no_identitas = auth()->user()->no_identitas;
+        $user = User::where('no_identitas', $no_identitas)->get();
         $role = Roles::all();
         return view('admin.kelolaakun.index', compact('role','user',));
     }
     public function update(Request $request){
         $user = Auth::user();
         $request->validate([
-            'username' => 'required',
+            'nama_lengkap' => 'required',
         ],[
-            'username.required' => 'Isi nama anda!'
+            'nama_lengkap.required' => 'Isi nama anda!'
         ]);
         $user->update([
-            'username' => $request->username
+            'nama_lengkap' => $request->nama_lengkap
         ]);
         return redirect()->route('kelolaakun.index')->with('toast_success', 'Nama lengkap berhasil di ubah');
     }
@@ -39,7 +39,7 @@ class AdminKelolaAkunController extends Controller
         $user->update([
             'password' => Hash::make($request->new_password)
         ]);
-        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->nim . ' mengganti password');
+        activity()->causedBy(Auth::user())->log('User ' . auth()->user()->no_identitas . ' mengganti password');
         return redirect()->route('kelolaakun.index')->with('toast_success', 'Kata sandi berhasil di ubah');
     }
 }

@@ -11,19 +11,19 @@
                 <div class="card-body">
                     @foreach ($user as $u)
                     <div class="form-group row mb-2 mt-2">
-                        <label for="nim" class="col-sm-4 col-form-label faded-label" style="font-style: italic;">NIM</label>
+                        <label for="no_identitas" class="col-sm-4 col-form-label faded-label" style="font-style: italic;">NIM</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nim" value="{{ $u->nim }}" readonly>
+                            <input type="text" class="form-control" id="no_identitas" value="{{ $u->no_identitas }}" readonly>
                         </div>
                     </div>
                     <div class="form-group row mb-2">
                         <label for="nama_lengkap" class="col-sm-4 col-form-label faded-label" style="font-style: italic;">Nama Lengkap</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nama_lengkap" value="{{ $u->username }}" readonly>
+                            <input type="text" class="form-control" id="nama_lengkap" value="{{ $u->nama_lengkap }}" readonly>
                         </div>
                     </div>
                     <div class="text-right">
-                        <a href="" class="btn btn-secondary" data-toggle="modal" data-target=".akunSet{{ $u->nim }}">Ubah Password</a>
+                        <a href="" class="btn btn-secondary" data-toggle="modal" data-target=".akunSet{{ $u->no_identitas }}">Ubah Password</a>
                     </div>
                     @endforeach
                 </div>
@@ -33,7 +33,7 @@
 </div>
 {{-- Akun --}}
 @foreach ($user as $u)
-<div class="modal fade akunSet{{ $u->nim }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade akunSet{{ $u->no_identitas }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -42,7 +42,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('akun.gantiPassword', $u->nim) }}">
+                <form method="POST" action="{{ route('akun.gantiPassword', $u->no_identitas) }}">
                     @csrf
 
                     <div class="form-group row text-dark">

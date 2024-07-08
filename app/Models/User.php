@@ -19,16 +19,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $primaryKey = 'nim';
+    protected $primaryKey = 'no_identitas';
     public $incrementing = false; // Karena kolom 'nim' bukan auto-increment
     public $timestamps = true;
     
 
     
     protected $fillable = [
-        'nim',
+        'no_identitas',
         'role_id',
-        'username',
+        'nama_lengkap',
         'password',
     ];
 

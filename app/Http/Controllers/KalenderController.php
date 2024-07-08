@@ -14,7 +14,7 @@ class KalenderController extends Controller
         [
             'model'      => Kalender::class,
             'date_field' => 'tanggal',
-            'field'      => ['prodi','kelas'],
+            'field'      => ['prodi_id','kelas'],
         ],
     ];
     public function index () {
@@ -52,19 +52,19 @@ class KalenderController extends Controller
         $request->validate([
             'tanggal' => 'required',
             'jam' => 'required',
-            'prodi' => 'required',
+            'prodi_id' => 'required',
             'kelas' => 'required',
         ],[
             'tanggal.required' => 'Tanggal wajib diisi!',
             'jam.required' => 'Jam wajib diisi!',
-            'prodi.required' => 'Prodi wajib diisi!',
+            'prodi_id.required' => 'Prodi wajib diisi!',
             'kelas.required' => 'Kelas wajib diisi!'
         ]);
 
         Kalender::create([
             'tanggal' => $request->input('tanggal'),
             'jam' => $request->input('jam'),
-            'prodi' => $request->input('prodi'),
+            'prodi_id' => $request->input('prodi_id'),
             'kelas' => $request->input('kelas'),
             'detail' => $request->input('detail'),
         ]);
@@ -76,19 +76,19 @@ class KalenderController extends Controller
         $request->validate([
             'tanggal' => 'required',
             'jam' => 'required',
-            'prodi' => 'required',
+            'prodi_id' => 'required',
             'kelas' => 'required',
         ],[
             'tanggal.required' => 'Tanggal wajib diisi!',
             'jam.required' => 'Jam wajib diisi!',
-            'prodi.required' => 'Prodi wajib diisi!',
+            'prodi_id.required' => 'Prodi wajib diisi!',
             'kelas.required' => 'Kelas wajib diisi!'
         ]);
 
         $kalender = Kalender::find($id);
         $kalender->tanggal = $request->input('tanggal');
         $kalender->jam = $request->input('jam');
-        $kalender->prodi = $request->input('prodi');
+        $kalender->prodi_id = $request->input('prodi_id');
         $kalender->kelas = $request->input('kelas');
         $kalender->detail = $request->input('detail');
         $kalender->save();

@@ -5,7 +5,7 @@
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0">
             <div class="welcome-text">
-                <h4>Selamat datang, {{ Auth::user()->username }}</h4>
+                <h4>Selamat datang, {{ Auth::user()->nama_lengkap }}</h4>
             </div>
         </div>
     </div>
@@ -29,7 +29,9 @@
                         <div class="stat-digit">{{ $mahasiswaCount }}</div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-primary" style="width: {{ $mahasiswaCount / $accountCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $mahasiswaCount }}" aria-valuemin="0" aria-valuemax="{{ $accountCount }}"></div>
+                    @if ($accountCount)
+                    <div class="progress-bar progress-bar-primary" style="width: {{ $mahasiswaCount / $accountCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $mahasiswaCount }}" aria-valuemin="0" aria-valuemax="{{ $accountCount }}"></div>
+                    @endif
                     </div>                    
                 </div>
             </div>
@@ -42,7 +44,9 @@
                         <div class="stat-digit">{{ $notcompleteCount }}</div>
                     </div>
                     <div class="progress">
+                        @if ($accountCount)
                         <div class="progress-bar progress-bar-warning" style="width: {{ $notcompleteCount / $accountCount * 100 }}%;" role="progressbar" aria-valuenow="{{ $notcompleteCount }}" aria-valuemin="0" aria-valuemax="{{ $accountCount }}"></div>
+                        @endif
                     </div>    
                 </div>
             </div>

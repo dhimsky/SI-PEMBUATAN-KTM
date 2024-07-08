@@ -8,7 +8,7 @@
                 <div class="col-md-6">
                     <div class="card text-dark">
                         <div class="card-header">
-                            Selamat Datang, {{ Auth::user()->username }}
+                            Selamat Datang, {{ Auth::user()->nama_lengkap }}
                         </div>
                         <div class="card-body">
                             <p>Selamat datang di halaman Mahasiswa. Silakan kelola konten dan fitur yang tersedia

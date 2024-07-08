@@ -39,9 +39,7 @@ return new class extends Migration
 
             // Orang Tua Kandung
             $table->string('nama_ayah', 50);
-            $table->string('nik_ayah', 16)->nullable();
             $table->string('nama_ibu', 50);
-            $table->string('nik_ibu', 16)->nullable();
 
             // Data Kuliah
             $table->string('prodi_id', 15);
